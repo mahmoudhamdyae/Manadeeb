@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:manadeeb/presentation/screens/widgets/dialogs/sign_out_dialog.dart';
 import 'package:manadeeb/presentation/screens/widgets/home_app_bar/user_image.dart';
 
 import '../../../resources/color_manager.dart';
@@ -53,6 +54,27 @@ class HomeAppBar extends StatelessWidget {
               },
               icon: const Icon(
                 Icons.notifications,
+                size: 15,
+                color: ColorManager.secondary,
+              ),
+            ),
+          ),
+          const SizedBox(width: 8.0,),
+          // Sign out Button
+          Container(
+            height: 32,
+            width: 32,
+            decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                border: Border.all(color: ColorManager.secondary)
+            ),
+            child: IconButton(
+              onPressed: () {
+                showSignOutDialog(context);
+              },
+              icon: const Icon(
+                Icons.exit_to_app,
                 size: 15,
                 color: ColorManager.secondary,
               ),
