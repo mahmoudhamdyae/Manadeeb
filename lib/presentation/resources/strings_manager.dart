@@ -27,4 +27,9 @@ class AppStrings {
   static const retryAgain = "حاول مرة أخرى";
   static const errorDialogTitle = "خطأ!";
   static const serverDown = "لا يمكن الاتصال بالسيرفر!";
+
+  // Home Screen
+  static const String welcome = 'مرحبا بك';
+  static const String welcomeBack = 'مرحبا بعودتك';
+  static const String pleaseLogin = 'قم بتسجيل الدخول';
 }
