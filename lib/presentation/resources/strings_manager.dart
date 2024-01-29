@@ -33,4 +33,10 @@ class AppStrings {
   static const String welcome = 'مرحبا بك';
   static const String welcomeBack = 'مرحبا بعودتك';
   static const String pleaseLogin = 'قم بتسجيل الدخول';
+
+  // Empty
+  static const String emptyOrders = 'لا يوجد طلبات';
+
+  // Error
+  static const String error = 'حدث خطأ';
 }

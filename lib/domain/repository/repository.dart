@@ -1,3 +1,5 @@
+import '../models/order.dart';
+
 abstract class Repository {
   // Local Data Source
   Future<bool> isFirstTime();
@@ -8,5 +10,6 @@ abstract class Repository {
   Future<void> logIn(String phone, String password);
   Future<void> signOut();
 
-// Remote Data Source
+  // Remote Data Source
+  Future<List<Order>> getOrders();
 }

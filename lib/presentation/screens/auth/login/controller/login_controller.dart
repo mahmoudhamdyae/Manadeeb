@@ -32,7 +32,7 @@ class LoginController extends GetxController {
     _status.value = RxStatus.loading();
     phone.text.trim().isPhoneNumber;
     try {
-      await _repository.logIn(phone.text, password.text).then((remoteCourses) {
+      await _repository.logIn(phone.text, password.text).then((value) {
         _status.value = RxStatus.success();
       });
     } on Exception catch (e) {

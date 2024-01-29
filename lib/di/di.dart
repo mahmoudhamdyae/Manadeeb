@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:manadeeb/presentation/screens/home/controller/home_controller.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../data/local/local_data_source.dart';
@@ -42,5 +43,6 @@ class GetXDi implements Bindings {
     // Controllers
     Get.lazyPut<LoginController>(() => LoginController(Get.find<Repository>()), fenix: true);
     Get.lazyPut<AuthController>(() => AuthController(Get.find<Repository>()), fenix: true);
+    Get.lazyPut<HomeController>(() => HomeController(Get.find<Repository>()), fenix: true);
   }
 }
