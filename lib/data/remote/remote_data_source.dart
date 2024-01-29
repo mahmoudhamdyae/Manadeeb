@@ -33,10 +33,9 @@ class RemoteDataSourceImpl extends RemoteDataSource {
     if (data["access_token"] == null) {
       throw Exception(AppStrings.wrongPhoneOrPassword);
     }
-    // TODO user type
-    // if (data["user_type"] != '') {
-    //   throw Exception(AppStrings.notMandoob);
-    // }
+    if (data["user"]["user_type"] != 'mandub') {
+      throw Exception(AppStrings.notMandoob);
+    }
     return data;
   }
 }
