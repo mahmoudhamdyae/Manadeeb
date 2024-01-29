@@ -39,4 +39,7 @@ class AppStrings {
 
   // Error
   static const String error = 'حدث خطأ';
+
+  // Orders
+  static const String orderDetailsTopBarTitle = 'تفاصيل الطلب';
 }

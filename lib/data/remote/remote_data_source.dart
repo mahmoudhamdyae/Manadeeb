@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:manadeeb/domain/models/order.dart';
 
 import '../../core/constants.dart';
+import '../../domain/models/order_details.dart';
 import '../../presentation/resources/strings_manager.dart';
 import '../network_info.dart';
 
@@ -9,6 +10,7 @@ abstract class RemoteDataSource {
   Future<dynamic> logIn(String phone, String password);
 
   Future<List<Order>> getOrders(int id);
+  Future<OrderDetails> getOrderDetails(int orderId);
 }
 
 class RemoteDataSourceImpl extends RemoteDataSource {
@@ -55,5 +57,17 @@ class RemoteDataSourceImpl extends RemoteDataSource {
       orders.add(Order.fromJson(order));
     }
     return orders;
+  }
+
+  @override
+  Future<OrderDetails> getOrderDetails(int orderId) async {
+    await _checkNetwork();
+    String url = "${Constants.baseUrl}mandub/orders/$orderId";
+    final response = await _dio.get(url);
+
+    final data = response.data;
+
+    OrderDetails order = OrderDetails.fromJson(data);
+    return order;
   }
 }

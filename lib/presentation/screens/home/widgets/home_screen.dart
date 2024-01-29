@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
               if (controller.status.isLoading) {
                 return const LoadingScreen();
               } else if (controller.status.isError) {
-                return const ErrorScreen(error: AppStrings.error);
+                return ErrorScreen(error: controller.status.errorMessage ?? '');
               } else if (controller.orders.isEmpty) {
                 return const EmptyScreen(emptyString: AppStrings.emptyOrders);
               }
