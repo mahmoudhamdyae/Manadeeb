@@ -7,7 +7,13 @@ class OrderDetailsController extends GetxController {
 
   final Rx<OrderDetailsResponse> order = OrderDetailsResponse().obs;
   late final int orderId;
+  final RxBool isBook = false.obs;
+  final RxBool isPackage = false.obs;
+  final RxInt bookNo = 0.obs;
+  final RxInt packageNo = 0.obs;
   final RxInt total = RxInt(0);
+  RxList<Book> books = RxList.empty();
+  RxList<Map<String, dynamic>> packages = RxList.empty();
 
   final Rx<RxStatus> _status = Rx<RxStatus>(RxStatus.empty());
   RxStatus get status => _status.value;
@@ -27,6 +33,19 @@ class OrderDetailsController extends GetxController {
     _status.value = RxStatus.loading();
     try {
       _repository.getOrderDetails(orderId).then((remoteOrderDetails) {
+        remoteOrderDetails.orderdetails?.forEach((element) {
+          if (element.book != null) {
+            isBook.value = true;
+            bookNo.value++;
+            books.add(element.book!);
+            total.value += element.book!.bookPrice! * (element.quantity ?? 0);
+          } else if (element.package != null) {
+            isPackage.value = true;
+            packageNo.value++;
+            packages.add(element.package!);
+            total.value += (int.parse(element.package?['price'])) * (element.quantity ?? 0);
+          }
+        });
         _status.value = RxStatus.success();
         order.value = remoteOrderDetails;
       });

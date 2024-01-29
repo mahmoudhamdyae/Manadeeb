@@ -17,37 +17,42 @@ class OrderDetailsScreenBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
-      child: ListView(
-        shrinkWrap: true,
-        physics: const ClampingScrollPhysics(),
-        children: [
-          FilledButton(
-            style: getFilledButtonStyle(),
-            onPressed: () {
-              Get.find<OrderDetailsController>().receiveOrder();
-            },
-            child: Text(
-              AppStrings.receiveOrder,
-              style: getLargeStyle(
-                color: ColorManager.white,
+      child: GetX<OrderDetailsController>(
+        init: Get.find<OrderDetailsController>(),
+        builder: (OrderDetailsController controller) {
+          return ListView(
+            shrinkWrap: true,
+            physics: const ClampingScrollPhysics(),
+            children: [
+              FilledButton(
+                style: getFilledButtonStyle(),
+                onPressed: () {
+                  Get.find<OrderDetailsController>().receiveOrder();
+                },
+                child: Text(
+                  AppStrings.receiveOrder,
+                  style: getLargeStyle(
+                    color: ColorManager.white,
+                  ),
+                ),
               ),
-            ),
-          ),
-          const SizedBox(height: 8.0,),
-          order.orderdetails?[0].book == null ? Container() : Text(
-            AppStrings.notes,
-            style: getLargeStyle(),
-          ),
-          const SizedBox(height: 8.0,),
-          NotesListView(orderDetails: order.orderdetails ?? []),
-          const SizedBox(height: 16.0,),
-          order.orderdetails?[0].package == null ? Container() : Text(
-            AppStrings.packages,
-            style: getLargeStyle(),
-          ),
-          const SizedBox(height: 8.0,),
-          PackagesListView(orderDetails: order.orderdetails ?? []),
-        ],
+              const SizedBox(height: 8.0,),
+              controller.isBook.value ? Text(
+                AppStrings.notes,
+                style: getLargeStyle(),
+              ) : Container(),
+              const SizedBox(height: 8.0,),
+              const NotesListView(),
+              const SizedBox(height: 16.0,),
+              controller.isPackage.value ? Text(
+                AppStrings.packages,
+                style: getLargeStyle(),
+              ) : Container(),
+              const SizedBox(height: 8.0,),
+              const PackagesListView(),
+            ],
+          );
+        },
       ),
     );
   }
