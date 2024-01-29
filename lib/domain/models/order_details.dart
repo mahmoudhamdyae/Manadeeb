@@ -34,7 +34,7 @@ class Orderdetails {
   String? price;
   String? createdAt;
   String? updatedAt;
-  Package? package;
+  Map<String, dynamic>? package;
   Book? book;
 
   Orderdetails(

@@ -5,6 +5,7 @@ import 'package:manadeeb/presentation/resources/color_manager.dart';
 import 'package:manadeeb/presentation/resources/strings_manager.dart';
 import 'package:manadeeb/presentation/resources/styles_manager.dart';
 import 'package:manadeeb/presentation/screens/order_details/widgets/notes_list_view.dart';
+import 'package:manadeeb/presentation/screens/order_details/widgets/packages_list_view.dart';
 
 class OrderDetailsScreenBody extends StatelessWidget {
 
@@ -31,19 +32,19 @@ class OrderDetailsScreenBody extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8.0,),
-          Text(
+          order.orderdetails?[0].book == null ? Container() : Text(
             AppStrings.notes,
             style: getLargeStyle(),
           ),
           const SizedBox(height: 8.0,),
           NotesListView(orderDetails: order.orderdetails ?? []),
           const SizedBox(height: 16.0,),
-          Text(
+          order.orderdetails?[0].package == null ? Container() : Text(
             AppStrings.packages,
             style: getLargeStyle(),
           ),
           const SizedBox(height: 8.0,),
-          NotesListView(orderDetails: order.orderdetails ?? []),
+          PackagesListView(orderDetails: order.orderdetails ?? []),
         ],
       ),
     );
