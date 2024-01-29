@@ -14,6 +14,7 @@ class AppStrings {
   static const requireLogIn = "قم بتسجيل الدخول أولا";
   static const requireLogInButton = "تسجيل دخول أو إنشاء حساب";
   static const wrongPhoneOrPassword = "رقم الهاتف أو كلمة المرور خاطئة";
+  static const notMandoob = "هذا الحساب غير مصح له الدخول من عذا التطبيق";
   static const registerButton = "إنشاء حساب جديد";
   static const loginButton = "تسجيل دخول";
   // Logout
