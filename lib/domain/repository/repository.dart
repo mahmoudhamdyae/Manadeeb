@@ -1,6 +1,6 @@
 import 'package:manadeeb/domain/models/order_details.dart';
 
-import '../models/order.dart';
+import '../models/order_response.dart';
 
 abstract class Repository {
   // Local Data Source
@@ -13,6 +13,6 @@ abstract class Repository {
   Future<void> signOut();
 
   // Remote Data Source
-  Future<List<Order>> getOrders();
+  Future<OrderResponse> getOrders();
   Future<OrderDetailsResponse> getOrderDetails(int orderId);
 }

@@ -7,6 +7,7 @@ class OrderDetailsController extends GetxController {
 
   final Rx<OrderDetailsResponse> order = OrderDetailsResponse().obs;
   late final int orderId;
+  final RxInt total = RxInt(0);
 
   final Rx<RxStatus> _status = Rx<RxStatus>(RxStatus.empty());
   RxStatus get status => _status.value;

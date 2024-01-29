@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:manadeeb/domain/models/order.dart';
+import 'package:manadeeb/domain/models/order_response.dart';
 import 'package:manadeeb/presentation/resources/color_manager.dart';
 import 'package:manadeeb/presentation/resources/styles_manager.dart';
 

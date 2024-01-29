@@ -45,4 +45,5 @@ class AppStrings {
   static const String notes = 'المذكرات';
   static const String packages = 'الباقات';
   static const String receiveOrder = 'استلام الطلب';
+  static const String city = 'محافظة';
 }

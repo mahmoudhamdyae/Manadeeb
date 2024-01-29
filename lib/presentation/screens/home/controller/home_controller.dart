@@ -1,10 +1,11 @@
 import 'package:get/get.dart';
-import 'package:manadeeb/domain/models/order.dart';
+import 'package:manadeeb/domain/models/order_response.dart';
 
 import '../../../../domain/repository/repository.dart';
 
 class HomeController extends GetxController {
 
+  final Rx<City> city = City().obs;
   final RxList<Order> orders = RxList.empty();
 
   final Rx<RxStatus> _status = Rx<RxStatus>(RxStatus.empty());
@@ -24,7 +25,8 @@ class HomeController extends GetxController {
     try {
       _repository.getOrders().then((remoteOrders) {
         _status.value = RxStatus.success();
-        orders.value = remoteOrders;
+        orders.value = remoteOrders.orders ?? [];
+        city.value = remoteOrders.city ?? City();
       });
     } on Exception catch (e) {
       _status.value = RxStatus.error(e.toString());

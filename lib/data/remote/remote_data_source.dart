@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:manadeeb/domain/models/order.dart';
+import 'package:manadeeb/domain/models/order_response.dart';
 
 import '../../core/constants.dart';
 import '../../domain/models/order_details.dart';
@@ -9,7 +9,7 @@ import '../network_info.dart';
 abstract class RemoteDataSource {
   Future<dynamic> logIn(String phone, String password);
 
-  Future<List<Order>> getOrders(int id);
+  Future<OrderResponse> getOrders(int id);
   Future<OrderDetailsResponse> getOrderDetails(int orderId);
 }
 
@@ -45,18 +45,14 @@ class RemoteDataSourceImpl extends RemoteDataSource {
   }
 
   @override
-  Future<List<Order>> getOrders(int id) async {
+  Future<OrderResponse> getOrders(int id) async {
     await _checkNetwork();
     String url = "${Constants.baseUrl}mandub/orders/$id";
     final response = await _dio.get(url);
 
     final data = response.data;
-
-    List<Order> orders = [];
-    for (var order in data["orders"]) {
-      orders.add(Order.fromJson(order));
-    }
-    return orders;
+    OrderResponse orderResponse = OrderResponse.fromJson(data);
+    return orderResponse;
   }
 
   @override

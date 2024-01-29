@@ -1,4 +1,4 @@
-import 'package:manadeeb/domain/models/order.dart';
+import 'package:manadeeb/domain/models/order_response.dart';
 import 'package:manadeeb/domain/models/order_details.dart';
 
 import '../../domain/repository/repository.dart';
@@ -48,7 +48,7 @@ class RepositoryImpl extends Repository {
   // Remote Data Source
 
   @override
-  Future<List<Order>> getOrders() {
+  Future<OrderResponse> getOrders() {
     return _remoteDataSource.getOrders(_localDataSource.getUserId());
   }
 
