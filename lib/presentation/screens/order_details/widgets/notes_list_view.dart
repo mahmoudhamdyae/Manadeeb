@@ -14,54 +14,61 @@ class NotesListView extends StatelessWidget {
     return GetX<OrderDetailsController>(
         init: Get.find<OrderDetailsController>(),
         builder: (OrderDetailsController controller) {
-          return SizedBox(
-            height: controller.isBook.value ? 100 : 0,
-            child: ListView.builder(
-              itemCount: controller.bookNo.value,
-              shrinkWrap: true,
-              physics: const ClampingScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-                  padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-                    border: Border.all(
-                      color: ColorManager.lightGrey,
-                      width: 1,
-                    ),
+          return ListView.builder(
+            itemCount: controller.bookNo.value,
+            shrinkWrap: true,
+            physics: const ClampingScrollPhysics(),
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                  border: Border.all(
+                    color: ColorManager.lightGrey,
+                    width: 1,
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            controller.books[index].name ?? '',
-                            style: getLargeStyle(),
-                          ),
-                          const SizedBox(width: 16.0,),
-                          Text(
-                            '${controller.books[index].bookPrice ?? ''} د.ك',
-                            style: getLargeStyle(
-                              color: ColorManager.secondary,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 8.0,),
-                      Text(
-                        'الكمية: ${controller.books[index].quantity ?? 1}',
-                        style: getSmallStyle(
-                            color: ColorManager.grey
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          controller.books[index].name ?? '',
+                          style: getLargeStyle(),
                         ),
+                        Text(
+                          '${controller.books[index].bookPrice ?? ''} د.ك',
+                          style: getLargeStyle(
+                            color: ColorManager.secondary,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8.0,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                    Text(
+                      controller.books[index].classroom ?? '',
+                      style: getSmallStyle(
+                          color: ColorManager.grey
                       ),
-                    ],
-                  ),
-                );
-              },
-            ),
+                    ),
+                        Text(
+                          'الكمية: ${controller.order.value.orderdetails?[index].quantity ?? 1}',
+                          style: getSmallStyle(
+                              color: ColorManager.grey
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
           );
     },
     );

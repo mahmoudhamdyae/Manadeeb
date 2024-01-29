@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:manadeeb/presentation/screens/home/controller/home_controller.dart';
 
 import '../../../../domain/models/order_details.dart';
 import '../../../../domain/repository/repository.dart';
@@ -11,7 +12,7 @@ class OrderDetailsController extends GetxController {
   final RxBool isPackage = false.obs;
   final RxInt bookNo = 0.obs;
   final RxInt packageNo = 0.obs;
-  final RxInt total = RxInt(0);
+  final RxInt total = RxInt(Get.find<HomeController>().city.value.deliverPrice ?? 0);
   RxList<Book> books = RxList.empty();
   RxList<Map<String, dynamic>> packages = RxList.empty();
 
