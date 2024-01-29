@@ -33,4 +33,15 @@ class OrderDetailsController extends GetxController {
       _status.value = RxStatus.error(e.toString());
     }
   }
+
+  void receiveOrder() {
+    _status.value = RxStatus.loading();
+    try {
+      _repository.getOrderDetails(orderId).then((remoteOrderDetails) {
+        _status.value = RxStatus.success();
+      });
+    } on Exception catch (e) {
+      _status.value = RxStatus.error(e.toString());
+    }
+  }
 }

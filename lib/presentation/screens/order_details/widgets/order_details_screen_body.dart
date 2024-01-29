@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:manadeeb/domain/models/order_details.dart';
 import 'package:manadeeb/presentation/resources/color_manager.dart';
 import 'package:manadeeb/presentation/resources/strings_manager.dart';
 import 'package:manadeeb/presentation/resources/styles_manager.dart';
+import 'package:manadeeb/presentation/screens/order_details/controller/order_details_controller.dart';
 import 'package:manadeeb/presentation/screens/order_details/widgets/notes_list_view.dart';
 import 'package:manadeeb/presentation/screens/order_details/widgets/packages_list_view.dart';
 
@@ -23,6 +24,7 @@ class OrderDetailsScreenBody extends StatelessWidget {
           FilledButton(
             style: getFilledButtonStyle(),
             onPressed: () {
+              Get.find<OrderDetailsController>().receiveOrder();
             },
             child: Text(
               AppStrings.receiveOrder,
