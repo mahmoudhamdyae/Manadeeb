@@ -14,5 +14,5 @@ abstract class Repository {
 
   // Remote Data Source
   Future<List<Order>> getOrders();
-  Future<OrderDetails> getOrderDetails(int orderId);
+  Future<OrderDetailsResponse> getOrderDetails(int orderId);
 }

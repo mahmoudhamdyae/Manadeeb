@@ -1,10 +1,10 @@
-class OrderDetails {
+class OrderDetailsResponse {
   int? status;
   List<Orderdetails>? orderdetails;
 
-  OrderDetails({this.status, this.orderdetails});
+  OrderDetailsResponse({this.status, this.orderdetails});
 
-  OrderDetails.fromJson(Map<String, dynamic> json) {
+  OrderDetailsResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     if (json['orderdetails'] != null) {
       orderdetails = <Orderdetails>[];

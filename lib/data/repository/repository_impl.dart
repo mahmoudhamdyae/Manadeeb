@@ -53,7 +53,7 @@ class RepositoryImpl extends Repository {
   }
 
   @override
-  Future<OrderDetails> getOrderDetails(int orderId) {
+  Future<OrderDetailsResponse> getOrderDetails(int orderId) {
     return _remoteDataSource.getOrderDetails(orderId);
   }
 }

@@ -42,4 +42,5 @@ class AppStrings {
 
   // Orders
   static const String orderDetailsTopBarTitle = 'تفاصيل الطلب';
+  static const String notes = 'المذكرات';
 }

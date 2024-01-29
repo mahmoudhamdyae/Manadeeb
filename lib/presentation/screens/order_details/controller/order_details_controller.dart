@@ -5,7 +5,7 @@ import '../../../../domain/repository/repository.dart';
 
 class OrderDetailsController extends GetxController {
 
-  final Rx<OrderDetails> order = OrderDetails().obs;
+  final Rx<OrderDetailsResponse> order = OrderDetailsResponse().obs;
   late final int orderId;
 
   final Rx<RxStatus> _status = Rx<RxStatus>(RxStatus.empty());

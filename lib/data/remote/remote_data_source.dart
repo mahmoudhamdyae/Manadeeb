@@ -10,7 +10,7 @@ abstract class RemoteDataSource {
   Future<dynamic> logIn(String phone, String password);
 
   Future<List<Order>> getOrders(int id);
-  Future<OrderDetails> getOrderDetails(int orderId);
+  Future<OrderDetailsResponse> getOrderDetails(int orderId);
 }
 
 class RemoteDataSourceImpl extends RemoteDataSource {
@@ -60,14 +60,14 @@ class RemoteDataSourceImpl extends RemoteDataSource {
   }
 
   @override
-  Future<OrderDetails> getOrderDetails(int orderId) async {
+  Future<OrderDetailsResponse> getOrderDetails(int orderId) async {
     await _checkNetwork();
     String url = "${Constants.baseUrl}mandub/order/details/$orderId";
     final response = await _dio.get(url);
 
     final data = response.data;
 
-    OrderDetails order = OrderDetails.fromJson(data);
+    OrderDetailsResponse order = OrderDetailsResponse.fromJson(data);
     return order;
   }
 }
