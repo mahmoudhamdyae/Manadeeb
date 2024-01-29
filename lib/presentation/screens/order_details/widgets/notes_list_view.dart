@@ -20,8 +20,8 @@ class NotesListView extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemBuilder: (BuildContext context, int index) {
           return Container(
-            margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(16.0)),
               border: Border.all(
