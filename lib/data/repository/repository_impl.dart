@@ -1,5 +1,6 @@
 import 'package:manadeeb/domain/models/order_response.dart';
 import 'package:manadeeb/domain/models/order_details.dart';
+import 'package:manadeeb/domain/models/package.dart';
 
 import '../../domain/repository/repository.dart';
 import '../local/local_data_source.dart';
@@ -55,5 +56,10 @@ class RepositoryImpl extends Repository {
   @override
   Future<OrderDetailsResponse> getOrderDetails(int orderId) {
     return _remoteDataSource.getOrderDetails(orderId);
+  }
+
+  @override
+  Future<Package> getPackage(int packageId) {
+    return _remoteDataSource.getPackage(packageId);
   }
 }

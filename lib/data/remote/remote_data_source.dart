@@ -3,6 +3,7 @@ import 'package:manadeeb/domain/models/order_response.dart';
 
 import '../../core/constants.dart';
 import '../../domain/models/order_details.dart';
+import '../../domain/models/package.dart';
 import '../../presentation/resources/strings_manager.dart';
 import '../network_info.dart';
 
@@ -11,6 +12,7 @@ abstract class RemoteDataSource {
 
   Future<OrderResponse> getOrders(int id);
   Future<OrderDetailsResponse> getOrderDetails(int orderId);
+  Future<Package> getPackage(int packageId);
 }
 
 class RemoteDataSourceImpl extends RemoteDataSource {
@@ -65,5 +67,18 @@ class RemoteDataSourceImpl extends RemoteDataSource {
 
     OrderDetailsResponse order = OrderDetailsResponse.fromJson(data);
     return order;
+  }
+
+  @override
+  Future<Package> getPackage(int packageId) async {
+    await _checkNetwork();
+    // todo modify this
+    String url = "${Constants.baseUrl}mandub/order/details/$packageId";
+    final response = await _dio.get(url);
+
+    final data = response.data;
+
+    Package package = Package.fromJson(data);
+    return package;
   }
 }

@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:manadeeb/presentation/resources/strings_manager.dart';
 import 'package:manadeeb/presentation/resources/styles_manager.dart';
+import 'package:manadeeb/presentation/screens/order_details/controller/package_controller.dart';
+import 'package:manadeeb/presentation/screens/order_details/widgets/package_dialog.dart';
 
 import '../../../resources/color_manager.dart';
 import '../controller/order_details_controller.dart';
@@ -65,6 +69,25 @@ class PackagesListView extends StatelessWidget {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 8.0,),
+                    SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton(
+                        style: getOutlinedButtonStyle(),
+                          onPressed: () {
+                            showDialog(context: context, builder: (BuildContext context) {
+                              Get.find<PackageController>().getPackage(controller.packages[index]['id']);
+                              return const PackageDialog();
+                            });
+                          },
+                          child: Text(
+                            AppStrings.orderDetailsTopBarTitle,
+                            style: getSmallStyle(
+                              color: ColorManager.primary,
+                            ),
+                          ),
+                      ),
+                    )
                   ],
                 ),
               );
