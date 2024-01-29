@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:manadeeb/presentation/resources/styles_manager.dart';
 
 import '../../../../domain/models/order_details.dart';
 import '../../../resources/color_manager.dart';
@@ -11,7 +12,7 @@ class PackagesListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: orderDetails[0].package == null ? 0 : 200,
+      height: orderDetails[0].package == null ? 0 : 100,
       child: ListView.builder(
         itemCount: orderDetails[0].package == null ? 0 : orderDetails.length,
         shrinkWrap: true,
@@ -28,8 +29,32 @@ class PackagesListView extends StatelessWidget {
                 width: 1,
               ),
             ),
-            child: Text(
-              orderDetails[index].package?['name'] ?? ''
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      orderDetails[index].package?['name'] ?? '',
+                      style: getLargeStyle(),
+                    ),
+                    const SizedBox(width: 16.0,),
+                    Text(
+                      '${orderDetails[index].package?['price'] ?? ''} د.ك',
+                      style: getLargeStyle(
+                        color: ColorManager.secondary,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8.0,),
+                Text(
+                  orderDetails[index].package?['description'] ?? '',
+                  style: getSmallStyle(
+                    color: ColorManager.grey
+                  ),
+                ),
+              ],
             ),
           );
         },

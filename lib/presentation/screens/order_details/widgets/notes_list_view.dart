@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../domain/models/order_details.dart';
 import '../../../resources/color_manager.dart';
+import '../../../resources/styles_manager.dart';
 
 class NotesListView extends StatelessWidget {
 
@@ -11,7 +12,7 @@ class NotesListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: orderDetails[0].book == null ? 0 : 200,
+      height: orderDetails[0].book == null ? 0 : 100,
       child: ListView.builder(
         itemCount: orderDetails[0].book == null ? 0 : orderDetails.length,
         shrinkWrap: true,
@@ -28,9 +29,33 @@ class NotesListView extends StatelessWidget {
                 width: 1,
               ),
             ),
-            child: Text(
-                orderDetails[index].book?.name ?? ''
-            ),
+            child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    orderDetails[index].book?.name ?? '',
+                    style: getLargeStyle(),
+                  ),
+                  const SizedBox(width: 16.0,),
+                  Text(
+                    '${orderDetails[index].book?.bookPrice ?? ''} د.ك',
+                    style: getLargeStyle(
+                      color: ColorManager.secondary,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8.0,),
+              Text(
+                'الكمية: ${orderDetails[index].quantity ?? 1}',
+                style: getSmallStyle(
+                    color: ColorManager.grey
+                ),
+              ),
+            ],
+          ),
           );
         },
       ),
