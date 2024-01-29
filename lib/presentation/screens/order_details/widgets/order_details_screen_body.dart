@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:manadeeb/domain/models/order_details.dart';
+import 'package:manadeeb/presentation/resources/color_manager.dart';
 import 'package:manadeeb/presentation/resources/strings_manager.dart';
 import 'package:manadeeb/presentation/resources/styles_manager.dart';
-import 'package:manadeeb/presentation/screens/order_details/widgets/notes_grid_view.dart';
+import 'package:manadeeb/presentation/screens/order_details/widgets/notes_list_view.dart';
 
 class OrderDetailsScreenBody extends StatelessWidget {
 
@@ -17,11 +19,31 @@ class OrderDetailsScreenBody extends StatelessWidget {
         shrinkWrap: true,
         physics: const ClampingScrollPhysics(),
         children: [
+          FilledButton(
+            style: getFilledButtonStyle(),
+            onPressed: () {
+            },
+            child: Text(
+              AppStrings.receiveOrder,
+              style: getLargeStyle(
+                color: ColorManager.white,
+              ),
+            ),
+          ),
+          const SizedBox(height: 8.0,),
           Text(
             AppStrings.notes,
             style: getLargeStyle(),
           ),
-          NotesGridView(orderDetails: order.orderdetails ?? []),
+          const SizedBox(height: 8.0,),
+          NotesListView(orderDetails: order.orderdetails ?? []),
+          const SizedBox(height: 16.0,),
+          Text(
+            AppStrings.packages,
+            style: getLargeStyle(),
+          ),
+          const SizedBox(height: 8.0,),
+          NotesListView(orderDetails: order.orderdetails ?? []),
         ],
       ),
     );
