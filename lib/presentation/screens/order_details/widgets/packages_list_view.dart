@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:manadeeb/presentation/resources/strings_manager.dart';
@@ -81,7 +80,7 @@ class PackagesListView extends StatelessWidget {
                             });
                           },
                           child: Text(
-                            AppStrings.orderDetailsTopBarTitle,
+                            AppStrings.packageDetails,
                             style: getSmallStyle(
                               color: ColorManager.primary,
                             ),
