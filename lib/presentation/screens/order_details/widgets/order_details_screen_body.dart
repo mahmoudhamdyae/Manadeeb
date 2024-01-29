@@ -27,10 +27,10 @@ class OrderDetailsScreenBody extends StatelessWidget {
               FilledButton(
                 style: getFilledButtonStyle(),
                 onPressed: () {
-                  Get.find<OrderDetailsController>().receiveOrder();
+                  controller.receiveOrder();
                 },
                 child: Text(
-                  AppStrings.receiveOrder,
+                  '${AppStrings.receiveOrder} ${controller.total} د.ك',
                   style: getLargeStyle(
                     color: ColorManager.white,
                   ),
