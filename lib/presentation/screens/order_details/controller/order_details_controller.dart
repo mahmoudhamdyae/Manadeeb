@@ -19,7 +19,6 @@ class OrderDetailsController extends GetxController {
     super.onInit();
     Map<String, dynamic> args = Get.arguments;
     orderId = args['order_id'];
-    print('=========== $orderId');
     _getOrderDetails();
   }
 

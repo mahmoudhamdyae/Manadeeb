@@ -62,7 +62,7 @@ class RemoteDataSourceImpl extends RemoteDataSource {
   @override
   Future<OrderDetails> getOrderDetails(int orderId) async {
     await _checkNetwork();
-    String url = "${Constants.baseUrl}mandub/orders/$orderId";
+    String url = "${Constants.baseUrl}mandub/order/details/$orderId";
     final response = await _dio.get(url);
 
     final data = response.data;

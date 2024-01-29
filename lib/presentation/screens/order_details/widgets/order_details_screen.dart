@@ -5,7 +5,6 @@ import 'package:manadeeb/presentation/screens/order_details/widgets/order_detail
 
 import '../../../resources/strings_manager.dart';
 import '../../widgets/error_screen.dart';
-import '../../widgets/home_app_bar/home_app_bar.dart';
 import '../../widgets/loading_screen.dart';
 import '../../widgets/top_bar.dart';
 
