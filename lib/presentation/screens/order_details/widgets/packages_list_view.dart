@@ -76,7 +76,9 @@ class PackagesListView extends StatelessWidget {
                           onPressed: () {
                             showDialog(context: context, builder: (BuildContext context) {
                               Get.find<PackageController>().getPackage(controller.packages[index]['id']);
-                              return const PackageDialog();
+                              return const AlertDialog(
+                                content: PackageDialog(),
+                              );
                             });
                           },
                           child: Text(
