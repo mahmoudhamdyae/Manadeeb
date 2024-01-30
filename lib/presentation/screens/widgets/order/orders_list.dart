@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:manadeeb/domain/models/order_type.dart';
 import 'package:manadeeb/presentation/screens/order_details/widgets/order_details_screen.dart';
 
 import '../../../../domain/models/order_response.dart';
@@ -9,7 +10,8 @@ import 'order_body.dart';
 class OrdersList extends StatelessWidget {
 
   final List<Order> orders;
-  const OrdersList({super.key, required this.orders});
+  final OrderType orderType;
+  const OrdersList({super.key, required this.orders, required this.orderType});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class OrdersList extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return InkWell(
           onTap: () {
-            Get.to(() => const OrderDetailsScreen(), arguments: { 'order_id': orders[index].id });
+            Get.to(() => const OrderDetailsScreen(), arguments: { 'order_id': orders[index].id, 'order_type': orderType });
           },
           child: Container(
             margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),

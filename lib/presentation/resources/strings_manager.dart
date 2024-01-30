@@ -48,6 +48,7 @@ class AppStrings {
   static const String notes = 'المذكرات';
   static const String packages = 'الباقات';
   static const String receiveOrder = 'استلام الطلب';
+  static const String completeOrder = 'تم تسليم الطلب';
   static const String city = 'محافظة';
   static const String packageDetails = 'تفاصيل الباقة';
 

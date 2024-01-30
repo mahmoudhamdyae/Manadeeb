@@ -20,10 +20,10 @@ class DeliveredOrdersController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _getOrders();
+    getOrders();
   }
 
-  void _getOrders() {
+  void getOrders() {
     _status.value = RxStatus.loading();
     try {
       _repository.getCompleteOrders().then((remoteOrders) {

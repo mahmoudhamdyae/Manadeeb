@@ -20,10 +20,10 @@ class CurrentOrdersController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _getOrders();
+    getOrders();
   }
 
-  void _getOrders() {
+  void getOrders() {
     _status.value = RxStatus.loading();
     try {
       _repository.getCurrentOrders().then((remoteOrders) {
@@ -33,17 +33,6 @@ class CurrentOrdersController extends GetxController {
       });
     } on Exception catch (e) {
       _status.value = RxStatus.error(e.toString());
-    }
-  }
-
-  void moveToCurrent(int orderId) {
-    _rStatus.value = RxStatus.loading();
-    try {
-      _repository.completeOrder(orderId).then((value) {
-        _rStatus.value = RxStatus.success();
-      });
-    } on Exception catch (e) {
-      _rStatus.value = RxStatus.error(e.toString());
     }
   }
 }

@@ -9,6 +9,7 @@ import '../../widgets/loading_screen.dart';
 import '../../widgets/top_bar.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
+
   const OrderDetailsScreen({super.key});
 
   @override

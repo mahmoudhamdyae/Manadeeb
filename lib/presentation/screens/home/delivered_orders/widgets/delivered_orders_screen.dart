@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:manadeeb/domain/models/order_type.dart';
 
 import '../../../../resources/strings_manager.dart';
 import '../../../widgets/empty_screen.dart';
@@ -26,7 +27,7 @@ class DeliveredOrdersScreen extends StatelessWidget {
               controller.status.isLoading ? const LoadingScreen() :
               controller.status.isError ? ErrorScreen(error: controller.status.errorMessage ?? '') :
               controller.orders.isEmpty ? const EmptyScreen(emptyString: AppStrings.emptyOrders) :
-              OrdersList(orders: controller.orders,),
+              OrdersList(orders: controller.orders, orderType: OrderType.completeOrder,),
             ],);
         },
       ),

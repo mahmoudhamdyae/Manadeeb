@@ -60,10 +60,21 @@ class OrderDetailsController extends GetxController {
     }
   }
 
-  Future<void> receiveOrder(int orderId, BuildContext context) async {
+  Future<void> receiveOrder(int orderId) async {
     _rStatus.value = RxStatus.loading();
     try {
       await _repository.receiveOrder(orderId).then((remoteOrderDetails) {
+        _rStatus.value = RxStatus.success();
+      });
+    } on Exception catch (e) {
+      _rStatus.value = RxStatus.error(e.toString());
+    }
+  }
+
+  Future<void> moveToCurrent(int orderId) async {
+    _rStatus.value = RxStatus.loading();
+    try {
+      await _repository.completeOrder(orderId).then((value) {
         _rStatus.value = RxStatus.success();
       });
     } on Exception catch (e) {

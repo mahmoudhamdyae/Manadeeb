@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:manadeeb/domain/models/order_type.dart';
 import 'package:manadeeb/presentation/resources/color_manager.dart';
 import 'package:manadeeb/presentation/resources/strings_manager.dart';
 import 'package:manadeeb/presentation/resources/styles_manager.dart';
@@ -47,7 +48,7 @@ class NewOrdersScreen extends StatelessWidget {
               controller.status.isLoading ? const LoadingScreen() :
               controller.status.isError ? ErrorScreen(error: controller.status.errorMessage ?? '') :
               controller.orders.isEmpty ? const EmptyScreen(emptyString: AppStrings.emptyOrders) :
-              OrdersList(orders: controller.orders,),
+              OrdersList(orders: controller.orders, orderType: OrderType.newOrder,),
             ],);
           },
       ),
