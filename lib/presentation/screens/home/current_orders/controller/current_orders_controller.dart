@@ -11,6 +11,9 @@ class CurrentOrdersController extends GetxController {
   final Rx<RxStatus> _status = Rx<RxStatus>(RxStatus.empty());
   RxStatus get status => _status.value;
 
+  final Rx<RxStatus> _rStatus = Rx<RxStatus>(RxStatus.empty());
+  RxStatus get rStatus => _rStatus.value;
+
   final Repository _repository;
   CurrentOrdersController(this._repository);
 
@@ -30,6 +33,17 @@ class CurrentOrdersController extends GetxController {
       });
     } on Exception catch (e) {
       _status.value = RxStatus.error(e.toString());
+    }
+  }
+
+  void moveToCurrent(int orderId) {
+    _rStatus.value = RxStatus.loading();
+    try {
+      _repository.completeOrder(orderId).then((value) {
+        _rStatus.value = RxStatus.success();
+      });
+    } on Exception catch (e) {
+      _rStatus.value = RxStatus.error(e.toString());
     }
   }
 }

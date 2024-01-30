@@ -22,7 +22,7 @@ class OrderDetailsController extends GetxController {
   RxStatus get status => _status.value;
 
   final Rx<RxStatus> _rStatus = Rx<RxStatus>(RxStatus.empty());
-  RxStatus get rStatus => _status.value;
+  RxStatus get rStatus => _rStatus.value;
 
   final Repository _repository;
   OrderDetailsController(this._repository);

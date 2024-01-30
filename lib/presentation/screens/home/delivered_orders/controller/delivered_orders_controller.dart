@@ -11,6 +11,9 @@ class DeliveredOrdersController extends GetxController {
   final Rx<RxStatus> _status = Rx<RxStatus>(RxStatus.empty());
   RxStatus get status => _status.value;
 
+  final Rx<RxStatus> _rStatus = Rx<RxStatus>(RxStatus.empty());
+  RxStatus get rStatus => _rStatus.value;
+
   final Repository _repository;
   DeliveredOrdersController(this._repository);
 
