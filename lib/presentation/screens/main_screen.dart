@@ -46,7 +46,7 @@ class _MainScreenState extends State<MainScreen> {
             _controller.index = 0;
           });
         },
-        icon: Text(AppStrings.bottomBarNewOrders, style: getSmallStyle(color: _selectedIndex == 0 ? ColorManager.black : ColorManager.grey),),
+        icon: Text(AppStrings.bottomBarNewOrders, style: getLargeStyle(color: _selectedIndex == 0 ? ColorManager.secondary : ColorManager.grey),),
         // title: AppStrings.bottomBarNewOrders,
         activeColorPrimary: ColorManager.white,
       ),
@@ -57,7 +57,7 @@ class _MainScreenState extends State<MainScreen> {
             _controller.index = 1;
           });
         },
-        icon: Text(AppStrings.bottomBarCurrentOrders, style: getSmallStyle(color: _selectedIndex == 1 ? ColorManager.black : ColorManager.grey),),
+        icon: Text(AppStrings.bottomBarCurrentOrders, style: getLargeStyle(color: _selectedIndex == 1 ? ColorManager.secondary : ColorManager.grey),),
         // title: AppStrings.bottomBarCurrentOrders,
         activeColorPrimary: ColorManager.white,
       ),
@@ -68,7 +68,7 @@ class _MainScreenState extends State<MainScreen> {
             _controller.index = 2;
           });
         },
-        icon: Text(AppStrings.bottomBarCompletedOrders, style: getSmallStyle(color: _selectedIndex == 2 ? ColorManager.black : ColorManager.grey),),
+        icon: Text(AppStrings.bottomBarCompletedOrders, style: getLargeStyle(color: _selectedIndex == 2 ? ColorManager.secondary : ColorManager.grey),),
         // title: AppStrings.bottomBarCompletedOrders,
         activeColorPrimary: ColorManager.white,
       ),
@@ -89,7 +89,7 @@ class _MainScreenState extends State<MainScreen> {
           colorBehindNavBar: ColorManager.white,
           borderRadius: BorderRadius.all(Radius.circular(16.0)),
           boxShadow: [
-            BoxShadow(color: Colors.black26, blurRadius: 12, spreadRadius: 4),
+            BoxShadow(color: Colors.black12, blurRadius: 4, spreadRadius: 1),
           ],
         ),
         popAllScreensOnTapOfSelectedTab: true,
