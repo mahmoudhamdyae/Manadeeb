@@ -22,9 +22,18 @@ class _MainScreenState extends State<MainScreen> {
 
   List<Widget> _buildScreens() {
     return [
-      const NewOrdersScreen(),
-      const CurrentOrderScreen(),
-      const DeliveredOrdersScreen(),
+      const Padding(
+        padding: EdgeInsets.only(bottom: 18.0),
+        child: NewOrdersScreen(),
+      ),
+      const Padding(
+        padding: EdgeInsets.only(bottom: 18.0),
+        child: CurrentOrderScreen(),
+      ),
+      const Padding(
+        padding: EdgeInsets.only(bottom: 18.0),
+        child: DeliveredOrdersScreen(),
+      ),
     ];
   }
 
