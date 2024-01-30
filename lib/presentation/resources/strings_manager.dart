@@ -28,6 +28,9 @@ class AppStrings {
   static const retryAgain = "حاول مرة أخرى";
   static const errorDialogTitle = "خطأ!";
   static const serverDown = "لا يمكن الاتصال بالسيرفر!";
+  static const successDialogTitle = "عملية ناجحة";
+  static const successDialogAction = "حسنا";
+  static const successReceiveOrder = "تم استلام الطلب بنجاح";
 
   // Home Screen
   static const String welcome = 'مرحبا بك';

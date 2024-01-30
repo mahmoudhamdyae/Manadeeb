@@ -7,3 +7,7 @@ class ImageAssets {
   static const String empty = "$imagePath/empty.png";
   static const String error = "$imagePath/error.svg";
 }
+
+class JsonAssets {
+  static const String done = "$jsonPath/done.json";
+}

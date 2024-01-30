@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../../domain/models/order_details.dart';
 import '../../../../domain/repository/repository.dart';
 import '../../home/new_orders/controller/new_orders_controller.dart';
+import '../../widgets/dialogs/error_dialog.dart';
 
 class OrderDetailsController extends GetxController {
 
@@ -19,6 +21,9 @@ class OrderDetailsController extends GetxController {
   final Rx<RxStatus> _status = Rx<RxStatus>(RxStatus.empty());
   RxStatus get status => _status.value;
 
+  final Rx<RxStatus> _rStatus = Rx<RxStatus>(RxStatus.empty());
+  RxStatus get rStatus => _status.value;
+
   final Repository _repository;
   OrderDetailsController(this._repository);
 
@@ -27,10 +32,10 @@ class OrderDetailsController extends GetxController {
     super.onInit();
     Map<String, dynamic> args = Get.arguments;
     orderId = args['order_id'];
-    _getOrderDetails();
+    getOrderDetails();
   }
 
-  void _getOrderDetails() {
+  void getOrderDetails() {
     _status.value = RxStatus.loading();
     try {
       _repository.getOrderDetails(orderId).then((remoteOrderDetails) {
@@ -55,14 +60,14 @@ class OrderDetailsController extends GetxController {
     }
   }
 
-  void receiveOrder(int orderId) {
-    _status.value = RxStatus.loading();
+  Future<void> receiveOrder(int orderId, BuildContext context) async {
+    _rStatus.value = RxStatus.loading();
     try {
-      _repository.receiveOrder(orderId).then((remoteOrderDetails) {
-        _status.value = RxStatus.success();
+      await _repository.receiveOrder(orderId).then((remoteOrderDetails) {
+        _rStatus.value = RxStatus.success();
       });
     } on Exception catch (e) {
-      _status.value = RxStatus.error(e.toString());
+      _rStatus.value = RxStatus.error(e.toString());
     }
   }
 }
