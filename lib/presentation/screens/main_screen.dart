@@ -47,7 +47,6 @@ class _MainScreenState extends State<MainScreen> {
           });
         },
         icon: Text(AppStrings.bottomBarNewOrders, style: getLargeStyle(color: _selectedIndex == 0 ? ColorManager.secondary : ColorManager.grey),),
-        // title: AppStrings.bottomBarNewOrders,
         activeColorPrimary: ColorManager.white,
       ),
       PersistentBottomNavBarItem(
@@ -58,7 +57,6 @@ class _MainScreenState extends State<MainScreen> {
           });
         },
         icon: Text(AppStrings.bottomBarCurrentOrders, style: getLargeStyle(color: _selectedIndex == 1 ? ColorManager.secondary : ColorManager.grey),),
-        // title: AppStrings.bottomBarCurrentOrders,
         activeColorPrimary: ColorManager.white,
       ),
       PersistentBottomNavBarItem(
@@ -69,7 +67,6 @@ class _MainScreenState extends State<MainScreen> {
           });
         },
         icon: Text(AppStrings.bottomBarCompletedOrders, style: getLargeStyle(color: _selectedIndex == 2 ? ColorManager.secondary : ColorManager.grey),),
-        // title: AppStrings.bottomBarCompletedOrders,
         activeColorPrimary: ColorManager.white,
       ),
     ];
@@ -78,13 +75,25 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 50.0),
+        child: FloatingActionButton(
+          backgroundColor: ColorManager.secondary,
+          onPressed: () {
+          },
+          shape: const CircleBorder(),
+          child: const Icon(
+            Icons.add,
+            color: ColorManager.white,
+          ),
+        ),
+      ),
       body: PersistentTabView(
         context,
         controller: _controller,
         screens: _buildScreens(),
         items: _navBarsItems(),
         confineInSafeArea: true,
-        // backgroundColor: ColorManager.primary,
         decoration: const NavBarDecoration(
           colorBehindNavBar: ColorManager.white,
           borderRadius: BorderRadius.all(Radius.circular(16.0)),
