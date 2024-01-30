@@ -67,4 +67,19 @@ class RepositoryImpl extends Repository {
   Future<void> receiveOrder(int orderId) {
     return _remoteDataSource.receiveOrder(orderId, _localDataSource.getUserId());
   }
+
+  @override
+  Future<void> completeOrder(int orderId) {
+    return _remoteDataSource.completeOrder(orderId);
+  }
+
+  @override
+  Future<OrderResponse> getCompleteOrders() {
+    return _remoteDataSource.getCompleteOrders(_localDataSource.getUserId());
+  }
+
+  @override
+  Future<OrderResponse> getCurrentOrders() {
+    return _remoteDataSource.getCurrentOrders(_localDataSource.getUserId());
+  }
 }

@@ -18,4 +18,7 @@ abstract class Repository {
   Future<OrderDetailsResponse> getOrderDetails(int orderId);
   Future<Package> getPackage(int packageId);
   Future<void> receiveOrder(int orderId);
+  Future<void> completeOrder(int orderId);
+  Future<OrderResponse> getCurrentOrders();
+  Future<OrderResponse> getCompleteOrders();
 }

@@ -7,7 +7,7 @@ import '../../../widgets/error_screen.dart';
 import '../../../widgets/home_app_bar/home_app_bar.dart';
 import '../../../widgets/loading_screen.dart';
 import '../../../widgets/order/orders_list.dart';
-import '../../new_orders/controller/new_orders_controller.dart';
+import '../controller/current_orders_controller.dart';
 
 class CurrentOrderScreen extends StatelessWidget {
   const CurrentOrderScreen({super.key});
@@ -15,9 +15,9 @@ class CurrentOrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GetX<NewOrdersController>(
-        init: Get.find<NewOrdersController>(),
-        builder: (NewOrdersController controller) {
+      body: GetX<CurrentOrdersController>(
+        init: Get.find<CurrentOrdersController>(),
+        builder: (CurrentOrdersController controller) {
           return ListView(
             shrinkWrap: true,
             physics: const ClampingScrollPhysics(),

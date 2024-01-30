@@ -11,6 +11,8 @@ import '../data/repository/repository_impl.dart';
 import '../domain/repository/repository.dart';
 import '../presentation/screens/auth/auth_controller.dart';
 import '../presentation/screens/auth/login/controller/login_controller.dart';
+import '../presentation/screens/home/current_orders/controller/current_orders_controller.dart';
+import '../presentation/screens/home/delivered_orders/controller/delivered_orders_controller.dart';
 import '../presentation/screens/home/new_orders/controller/new_orders_controller.dart';
 import '../presentation/screens/order_details/controller/order_details_controller.dart';
 import '../presentation/screens/order_details/controller/package_controller.dart';
@@ -46,6 +48,8 @@ class GetXDi implements Bindings {
     Get.lazyPut<LoginController>(() => LoginController(Get.find<Repository>()), fenix: true);
     Get.lazyPut<AuthController>(() => AuthController(Get.find<Repository>()), fenix: true);
     Get.lazyPut<NewOrdersController>(() => NewOrdersController(Get.find<Repository>()), fenix: true);
+    Get.lazyPut<CurrentOrdersController>(() => CurrentOrdersController(Get.find<Repository>()), fenix: true);
+    Get.lazyPut<DeliveredOrdersController>(() => DeliveredOrdersController(Get.find<Repository>()), fenix: true);
     Get.lazyPut<OrderDetailsController>(() => OrderDetailsController(Get.find<Repository>()), fenix: true);
     Get.lazyPut<PackageController>(() => PackageController(Get.find<Repository>()), fenix: true);
   }

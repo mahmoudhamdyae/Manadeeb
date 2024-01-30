@@ -14,6 +14,9 @@ abstract class RemoteDataSource {
   Future<OrderDetailsResponse> getOrderDetails(int orderId);
   Future<Package> getPackage(int packageId);
   Future<void> receiveOrder(int orderId, int userId);
+  Future<void> completeOrder(int orderId);
+  Future<OrderResponse> getCurrentOrders(int userId);
+  Future<OrderResponse> getCompleteOrders(int userId);
 }
 
 class RemoteDataSourceImpl extends RemoteDataSource {
@@ -87,5 +90,34 @@ class RemoteDataSourceImpl extends RemoteDataSource {
     await _checkNetwork();
     String url = "${Constants.baseUrl}order/new/to/current/$orderId/$userId";
     await _dio.post(url);
+  }
+
+  @override
+  Future<void> completeOrder(int orderId) async {
+    await _checkNetwork();
+    String url = "${Constants.baseUrl}order/current/to/complate/$orderId";
+    await _dio.post(url);
+  }
+
+  @override
+  Future<OrderResponse> getCurrentOrders(int userId) async {
+    await _checkNetwork();
+    String url = "${Constants.baseUrl}order/current/orders/$userId";
+    final response = await _dio.get(url);
+
+    final data = response.data;
+    OrderResponse orderResponse = OrderResponse.fromJson(data);
+    return orderResponse;
+  }
+
+  @override
+  Future<OrderResponse> getCompleteOrders(int userId) async {
+    await _checkNetwork();
+    String url = "${Constants.baseUrl}order/complate/orders/$userId";
+    final response = await _dio.get(url);
+
+    final data = response.data;
+    OrderResponse orderResponse = OrderResponse.fromJson(data);
+    return orderResponse;
   }
 }
