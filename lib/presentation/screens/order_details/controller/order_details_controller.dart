@@ -55,10 +55,10 @@ class OrderDetailsController extends GetxController {
     }
   }
 
-  void receiveOrder() {
+  void receiveOrder(int orderId) {
     _status.value = RxStatus.loading();
     try {
-      _repository.getOrderDetails(orderId).then((remoteOrderDetails) {
+      _repository.receiveOrder(orderId).then((remoteOrderDetails) {
         _status.value = RxStatus.success();
       });
     } on Exception catch (e) {

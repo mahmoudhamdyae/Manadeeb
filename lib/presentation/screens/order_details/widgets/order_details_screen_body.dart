@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:manadeeb/domain/models/order_details.dart';
 import 'package:manadeeb/presentation/resources/color_manager.dart';
 import 'package:manadeeb/presentation/resources/strings_manager.dart';
 import 'package:manadeeb/presentation/resources/styles_manager.dart';
@@ -10,8 +9,7 @@ import 'package:manadeeb/presentation/screens/order_details/widgets/packages_lis
 
 class OrderDetailsScreenBody extends StatelessWidget {
 
-  final OrderDetailsResponse order;
-  const OrderDetailsScreenBody({super.key, required this.order});
+  const OrderDetailsScreenBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +25,7 @@ class OrderDetailsScreenBody extends StatelessWidget {
               FilledButton(
                 style: getFilledButtonStyle(),
                 onPressed: () {
-                  controller.receiveOrder();
+                  controller.receiveOrder(controller.orderId);
                 },
                 child: Text(
                   '${AppStrings.receiveOrder} ${controller.total} د.ك',

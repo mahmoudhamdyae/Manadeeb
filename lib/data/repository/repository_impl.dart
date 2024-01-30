@@ -62,4 +62,9 @@ class RepositoryImpl extends Repository {
   Future<Package> getPackage(int packageId) {
     return _remoteDataSource.getPackage(packageId);
   }
+
+  @override
+  Future<void> receiveOrder(int orderId) {
+    return _remoteDataSource.receiveOrder(orderId, _localDataSource.getUserId());
+  }
 }

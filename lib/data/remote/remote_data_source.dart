@@ -13,6 +13,7 @@ abstract class RemoteDataSource {
   Future<OrderResponse> getOrders(int id);
   Future<OrderDetailsResponse> getOrderDetails(int orderId);
   Future<Package> getPackage(int packageId);
+  Future<void> receiveOrder(int orderId, int userId);
 }
 
 class RemoteDataSourceImpl extends RemoteDataSource {
@@ -79,5 +80,12 @@ class RemoteDataSourceImpl extends RemoteDataSource {
 
     PackageResponse package = PackageResponse.fromJson(data);
     return package.packagedetails?[0] ?? Package();
+  }
+
+  @override
+  Future<void> receiveOrder(int orderId, int userId) async {
+    await _checkNetwork();
+    String url = "${Constants.baseUrl}order/new/to/current/$orderId/$userId";
+    await _dio.post(url);
   }
 }

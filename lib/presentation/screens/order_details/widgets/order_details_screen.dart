@@ -27,7 +27,7 @@ class OrderDetailsScreen extends StatelessWidget {
               } else if (controller.status.isError) {
                 return ErrorScreen(error: controller.status.errorMessage ?? '');
               }
-              return OrderDetailsScreenBody(order: controller.order.value);
+              return const OrderDetailsScreenBody();
             },
           )
         ],
