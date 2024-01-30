@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:manadeeb/presentation/screens/home/widgets/home_screen.dart';
+import 'package:manadeeb/presentation/screens/main_screen.dart';
 
 import '../../../../resources/assets_manager.dart';
 import '../../../../resources/color_manager.dart';
@@ -8,6 +8,7 @@ import '../../../../resources/font_manager.dart';
 import '../../../../resources/strings_manager.dart';
 import '../../../../resources/styles_manager.dart';
 import '../../../../resources/values_manager.dart';
+import '../../../home/new_orders/widgets/new_orders_screen.dart';
 import '../../../widgets/dialogs/error_dialog.dart';
 import '../../../widgets/dialogs/loading_dialog.dart';
 import '../controller/login_controller.dart';
@@ -34,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Get.back();
           showError(context, controller.status.errorMessage.toString(), () {});
         } else {
-          Get.offAll(() => const HomeScreen());
+          Get.offAll(() => const MainScreen());
         }
       });
     }

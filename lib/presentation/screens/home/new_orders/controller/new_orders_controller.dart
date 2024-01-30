@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import 'package:manadeeb/domain/models/order_response.dart';
 
-import '../../../../domain/repository/repository.dart';
+import '../../../../../domain/repository/repository.dart';
 
-class HomeController extends GetxController {
+class NewOrdersController extends GetxController {
 
   final Rx<City> city = City().obs;
   final RxList<Order> orders = RxList.empty();
@@ -12,7 +12,7 @@ class HomeController extends GetxController {
   RxStatus get status => _status.value;
 
   final Repository _repository;
-  HomeController(this._repository);
+  NewOrdersController(this._repository);
 
   @override
   void onInit() {

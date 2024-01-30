@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:manadeeb/presentation/screens/home/widgets/order_body.dart';
 import 'package:manadeeb/presentation/screens/order_details/widgets/order_details_screen.dart';
 
 import '../../../../domain/models/order_response.dart';
 import '../../../resources/color_manager.dart';
+import 'order_body.dart';
 
 class OrdersList extends StatelessWidget {
 
