@@ -72,12 +72,12 @@ class RemoteDataSourceImpl extends RemoteDataSource {
   @override
   Future<Package> getPackage(int packageId) async {
     await _checkNetwork();
-    String url = "${Constants.baseUrl}mandub/order/details/$packageId";
+    String url = "${Constants.baseUrl}mandub/order/details/package/$packageId";
     final response = await _dio.get(url);
 
     final data = response.data;
 
-    Package package = Package.fromJson(data);
-    return package;
+    PackageResponse package = PackageResponse.fromJson(data);
+    return package.packagedetails?[0] ?? Package();
   }
 }

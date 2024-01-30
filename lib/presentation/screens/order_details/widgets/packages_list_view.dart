@@ -74,12 +74,13 @@ class PackagesListView extends StatelessWidget {
                       child: OutlinedButton(
                         style: getOutlinedButtonStyle(),
                           onPressed: () {
-                            showDialog(context: context, builder: (BuildContext context) {
-                              Get.find<PackageController>().getPackage(controller.packages[index]['id']);
-                              return const AlertDialog(
-                                content: PackageDialog(),
-                              );
-                            });
+                            Get.find<PackageController>().getPackage(controller.packages[index]['id']);
+                            Get.to(() => const PackageDialog());
+                            // showDialog(context: context, builder: (BuildContext context) {
+                            //   return const AlertDialog(
+                            //     content: PackageDialog(),
+                            //   );
+                            // });
                           },
                           child: Text(
                             AppStrings.packageDetails,
