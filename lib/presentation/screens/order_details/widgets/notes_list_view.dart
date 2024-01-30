@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../domain/models/order_details.dart';
 import '../../../resources/color_manager.dart';
+import '../../../resources/strings_manager.dart';
 import '../../../resources/styles_manager.dart';
 
 class NotesListView extends StatelessWidget {
@@ -56,7 +57,7 @@ class NotesListView extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'الكمية: ${orderDetails[index].quantity ?? 1}',
+                    '${AppStrings.quantity}: ${orderDetails[index].quantity ?? 1}',
                     style: getSmallStyle(
                         color: ColorManager.grey
                     ),

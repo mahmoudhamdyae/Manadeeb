@@ -61,7 +61,7 @@ class PackagesListView extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'الكمية: ${(controller.order.value.orderdetails?[index].quantity ?? 0)}',
+                          '${AppStrings.quantity}: ${(controller.order.value.orderdetails?[index].quantity ?? 0)}',
                           style: getSmallStyle(
                               color: ColorManager.grey
                           ),

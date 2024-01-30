@@ -52,6 +52,7 @@ class AppStrings {
   static const String completeOrder = 'تم تسليم الطلب';
   static const String city = 'محافظة';
   static const String packageDetails = 'تفاصيل الباقة';
+  static const String quantity = 'الكمية';
 
   // Bottom Bar
   static const String bottomBarNewOrders = 'الطلبات الجديدة';

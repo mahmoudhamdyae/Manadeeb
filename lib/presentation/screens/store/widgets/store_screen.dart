@@ -112,7 +112,7 @@ class StoreScreen extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              'الكمية: ${books[index].quantity}',
+                              '${AppStrings.quantity}: ${books[index].quantity}',
                               style: getSmallStyle(
                                   color: ColorManager.grey
                               ),
