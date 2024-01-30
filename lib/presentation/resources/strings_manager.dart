@@ -56,4 +56,10 @@ class AppStrings {
   static const String bottomBarNewOrders = 'الطلبات الجديدة';
   static const String bottomBarCurrentOrders = 'الطلبات الحالية';
   static const String bottomBarCompletedOrders = 'الطلبات المكتملة';
+
+  // Store Screen
+  static const String storeTitle = 'المخزن';
+
+  // Add Order Screen
+  static const String addOrderTitle = 'إضافة طلب';
 }

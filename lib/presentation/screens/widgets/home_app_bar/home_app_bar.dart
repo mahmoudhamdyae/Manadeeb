@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:manadeeb/presentation/screens/store/widgets/store_screen.dart';
 import 'package:manadeeb/presentation/screens/widgets/dialogs/sign_out_dialog.dart';
 import 'package:manadeeb/presentation/screens/widgets/home_app_bar/user_image.dart';
 
@@ -39,26 +40,24 @@ class HomeAppBar extends StatelessWidget {
           const SizedBox(width: 8,),
           InkWell(onTap: _login, child: AccountColumn()),
           Expanded(child: Container()),
-          // Notifications Button
-          // Container(
-          //   height: 32,
-          //   width: 32,
-          //   decoration: BoxDecoration(
-          //       shape: BoxShape.rectangle,
-          //       borderRadius: const BorderRadius.all(Radius.circular(8)),
-          //       border: Border.all(color: ColorManager.secondary)
-          //   ),
-          //   child: IconButton(
-          //     onPressed: () {
-          //       // Get.to(() => NotificationsScreen());
-          //     },
-          //     icon: const Icon(
-          //       Icons.notifications,
-          //       size: 15,
-          //       color: ColorManager.secondary,
-          //     ),
-          //   ),
-          // ),
+          // Store Button
+          Container(
+            height: 32,
+            width: 32,
+            decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                border: Border.all(color: ColorManager.secondary)
+            ),
+            child: IconButton(
+              onPressed: () => Get.to(() => const StoreScreen()),
+              icon: const Icon(
+                Icons.store,
+                size: 15,
+                color: ColorManager.secondary,
+              ),
+            ),
+          ),
           const SizedBox(width: 8.0,),
           // Sign out Button
           Container(

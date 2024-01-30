@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:manadeeb/presentation/resources/styles_manager.dart';
+import 'package:manadeeb/presentation/screens/add_order/widgets/add_order_screen.dart';
 import 'package:manadeeb/presentation/screens/home/current_orders/widgets/current_orders_screen.dart';
 import 'package:manadeeb/presentation/screens/home/delivered_orders/widgets/delivered_orders_screen.dart';
 import 'package:manadeeb/presentation/screens/home/new_orders/widgets/new_orders_screen.dart';
@@ -79,8 +81,7 @@ class _MainScreenState extends State<MainScreen> {
         padding: const EdgeInsets.only(bottom: 50.0),
         child: FloatingActionButton(
           backgroundColor: ColorManager.secondary,
-          onPressed: () {
-          },
+          onPressed: () => Get.to(() => const AddOrderScreen()),
           shape: const CircleBorder(),
           child: const Icon(
             Icons.add,
