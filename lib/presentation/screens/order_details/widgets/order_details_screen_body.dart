@@ -42,7 +42,12 @@ class OrderDetailsScreenBody extends StatelessWidget {
                 style: getLargeStyle(),
               ) : Container(),
               const SizedBox(height: 8.0,),
-              const NotesListView(),
+              GetX<OrderDetailsController>(
+                init: Get.find<OrderDetailsController>(),
+                builder: (OrderDetailsController controller) {
+                  return NotesListView(books: controller.books, orderDetails: controller.order.value.orderdetails ?? [],);
+                },
+              ),
               const SizedBox(height: 16.0,),
               controller.isPackage.value ? Text(
                 AppStrings.packages,

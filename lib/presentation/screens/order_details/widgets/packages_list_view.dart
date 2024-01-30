@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:manadeeb/presentation/resources/strings_manager.dart';
 import 'package:manadeeb/presentation/resources/styles_manager.dart';
 import 'package:manadeeb/presentation/screens/order_details/controller/package_controller.dart';
-import 'package:manadeeb/presentation/screens/order_details/widgets/package_dialog.dart';
+import 'package:manadeeb/presentation/screens/order_details/widgets/package_screen.dart';
 
 import '../../../resources/color_manager.dart';
 import '../controller/order_details_controller.dart';
@@ -75,7 +75,7 @@ class PackagesListView extends StatelessWidget {
                         style: getOutlinedButtonStyle(),
                           onPressed: () {
                             Get.find<PackageController>().getPackage(controller.packages[index]['id']);
-                            Get.to(() => const PackageDialog());
+                            Get.to(() => const PackageScreen());
                             // showDialog(context: context, builder: (BuildContext context) {
                             //   return const AlertDialog(
                             //     content: PackageDialog(),

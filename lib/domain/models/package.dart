@@ -36,7 +36,7 @@ class Package {
   int? isActive;
   String? createdAt;
   String? updatedAt;
-  List<Book>? book;
+  List<PackageBook>? book;
 
   Package(
       {this.id,
@@ -56,16 +56,16 @@ class Package {
     name = json['name'];
     description = json['description'];
     stage = json['stage'];
-    class1 = json['class1'];
+    class1 = json['class'];
     price = json['price'];
     expiryDate = json['expiry_date'];
     isActive = json['is_active'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     if (json['book'] != null) {
-      book = <Book>[];
+      book = <PackageBook>[];
       json['book'].forEach((v) {
-        book!.add(Book.fromJson(v));
+        book!.add(PackageBook.fromJson(v));
       });
     }
   }
@@ -89,7 +89,7 @@ class Package {
   }
 }
 
-class Book {
+class PackageBook {
   int? id;
   String? name;
   int? techerId;
@@ -105,7 +105,7 @@ class Book {
   String? updatedAt;
   Pivot? pivot;
 
-  Book(
+  PackageBook(
       {this.id,
         this.name,
         this.techerId,
@@ -121,7 +121,7 @@ class Book {
         this.updatedAt,
         this.pivot});
 
-  Book.fromJson(Map<String, dynamic> json) {
+  PackageBook.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     techerId = json['techer_id'];

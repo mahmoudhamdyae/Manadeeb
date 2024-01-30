@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:manadeeb/domain/models/package.dart';
 
-import '../../../../domain/models/order_details.dart';
 import '../../../resources/color_manager.dart';
 import '../../../resources/styles_manager.dart';
 
-class NotesListView extends StatelessWidget {
+class PackageNotes extends StatelessWidget {
 
-  final List<Book> books;
-  final List<Orderdetails> orderDetails;
-  const NotesListView({super.key, required this.books, required this.orderDetails});
+  final List<PackageBook> books;
+  const PackageNotes({super.key, required this.books});
 
   @override
   Widget build(BuildContext context) {
@@ -46,22 +45,11 @@ class NotesListView extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 8.0,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    books[index].classroom ?? '',
-                    style: getSmallStyle(
-                        color: ColorManager.grey
-                    ),
-                  ),
-                  Text(
-                    'الكمية: ${orderDetails[index].quantity ?? 1}',
-                    style: getSmallStyle(
-                        color: ColorManager.grey
-                    ),
-                  ),
-                ],
+              Text(
+                books[index].classroom ?? '',
+                style: getSmallStyle(
+                    color: ColorManager.grey
+                ),
               ),
             ],
           ),
