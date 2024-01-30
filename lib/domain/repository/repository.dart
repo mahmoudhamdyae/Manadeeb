@@ -1,6 +1,7 @@
 import 'package:manadeeb/domain/models/order_details.dart';
 import 'package:manadeeb/domain/models/package.dart';
 
+import '../models/note.dart';
 import '../models/order_response.dart';
 
 abstract class Repository {
@@ -21,4 +22,5 @@ abstract class Repository {
   Future<void> completeOrder(int orderId);
   Future<OrderResponse> getCurrentOrders();
   Future<OrderResponse> getCompleteOrders();
+  Future<List<Note>> getNotes(String marhala);
 }

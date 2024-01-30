@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:manadeeb/domain/models/order_response.dart';
 
 import '../../core/constants.dart';
+import '../../core/converters.dart';
+import '../../domain/models/note.dart';
 import '../../domain/models/order_details.dart';
 import '../../domain/models/package.dart';
 import '../../presentation/resources/strings_manager.dart';
@@ -17,6 +19,7 @@ abstract class RemoteDataSource {
   Future<void> completeOrder(int orderId);
   Future<OrderResponse> getCurrentOrders(int userId);
   Future<OrderResponse> getCompleteOrders(int userId);
+  Future<List<Note>> getNotes(String marhala);
 }
 
 class RemoteDataSourceImpl extends RemoteDataSource {
@@ -119,5 +122,22 @@ class RemoteDataSourceImpl extends RemoteDataSource {
     final data = response.data;
     OrderResponse orderResponse = OrderResponse.fromJson(data);
     return orderResponse;
+  }
+
+  @override
+  Future<List<Note>> getNotes(String marhala) async {
+    await _checkNetwork();
+
+    String url = "${Constants.baseUrl}books";
+    final response = await _dio.get(url);
+
+    List<Note> notes = [];
+    String s = convertSaff(marhala, 'book');
+    for (var singleNote in response.data[s]) {
+      Note note = Note.fromJson(singleNote);
+      notes.add(note);
+    }
+
+    return notes;
   }
 }
