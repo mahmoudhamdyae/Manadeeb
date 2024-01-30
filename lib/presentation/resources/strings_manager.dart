@@ -62,4 +62,13 @@ class AppStrings {
 
   // Add Order Screen
   static const String addOrderTitle = 'إضافة طلب';
+
+  // Sfoof
+  static const saff6 = "الصف السادس";
+  static const saff7 = "الصف السابع";
+  static const saff8 = "الصف الثامن";
+  static const saff9 = "الصف التاسع";
+  static const saff10 = "الصف العاشر";
+  static const saff11 = "الصف الحادى عشر";
+  static const saff12 = "الصف الثانى عشر";
 }
