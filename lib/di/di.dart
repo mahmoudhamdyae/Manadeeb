@@ -53,6 +53,6 @@ class GetXDi implements Bindings {
     Get.lazyPut<DeliveredOrdersController>(() => DeliveredOrdersController(Get.find<Repository>()), fenix: true);
     Get.lazyPut<OrderDetailsController>(() => OrderDetailsController(Get.find<Repository>()), fenix: true);
     Get.lazyPut<PackageController>(() => PackageController(Get.find<Repository>()), fenix: true);
-    Get.lazyPut<StoreController>(() => StoreController(), fenix: true);
+    Get.lazyPut<StoreController>(() => StoreController(Get.find<Repository>()), fenix: true);
   }
 }
