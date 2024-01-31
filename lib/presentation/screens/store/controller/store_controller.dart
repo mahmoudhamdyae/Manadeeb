@@ -48,13 +48,9 @@ class StoreController extends GetxController {
   }
 
   void _filterNotes() {
-    print('==================== ${_notes.value.namdubStore?[0].mandubBooks?.length}');
     List<MandubBooks>? allMandubBooks = _notes.value.namdubStore?[0].mandubBooks;
-    print('==================== ${allMandubBooks?.length}');
     List<MandubBooks>? filteredMandubBooks = allMandubBooks?.where((element) => element.classroom == _sfoof[_selected.value]).toList();
-    print('==================== ${filteredMandubBooks?.length}');
     filteredNotes.value = filteredMandubBooks ?? [];
-    print('==================== ${filteredNotes.length}');
   }
 
   void _getAllNotes(String saff) {

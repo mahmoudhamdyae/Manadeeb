@@ -10,6 +10,7 @@ import '../data/network_info.dart';
 import '../data/remote/remote_data_source.dart';
 import '../data/repository/repository_impl.dart';
 import '../domain/repository/repository.dart';
+import '../presentation/screens/add_order/controller/add_order_controller.dart';
 import '../presentation/screens/auth/auth_controller.dart';
 import '../presentation/screens/auth/login/controller/login_controller.dart';
 import '../presentation/screens/home/current_orders/controller/current_orders_controller.dart';
@@ -54,5 +55,6 @@ class GetXDi implements Bindings {
     Get.lazyPut<OrderDetailsController>(() => OrderDetailsController(Get.find<Repository>()), fenix: true);
     Get.lazyPut<PackageController>(() => PackageController(Get.find<Repository>()), fenix: true);
     Get.lazyPut<StoreController>(() => StoreController(Get.find<Repository>()), fenix: true);
+    Get.lazyPut<AddOrderController>(() => AddOrderController(Get.find<Repository>()), fenix: true);
   }
 }
