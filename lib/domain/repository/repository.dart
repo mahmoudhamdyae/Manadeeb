@@ -2,6 +2,7 @@ import 'package:manadeeb/domain/models/order_details.dart';
 import 'package:manadeeb/domain/models/package.dart';
 
 import '../models/note.dart';
+import '../models/notes_and_packages.dart';
 import '../models/order_response.dart';
 
 abstract class Repository {
@@ -23,4 +24,5 @@ abstract class Repository {
   Future<OrderResponse> getCurrentOrders();
   Future<OrderResponse> getCompleteOrders();
   Future<NotesResponse> getNotes(String marhala);
+  Future<NotesAndPackages> getNotesAndPackages();
 }

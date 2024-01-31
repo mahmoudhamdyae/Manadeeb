@@ -1,4 +1,5 @@
 import 'package:manadeeb/domain/models/note.dart';
+import 'package:manadeeb/domain/models/notes_and_packages.dart';
 import 'package:manadeeb/domain/models/order_response.dart';
 import 'package:manadeeb/domain/models/order_details.dart';
 import 'package:manadeeb/domain/models/package.dart';
@@ -87,5 +88,10 @@ class RepositoryImpl extends Repository {
   @override
   Future<NotesResponse> getNotes(String marhala) {
     return _remoteDataSource.getNotes(marhala, _localDataSource.getUserId());
+  }
+
+  @override
+  Future<NotesAndPackages> getNotesAndPackages() {
+    return _remoteDataSource.getNotesAndPackages();
   }
 }

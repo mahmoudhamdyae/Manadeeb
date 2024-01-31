@@ -79,4 +79,5 @@ class AppStrings {
   // Add Order
   static const addOrderTabNotes = "المذكرات";
   static const addOrderTabPackages = "الباقات";
+  static const orderButton = "طلب";
 }

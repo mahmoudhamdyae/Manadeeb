@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:manadeeb/domain/models/notes_and_packages.dart';
 import 'package:manadeeb/domain/models/order_response.dart';
 
 import '../../core/constants.dart';
@@ -19,6 +20,7 @@ abstract class RemoteDataSource {
   Future<OrderResponse> getCurrentOrders(int userId);
   Future<OrderResponse> getCompleteOrders(int userId);
   Future<NotesResponse> getNotes(String marhala, int mandoobId);
+  Future<NotesAndPackages> getNotesAndPackages();
 }
 
 class RemoteDataSourceImpl extends RemoteDataSource {
@@ -132,5 +134,16 @@ class RemoteDataSourceImpl extends RemoteDataSource {
 
     NotesResponse notesResponse = NotesResponse.fromJson(response.data);
     return notesResponse;
+  }
+
+  @override
+  Future<NotesAndPackages> getNotesAndPackages() async {
+    await _checkNetwork();
+
+    String url = "${Constants.baseUrl}mandub/books/packages/classes";
+    final response = await _dio.get(url);
+
+    NotesAndPackages notesAndPackages = NotesAndPackages.fromJson(response.data);
+    return notesAndPackages;
   }
 }
