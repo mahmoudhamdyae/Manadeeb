@@ -12,6 +12,8 @@ class AddOrderController extends GetxController {
   final RxList<Packages> packages = RxList.empty();
   final RxList<bool> checkedPackages = RxList.empty();
   final RxInt price = 0.obs;
+  final RxList<int> booksQuantity = RxList.empty();
+  final RxList<int> packagesQuantity = RxList.empty();
 
   final Repository _repository;
   AddOrderController(this._repository);
@@ -29,8 +31,10 @@ class AddOrderController extends GetxController {
         _status.value = RxStatus.success();
         books.value = notesAndPackages.books ?? [];
         checkedBooks.value = List.generate(books.value.length, (index) => false);
+        booksQuantity.value = List.generate(books.value.length, (index) => 1);
         packages.value = notesAndPackages.packages ?? [];
-        checkedPackages.value = List.generate(packages.length, (index) => false);
+        checkedPackages.value = List.generate(packages.value.length, (index) => false);
+        packagesQuantity.value = List.generate(packages.value.length, (index) => 1);
       });
     } on Exception catch (e) {
       _status.value = RxStatus.error(e.toString());
@@ -56,5 +60,33 @@ class AddOrderController extends GetxController {
   }
 
   void createOrder() {
+  }
+
+  void incrementCountBook(int index) {
+    if (checkedBooks[index]) {
+      booksQuantity[index]++;
+      price.value += books[index].bookPrice ?? 0;
+    }
+  }
+
+  void decrementCountBook(int index) {
+    if (checkedBooks[index] && booksQuantity[index] != 1) {
+      booksQuantity[index]--;
+      price.value -= books[index].bookPrice ?? 0;
+    }
+  }
+
+  void incrementCountPackage(int index) {
+    if (checkedPackages[index]) {
+      packagesQuantity[index]++;
+      price.value += int.parse(packages[index].price ?? '0');
+    }
+  }
+
+  void decrementCountPackage(int index) {
+    if (checkedPackages[index] && packagesQuantity[index] != 1) {
+      packagesQuantity[index]--;
+      price.value -= int.parse(packages[index].price ?? '0');
+    }
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:manadeeb/presentation/screens/add_order/controller/add_order_controller.dart';
-import 'package:manadeeb/presentation/screens/add_order/widgets/tab_notes.dart';
-import 'package:manadeeb/presentation/screens/add_order/widgets/tab_packages.dart';
+import 'package:manadeeb/presentation/screens/add_order/widgets/books/tab_notes.dart';
+import 'package:manadeeb/presentation/screens/add_order/widgets/packages/tab_packages.dart';
 
 import '../../../resources/color_manager.dart';
 import '../../../resources/strings_manager.dart';
