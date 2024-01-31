@@ -1,14 +1,14 @@
 import 'package:get/get.dart';
+import 'package:manadeeb/domain/models/note.dart';
 import 'package:manadeeb/domain/repository/repository.dart';
 
-import '../../../../domain/models/note.dart';
 import '../../../resources/strings_manager.dart';
 
 class StoreController extends GetxController {
 
   final List<String> _sfoof = [
-    // AppStrings.saff4,
-    // AppStrings.saff5,
+    AppStrings.saff4,
+    AppStrings.saff5,
     AppStrings.saff6,
     AppStrings.saff7,
     AppStrings.saff8,
@@ -32,8 +32,8 @@ class StoreController extends GetxController {
     _filterNotes();
   }
 
-  final RxList<Note> _notes = RxList.empty();
-  final RxList<Note> filteredNotes = RxList.empty();
+  final Rx<NotesResponse> _notes = NotesResponse().obs;
+  final RxList<MandubBooks> filteredNotes = RxList.empty();
   final Rx<RxStatus> _status = Rx<RxStatus>(RxStatus.empty());
   RxStatus get status => _status.value;
 
@@ -48,7 +48,13 @@ class StoreController extends GetxController {
   }
 
   void _filterNotes() {
-    filteredNotes.value = _notes.where((element) => element.classroom == _sfoof[_selected.value]).toList();
+    print('==================== ${_notes.value.namdubStore?[0].mandubBooks?.length}');
+    List<MandubBooks>? allMandubBooks = _notes.value.namdubStore?[0].mandubBooks;
+    print('==================== ${allMandubBooks?.length}');
+    List<MandubBooks>? filteredMandubBooks = allMandubBooks?.where((element) => element.classroom == _sfoof[_selected.value]).toList();
+    print('==================== ${filteredMandubBooks?.length}');
+    filteredNotes.value = filteredMandubBooks ?? [];
+    print('==================== ${filteredNotes.length}');
   }
 
   void _getAllNotes(String saff) {

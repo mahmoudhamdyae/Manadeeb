@@ -60,7 +60,7 @@ class StoreScreen extends StatelessWidget {
           GetX<StoreController>(
             init: Get.find<StoreController>(),
             builder: (StoreController controller) {
-              List<Note> books = controller.filteredNotes;
+              List<MandubBooks> books = controller.filteredNotes;
               if (controller.status.isLoading) {
                 return const LoadingScreen();
               } else if (controller.status.isError) {
@@ -90,7 +90,7 @@ class StoreScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              books[index].name,
+                              books[index].name ?? '',
                               style: getLargeStyle(),
                             ),
                             Text(
@@ -106,13 +106,13 @@ class StoreScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              books[index].classroom,
+                              books[index].classroom ?? '',
                               style: getSmallStyle(
                                   color: ColorManager.grey
                               ),
                             ),
                             Text(
-                              '${AppStrings.quantity}: ${books[index].quantity}',
+                              '${AppStrings.quantity}: ${books[index].pivot?.mandubQuantity ?? 0}',
                               style: getSmallStyle(
                                   color: ColorManager.grey
                               ),

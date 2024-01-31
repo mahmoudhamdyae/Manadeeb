@@ -22,5 +22,5 @@ abstract class Repository {
   Future<void> completeOrder(int orderId);
   Future<OrderResponse> getCurrentOrders();
   Future<OrderResponse> getCompleteOrders();
-  Future<List<Note>> getNotes(String marhala);
+  Future<NotesResponse> getNotes(String marhala);
 }

@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:manadeeb/domain/models/order_response.dart';
 
 import '../../core/constants.dart';
-import '../../core/converters.dart';
 import '../../domain/models/note.dart';
 import '../../domain/models/order_details.dart';
 import '../../domain/models/package.dart';
@@ -19,7 +18,7 @@ abstract class RemoteDataSource {
   Future<void> completeOrder(int orderId);
   Future<OrderResponse> getCurrentOrders(int userId);
   Future<OrderResponse> getCompleteOrders(int userId);
-  Future<List<Note>> getNotes(String marhala);
+  Future<NotesResponse> getNotes(String marhala, int mandoobId);
 }
 
 class RemoteDataSourceImpl extends RemoteDataSource {
@@ -125,19 +124,13 @@ class RemoteDataSourceImpl extends RemoteDataSource {
   }
 
   @override
-  Future<List<Note>> getNotes(String marhala) async {
+  Future<NotesResponse> getNotes(String marhala, int mandoobId) async {
     await _checkNetwork();
 
-    String url = "${Constants.baseUrl}books";
+    String url = "${Constants.baseUrl}mandub/books/quantity/$mandoobId";
     final response = await _dio.get(url);
 
-    List<Note> notes = [];
-    String s = convertSaff(marhala, 'book');
-    for (var singleNote in response.data[s]) {
-      Note note = Note.fromJson(singleNote);
-      notes.add(note);
-    }
-
-    return notes;
+    NotesResponse notesResponse = NotesResponse.fromJson(response.data);
+    return notesResponse;
   }
 }

@@ -85,7 +85,7 @@ class RepositoryImpl extends Repository {
   }
 
   @override
-  Future<List<Note>> getNotes(String marhala) {
-    return _remoteDataSource.getNotes(marhala);
+  Future<NotesResponse> getNotes(String marhala) {
+    return _remoteDataSource.getNotes(marhala, _localDataSource.getUserId());
   }
 }
