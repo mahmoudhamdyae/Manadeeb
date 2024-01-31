@@ -60,7 +60,7 @@ class StoreScreen extends StatelessWidget {
           GetX<StoreController>(
             init: Get.find<StoreController>(),
             builder: (StoreController controller) {
-              List<Note> books = controller.notes;
+              List<Note> books = controller.filteredNotes;
               if (controller.status.isLoading) {
                 return const LoadingScreen();
               } else if (controller.status.isError) {
@@ -106,7 +106,7 @@ class StoreScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              books[index].classroom ?? '',
+                              books[index].classroom,
                               style: getSmallStyle(
                                   color: ColorManager.grey
                               ),

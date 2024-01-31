@@ -7,6 +7,8 @@ import '../../../resources/strings_manager.dart';
 class StoreController extends GetxController {
 
   final List<String> _sfoof = [
+    // AppStrings.saff4,
+    // AppStrings.saff5,
     AppStrings.saff6,
     AppStrings.saff7,
     AppStrings.saff8,
@@ -27,10 +29,11 @@ class StoreController extends GetxController {
   }
   void select(int index) {
     _selected.value = index;
-    _getNotes(_sfoof[_selected.value]);
+    _filterNotes();
   }
 
-  final RxList<Note> notes = RxList.empty();
+  final RxList<Note> _notes = RxList.empty();
+  final RxList<Note> filteredNotes = RxList.empty();
   final Rx<RxStatus> _status = Rx<RxStatus>(RxStatus.empty());
   RxStatus get status => _status.value;
 
@@ -41,15 +44,20 @@ class StoreController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _getNotes(_sfoof[_selected.value]);
+    _getAllNotes(_sfoof[_selected.value]);
   }
 
-  void _getNotes(String saff) {
+  void _filterNotes() {
+    filteredNotes.value = _notes.where((element) => element.classroom == _sfoof[_selected.value]).toList();
+  }
+
+  void _getAllNotes(String saff) {
     _status.value = RxStatus.loading();
     try {
       _repository.getNotes(saff).then((remoteNotes) {
         _status.value = RxStatus.success();
-        notes.value = remoteNotes;
+        _notes.value = remoteNotes;
+        _filterNotes();
       });
     } on Exception catch (e) {
       _status.value = RxStatus.error(e.toString());
