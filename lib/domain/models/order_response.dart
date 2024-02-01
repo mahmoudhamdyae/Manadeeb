@@ -1,13 +1,18 @@
 class OrderResponse {
   int? status;
-  City? city;
+  List<City>? cities;
   List<Order>? orders;
 
-  OrderResponse({this.status, this.city, this.orders});
+  OrderResponse({this.status, this.cities, this.orders});
 
   OrderResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    city = json['city'] != null ? City.fromJson(json['city']) : null;
+    if (json['cities'] != null) {
+      cities = <City>[];
+      json['cities'].forEach((v) {
+        cities!.add(City.fromJson(v));
+      });
+    }
     if (json['orders'] != null) {
       orders = <Order>[];
       json['orders'].forEach((v) {
@@ -19,8 +24,8 @@ class OrderResponse {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
-    if (city != null) {
-      data['city'] = city!.toJson();
+    if (cities != null) {
+      data['cities'] = cities!.map((v) => v.toJson()).toList();
     }
     if (orders != null) {
       data['orders'] = orders!.map((v) => v.toJson()).toList();
@@ -36,7 +41,8 @@ class City {
   String? createdAt;
   String? updatedAt;
 
-  City({this.id, this.name, this.deliverPrice, this.createdAt, this.updatedAt});
+  City(
+      {this.id, this.name, this.deliverPrice, this.createdAt, this.updatedAt});
 
   City.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -64,7 +70,7 @@ class Order {
   String? address;
   String? status;
   int? cityId;
-  int? mandubId;
+  dynamic mandubId;
   String? priceAll;
   String? createdAt;
   String? updatedAt;

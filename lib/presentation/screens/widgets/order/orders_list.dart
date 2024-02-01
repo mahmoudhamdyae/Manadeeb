@@ -22,7 +22,7 @@ class OrdersList extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return InkWell(
           onTap: () {
-            Get.to(() => const OrderDetailsScreen(), arguments: { 'order_id': orders[index].id, 'order_type': orderType });
+            Get.to(() => const OrderDetailsScreen(), arguments: { 'order_id': orders[index].id, 'order_type': orderType, 'city_id': orders[index].cityId });
           },
           child: Container(
             margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),

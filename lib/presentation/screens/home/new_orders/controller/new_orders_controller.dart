@@ -5,7 +5,7 @@ import '../../../../../domain/repository/repository.dart';
 
 class NewOrdersController extends GetxController {
 
-  final Rx<City> city = City().obs;
+  final RxList<City> cities = RxList.empty();
   final RxList<Order> orders = RxList.empty();
 
   final Rx<RxStatus> _status = Rx<RxStatus>(RxStatus.empty());
@@ -26,7 +26,7 @@ class NewOrdersController extends GetxController {
       _repository.getOrders().then((remoteOrders) {
         _status.value = RxStatus.success();
         orders.value = remoteOrders.orders ?? [];
-        city.value = remoteOrders.city ?? City();
+        cities.value = remoteOrders.cities ?? [];
       });
     } on Exception catch (e) {
       _status.value = RxStatus.error(e.toString());

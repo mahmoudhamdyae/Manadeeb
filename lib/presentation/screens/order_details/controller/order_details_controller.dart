@@ -1,20 +1,19 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../../domain/models/order_details.dart';
 import '../../../../domain/repository/repository.dart';
 import '../../home/new_orders/controller/new_orders_controller.dart';
-import '../../widgets/dialogs/error_dialog.dart';
 
 class OrderDetailsController extends GetxController {
 
   final Rx<OrderDetailsResponse> order = OrderDetailsResponse().obs;
   late final int orderId;
+  late final int cityId;
   final RxBool isBook = false.obs;
   final RxBool isPackage = false.obs;
   final RxInt bookNo = 0.obs;
   final RxInt packageNo = 0.obs;
-  final RxInt total = RxInt(Get.find<NewOrdersController>().city.value.deliverPrice ?? 0);
+  final RxInt total = 0.obs;
   RxList<Book> books = RxList.empty();
   RxList<Map<String, dynamic>> packages = RxList.empty();
 
@@ -32,6 +31,7 @@ class OrderDetailsController extends GetxController {
     super.onInit();
     Map<String, dynamic> args = Get.arguments;
     orderId = args['order_id'];
+    cityId = args['city_id'];
     getOrderDetails();
   }
 
@@ -39,6 +39,10 @@ class OrderDetailsController extends GetxController {
     _status.value = RxStatus.loading();
     try {
       _repository.getOrderDetails(orderId).then((remoteOrderDetails) {
+        var cities = Get.find<NewOrdersController>().cities;
+        var city = cities.firstWhere((element) => element.id == cityId);
+        total.value += city.deliverPrice ?? 0;
+
         remoteOrderDetails.orderdetails?.forEach((element) {
           if (element.book != null) {
             isBook.value = true;

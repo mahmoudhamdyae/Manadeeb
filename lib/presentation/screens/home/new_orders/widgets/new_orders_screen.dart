@@ -29,22 +29,32 @@ class NewOrdersScreen extends StatelessWidget {
               HomeAppBar(),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '${AppStrings.city} ${controller.city.value.name ?? ''}',
-                      style: getLargeStyle(),
-                    ),
-                    Text(
-                      'سعر التوصيل ${controller.city.value.deliverPrice ?? 0} د.ك',
-                      style: getSmallStyle(
-                        color: ColorManager.secondary,
-                      ),
-                    ),
-                  ],
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  physics: const ClampingScrollPhysics(),
+                  itemCount: controller.cities.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          '${AppStrings.city} ${controller.cities[index].name ?? ''}',
+                          style: getLargeStyle(),
+                        ),
+                        Text(
+                          'سعر التوصيل ${controller.cities[index].deliverPrice ?? 0} د.ك',
+                          style: getSmallStyle(
+                            color: ColorManager.secondary,
+                          ),
+                        ),
+                      ],
+                    );
+                  }, separatorBuilder: (BuildContext context, int index) {
+                    return const SizedBox(height: 8.0,);
+                },
                 ),
               ),
+              const SizedBox(height: 8.0,),
               controller.status.isLoading ? const LoadingScreen() :
               controller.status.isError ? ErrorScreen(error: controller.status.errorMessage ?? '') :
               controller.orders.isEmpty ? const EmptyScreen(emptyString: AppStrings.emptyOrders) :
