@@ -77,18 +77,18 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 50.0),
-        child: FloatingActionButton(
-          backgroundColor: ColorManager.secondary,
-          onPressed: () => Get.to(() => const AddOrderScreen()),
-          shape: const CircleBorder(),
-          child: const Icon(
-            Icons.add,
-            color: ColorManager.white,
-          ),
-        ),
-      ),
+      // floatingActionButton: Padding(
+      //   padding: const EdgeInsets.only(bottom: 50.0),
+      //   child: FloatingActionButton(
+      //     backgroundColor: ColorManager.secondary,
+      //     onPressed: () => Get.to(() => const AddOrderScreen()),
+      //     shape: const CircleBorder(),
+      //     child: const Icon(
+      //       Icons.add,
+      //       color: ColorManager.white,
+      //     ),
+      //   ),
+      // ),
       body: PersistentTabView(
         context,
         controller: _controller,

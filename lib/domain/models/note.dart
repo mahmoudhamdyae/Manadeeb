@@ -36,7 +36,7 @@ class NamdubStore {
   String? renew;
   String? userType;
   String? emailVerifiedAt;
-  String? teacherRatioCourse;
+  dynamic teacherRatioCourse;
   String? userPassword;
   String? createdAt;
   String? updatedAt;
