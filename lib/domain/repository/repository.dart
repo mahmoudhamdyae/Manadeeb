@@ -25,4 +25,5 @@ abstract class Repository {
   Future<OrderResponse> getCompleteOrders();
   Future<NotesResponse> getNotes(String marhala);
   Future<NotesAndPackages> getNotesAndPackages();
+  Future<void> tawreed(int bookId);
 }

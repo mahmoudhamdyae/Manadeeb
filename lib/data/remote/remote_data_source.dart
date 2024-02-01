@@ -21,6 +21,7 @@ abstract class RemoteDataSource {
   Future<OrderResponse> getCompleteOrders(int userId);
   Future<NotesResponse> getNotes(String marhala, int mandoobId);
   Future<NotesAndPackages> getNotesAndPackages();
+  Future<void> tawreed(int bookId, int userId);
 }
 
 class RemoteDataSourceImpl extends RemoteDataSource {
@@ -145,5 +146,13 @@ class RemoteDataSourceImpl extends RemoteDataSource {
 
     NotesAndPackages notesAndPackages = NotesAndPackages.fromJson(response.data);
     return notesAndPackages;
+  }
+
+  @override
+  Future<void> tawreed(int bookId, int userId) async {
+    await _checkNetwork();
+
+    String url = "${Constants.baseUrl}mandub/books/station/to/quantity/$userId/$bookId";
+    await _dio.post(url);
   }
 }

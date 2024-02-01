@@ -94,4 +94,9 @@ class RepositoryImpl extends Repository {
   Future<NotesAndPackages> getNotesAndPackages() {
     return _remoteDataSource.getNotesAndPackages();
   }
+
+  @override
+  Future<void> tawreed(int bookId) {
+    return _remoteDataSource.tawreed(bookId, _localDataSource.getUserId());
+  }
 }

@@ -5,10 +5,14 @@ import 'package:manadeeb/presentation/resources/color_manager.dart';
 import 'package:manadeeb/presentation/resources/strings_manager.dart';
 import 'package:manadeeb/presentation/resources/styles_manager.dart';
 import 'package:manadeeb/presentation/screens/store/controller/store_controller.dart';
+import 'package:manadeeb/presentation/screens/widgets/dialogs/error_dialog.dart';
+import 'package:manadeeb/presentation/screens/widgets/dialogs/loading_dialog.dart';
 import 'package:manadeeb/presentation/screens/widgets/empty_screen.dart';
 import 'package:manadeeb/presentation/screens/widgets/error_screen.dart';
 import 'package:manadeeb/presentation/screens/widgets/loading_screen.dart';
 import 'package:manadeeb/presentation/screens/widgets/top_bar.dart';
+
+import '../../../resources/constants_manager.dart';
 
 class StoreScreen extends StatelessWidget {
 
@@ -115,6 +119,43 @@ class StoreScreen extends StatelessWidget {
                               '${AppStrings.quantity}: ${books[index].pivot?.mandubQuantity ?? 0}',
                               style: getSmallStyle(
                                   color: ColorManager.grey
+                              ),
+                            ),
+                          ],
+                        ),
+                        books[index].pivot?.station == 0 ? Container() : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              '${AppStrings.station}: ${books[index].pivot?.station ?? 0}',
+                              style: getSmallStyle(
+                                  color: ColorManager.grey
+                              ),
+                            ),
+                            OutlinedButton(
+                              style: getOutlinedButtonStyle(),
+                              onPressed: () {
+                                showLoading(context);
+                                controller.tawreed(books[index].id ?? -1).then((value) {
+                                  if (controller.tawreedStatus.isError) {
+                                    Get.back();
+                                    showError(context, controller.tawreedStatus.errorMessage ?? '', () {});
+                                  } else {
+                                    Get.back();
+                                    Get.showSnackbar(
+                                      const GetSnackBar(
+                                        title: null,
+                                        message: AppStrings.successDialogTitle,
+                                        icon: Icon(Icons.done, color: ColorManager.white,),
+                                        duration: Duration(seconds: AppConstants.snackBarTime),
+                                      ),
+                                    );
+                                  }
+                                });
+                              },
+                              child: Text(
+                                AppStrings.stationButton,
+                                style: getSmallStyle(),
                               ),
                             ),
                           ],

@@ -36,6 +36,8 @@ class StoreController extends GetxController {
   final RxList<MandubBooks> filteredNotes = RxList.empty();
   final Rx<RxStatus> _status = Rx<RxStatus>(RxStatus.empty());
   RxStatus get status => _status.value;
+  final Rx<RxStatus> _tawreedStatus = Rx<RxStatus>(RxStatus.empty());
+  RxStatus get tawreedStatus => _tawreedStatus.value;
 
   final Repository _repository;
   StoreController(this._repository);
@@ -63,6 +65,18 @@ class StoreController extends GetxController {
       });
     } on Exception catch (e) {
       _status.value = RxStatus.error(e.toString());
+    }
+  }
+
+  Future<void> tawreed(int bookId) async {
+    _tawreedStatus.value = RxStatus.loading();
+    try {
+      await _repository.tawreed(bookId).then((value) {
+        _tawreedStatus.value = RxStatus.success();
+        filteredNotes.firstWhere((element) => element.id == bookId).pivot?.station = 0;
+      });
+    } on Exception catch (e) {
+      _tawreedStatus.value = RxStatus.error(e.toString());
     }
   }
 }
