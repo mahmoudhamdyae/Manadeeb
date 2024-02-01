@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:manadeeb/domain/models/notes_and_packages.dart';
 import 'package:manadeeb/domain/repository/repository.dart';
@@ -8,6 +9,9 @@ class AddOrderController extends GetxController {
 
   final Rx<RxStatus> _status = Rx<RxStatus>(RxStatus.empty());
   RxStatus get status => _status.value;
+
+  final Rx<RxStatus> _orderStatus = Rx<RxStatus>(RxStatus.empty());
+  RxStatus get orderStatus => _orderStatus.value;
 
   final RxList<Books> books = RxList.empty();
   final RxList<Books> filteredNotes = RxList.empty();
@@ -43,6 +47,23 @@ class AddOrderController extends GetxController {
     _filterNotesAndPackages();
   }
 
+  final TextEditingController userName = TextEditingController();
+  final TextEditingController phone = TextEditingController();
+  final TextEditingController address = TextEditingController();
+  final RxList<String> areas = [
+    'المحافظة...',
+    'حوالى',
+    'مبارك الكبير',
+    'الفروانية',
+    'الأحمدى',
+    'الجهراء',
+    'العاصمة',
+    'أم الهيمان',
+    'الوفرة',
+    'صباح الاحمد',
+  ].obs;
+  RxString selectedArea = 'المحافظة...'.obs;
+
   final Repository _repository;
   AddOrderController(this._repository);
 
@@ -75,6 +96,10 @@ class AddOrderController extends GetxController {
     }
   }
 
+  void chooseArea(String newArea) {
+    selectedArea.value = newArea;
+  }
+
   void checkNote(int index) {
     checkedBooks[index] = !checkedBooks[index];
     if (checkedBooks[index]) {
@@ -95,7 +120,15 @@ class AddOrderController extends GetxController {
     }
   }
 
-  void createOrder() {
+  Future<void> createOrder() async {
+    _orderStatus.value = RxStatus.loading();
+    try {
+      // await _repository.createOrder().then((value) {
+      //   _orderStatus.value = RxStatus.success();
+      // });
+    } on Exception catch (e) {
+      _orderStatus.value = RxStatus.error(e.toString());
+    }
   }
 
   void incrementCountBook(int index) {

@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:manadeeb/presentation/screens/add_order/controller/add_order_controller.dart';
 import 'package:manadeeb/presentation/screens/add_order/widgets/books/tab_notes.dart';
+import 'package:manadeeb/presentation/screens/add_order/widgets/finish_order_screen.dart';
 import 'package:manadeeb/presentation/screens/add_order/widgets/packages/tab_packages.dart';
+import 'package:manadeeb/presentation/screens/widgets/dialogs/error_dialog.dart';
+import 'package:manadeeb/presentation/screens/widgets/dialogs/loading_dialog.dart';
+import 'package:manadeeb/presentation/screens/widgets/dialogs/success_dialog.dart';
 
 import '../../../resources/color_manager.dart';
 import '../../../resources/strings_manager.dart';
@@ -28,20 +32,20 @@ class _CourseTabsState extends State<AddOrderTabs> {
           padding: const EdgeInsets.only(right: 8.0, left: 8.0, bottom: 8.0),
           child: SizedBox(
             width: double.infinity,
-            child: FilledButton(
-              style: getFilledButtonStyle(),
-              onPressed: () {},
-              child: GetX<AddOrderController>(
-                init: Get.find<AddOrderController>(),
-                builder: (AddOrderController controller) {
-                  return Text(
+            child: GetX<AddOrderController>(
+              init: Get.find<AddOrderController>(),
+              builder: (AddOrderController controller) {
+                return FilledButton(
+                  style: getFilledButtonStyle(),
+                  onPressed: () => controller.price.value == 0 ? null : _createOrder(),
+                  child: Text(
                     '${AppStrings.orderButton} - ${controller.price} د.ك',
                     style: getLargeStyle(
                       color: ColorManager.white,
                     ),
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             ),
           ),
         ),
@@ -121,5 +125,9 @@ class _CourseTabsState extends State<AddOrderTabs> {
         ),
       ],
     );
+  }
+
+  _createOrder() {
+    Get.to(() => const FinishOrderScreen());
   }
 }

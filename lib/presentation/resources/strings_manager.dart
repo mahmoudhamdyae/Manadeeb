@@ -31,6 +31,7 @@ class AppStrings {
   static const successDialogTitle = "عملية ناجحة";
   static const successDialogAction = "حسنا";
   static const successReceiveOrder = "تم استلام الطلب بنجاح";
+  static const successCreateOrder = "تم الطلب بنجاح";
 
   // Home Screen
   static const String welcome = 'مرحبا بك';
@@ -81,4 +82,11 @@ class AppStrings {
   static const addOrderTabNotes = "المذكرات";
   static const addOrderTabPackages = "الباقات";
   static const orderButton = "طلب";
+  // Form
+  static const String userNameInvalid = "اسم المشترى لا يمكن أن يكون فارغا";
+  static const usernameHint = "الاسم";
+  static const String addressInvalid = "العنوان غير صالح";
+  static const addressHint = "العنوان";
+  static const String confirmOrder = 'تأكيد عملية الشراء';
+  static const String areaInvalid = 'يجب اختيار محافظة';
 }
