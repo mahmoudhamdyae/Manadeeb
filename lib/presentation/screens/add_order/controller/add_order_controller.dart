@@ -2,18 +2,45 @@ import 'package:get/get.dart';
 import 'package:manadeeb/domain/models/notes_and_packages.dart';
 import 'package:manadeeb/domain/repository/repository.dart';
 
+import '../../../resources/strings_manager.dart';
+
 class AddOrderController extends GetxController {
 
   final Rx<RxStatus> _status = Rx<RxStatus>(RxStatus.empty());
   RxStatus get status => _status.value;
 
   final RxList<Books> books = RxList.empty();
+  final RxList<Books> filteredNotes = RxList.empty();
   final RxList<bool> checkedBooks = RxList.empty();
   final RxList<Packages> packages = RxList.empty();
   final RxList<bool> checkedPackages = RxList.empty();
   final RxInt price = 0.obs;
   final RxList<int> booksQuantity = RxList.empty();
   final RxList<int> packagesQuantity = RxList.empty();
+
+  final List<String> _sfoof = [
+    AppStrings.saff4,
+    AppStrings.saff5,
+    AppStrings.saff6,
+    AppStrings.saff7,
+    AppStrings.saff8,
+    AppStrings.saff9,
+    AppStrings.saff10,
+    AppStrings.saff11,
+    AppStrings.saff12,
+  ];
+  List<String> get sfoof => _sfoof;
+  int getSfoofLength() {
+    return _sfoof.length;
+  }
+  final RxInt _selected = 0.obs;
+  bool isSelected(int index) {
+    return _selected.value == index;
+  }
+  void select(int index) {
+    _selected.value = index;
+    _filterNotes();
+  }
 
   final Repository _repository;
   AddOrderController(this._repository);
@@ -22,6 +49,10 @@ class AddOrderController extends GetxController {
   void onInit() {
     super.onInit();
     _getNotesAndPackages();
+  }
+
+  void _filterNotes() {
+    filteredNotes.value = books.where((element) => element.classroom == _sfoof[_selected.value]).toList();
   }
 
   void _getNotesAndPackages() {
@@ -35,6 +66,7 @@ class AddOrderController extends GetxController {
         packages.value = notesAndPackages.packages ?? [];
         checkedPackages.value = List.generate(packages.value.length, (index) => false);
         packagesQuantity.value = List.generate(packages.value.length, (index) => 1);
+        _filterNotes();
       });
     } on Exception catch (e) {
       _status.value = RxStatus.error(e.toString());
@@ -88,5 +120,12 @@ class AddOrderController extends GetxController {
       packagesQuantity[index]--;
       price.value -= int.parse(packages[index].price ?? '0');
     }
+  }
+
+  bool isBookInList(int index) {
+    if (books[index].classroom == _sfoof[_selected.value]) {
+      return true;
+    }
+    return false;
   }
 }

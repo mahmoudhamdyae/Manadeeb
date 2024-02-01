@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:manadeeb/domain/models/notes_and_packages.dart';
 import 'package:manadeeb/presentation/resources/strings_manager.dart';
@@ -9,6 +10,7 @@ import 'package:manadeeb/presentation/screens/widgets/error_screen.dart';
 import 'package:manadeeb/presentation/screens/widgets/loading_screen.dart';
 
 import '../../../../resources/color_manager.dart';
+import '../../../../resources/styles_manager.dart';
 
 class TabNotes extends StatelessWidget {
   const TabNotes({super.key});
@@ -25,24 +27,66 @@ class TabNotes extends StatelessWidget {
         } else if (controller.books.isEmpty) {
           return const EmptyScreen(emptyString: AppStrings.noNotes);
         }
-        return ListView.builder(
-          shrinkWrap: true,
-          physics: const ClampingScrollPhysics(),
-          itemCount: controller.books.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Container(
-              margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-                border: Border.all(
-                  color: ColorManager.lightGrey,
-                  width: 1,
-                ),
+        return Column(
+          children: [
+            SizedBox(
+              height: 50,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: Get.find<AddOrderController>().getSfoofLength(),
+                itemBuilder: (BuildContext context, int index) {
+                  return GetX<AddOrderController>(
+                    init: Get.find<AddOrderController>(),
+                    builder: (AddOrderController controller) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: InkWell(
+                          borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                          onTap: () => controller.select(index) ,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                              border: Border.all(
+                                color: controller.isSelected(index) ? ColorManager.grey : ColorManager.lightGrey,
+                              ),
+                              color: controller.isSelected(index) ? ColorManager.lightGrey : ColorManager.white,
+                            ),
+                            padding: const EdgeInsets.all(4.0),
+                            child: Text(
+                              controller.sfoof[index],
+                              style: getSmallStyle(),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
-              child: TabNoteItem(index: index,),
-            );
-          },
+            ),
+        controller.filteredNotes.isEmpty ?
+        const EmptyScreen(emptyString: AppStrings.noNotes)
+            :
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const ClampingScrollPhysics(),
+              itemCount: controller.books.length,
+              itemBuilder: (BuildContext context, int index) {
+                return controller.isBookInList(index) ? Container(
+                  margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                    border: Border.all(
+                      color: ColorManager.lightGrey,
+                      width: 1,
+                    ),
+                  ),
+                  child: TabNoteItem(index: index,),
+                ) : Container();
+              },
+            ),
+          ],
         );
       },
     );

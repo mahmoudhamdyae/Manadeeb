@@ -73,8 +73,8 @@ class AppStrings {
   static const saff8 = "الصف الثامن";
   static const saff9 = "الصف التاسع";
   static const saff10 = "الصف العاشر";
-  static const saff11 = "الصف الحادى عشر";
-  static const saff12 = "الصف الثانى عشر";
+  static const saff11 = "الصف الحادي عشر";
+  static const saff12 = "الصف الثاني عشر";
 
   // Add Order
   static const addOrderTabNotes = "المذكرات";
