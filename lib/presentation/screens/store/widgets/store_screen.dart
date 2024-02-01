@@ -136,7 +136,7 @@ class StoreScreen extends StatelessWidget {
                               style: getOutlinedButtonStyle(),
                               onPressed: () {
                                 showLoading(context);
-                                controller.tawreed(books[index].id ?? -1).then((value) {
+                                controller.tawreed(books[index].id ?? -1, index).then((value) {
                                   if (controller.tawreedStatus.isError) {
                                     Get.back();
                                     showError(context, controller.tawreedStatus.errorMessage ?? '', () {});
@@ -150,6 +150,7 @@ class StoreScreen extends StatelessWidget {
                                         duration: Duration(seconds: AppConstants.snackBarTime),
                                       ),
                                     );
+                                    books[index].pivot?.station = 0;
                                   }
                                 });
                               },

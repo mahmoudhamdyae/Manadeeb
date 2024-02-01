@@ -68,12 +68,35 @@ class StoreController extends GetxController {
     }
   }
 
-  Future<void> tawreed(int bookId) async {
+  Future<void> tawreed(int bookId, int index) async {
     _tawreedStatus.value = RxStatus.loading();
     try {
       await _repository.tawreed(bookId).then((value) {
         _tawreedStatus.value = RxStatus.success();
-        filteredNotes.firstWhere((element) => element.id == bookId).pivot?.station = 0;
+        // var x = filteredNotes.firstWhere((element) => element.id == bookId);
+        // x.pivot?.station = 0;
+        // int count = -1;
+        // filteredNotes.forEach((element) {
+        //   count++;
+        //   if (index == count) {
+        //     filteredNotes.remove(element);
+        //     filteredNotes.add(x);
+        //   } else {
+        //     filteredNotes.remove(element);
+        //     filteredNotes.add(element);
+        //   }
+        // });
+        // _getAllNotes(_sfoof[_selected.value]);
+        // _status.value = RxStatus.loading();
+        try {
+          _repository.getNotes(_sfoof[_selected.value]).then((remoteNotes) {
+            _status.value = RxStatus.success();
+            _notes.value = remoteNotes;
+            _filterNotes();
+          });
+        } on Exception catch (e) {
+          _status.value = RxStatus.error(e.toString());
+        }
       });
     } on Exception catch (e) {
       _tawreedStatus.value = RxStatus.error(e.toString());
