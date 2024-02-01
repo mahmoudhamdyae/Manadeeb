@@ -11,6 +11,7 @@ class AddOrderController extends GetxController {
 
   final RxList<Books> books = RxList.empty();
   final RxList<Books> filteredNotes = RxList.empty();
+  final RxList<Packages> filteredPackages = RxList.empty();
   final RxList<bool> checkedBooks = RxList.empty();
   final RxList<Packages> packages = RxList.empty();
   final RxList<bool> checkedPackages = RxList.empty();
@@ -39,7 +40,7 @@ class AddOrderController extends GetxController {
   }
   void select(int index) {
     _selected.value = index;
-    _filterNotes();
+    _filterNotesAndPackages();
   }
 
   final Repository _repository;
@@ -51,8 +52,9 @@ class AddOrderController extends GetxController {
     _getNotesAndPackages();
   }
 
-  void _filterNotes() {
+  void _filterNotesAndPackages() {
     filteredNotes.value = books.where((element) => element.classroom == _sfoof[_selected.value]).toList();
+    filteredPackages.value = packages.where((element) => element.class1 == _sfoof[_selected.value]).toList();
   }
 
   void _getNotesAndPackages() {
@@ -66,7 +68,7 @@ class AddOrderController extends GetxController {
         packages.value = notesAndPackages.packages ?? [];
         checkedPackages.value = List.generate(packages.value.length, (index) => false);
         packagesQuantity.value = List.generate(packages.value.length, (index) => 1);
-        _filterNotes();
+        _filterNotesAndPackages();
       });
     } on Exception catch (e) {
       _status.value = RxStatus.error(e.toString());
@@ -124,6 +126,13 @@ class AddOrderController extends GetxController {
 
   bool isBookInList(int index) {
     if (books[index].classroom == _sfoof[_selected.value]) {
+      return true;
+    }
+    return false;
+  }
+
+  bool isPackageInList(int index) {
+    if (packages[index].class1 == _sfoof[_selected.value]) {
       return true;
     }
     return false;

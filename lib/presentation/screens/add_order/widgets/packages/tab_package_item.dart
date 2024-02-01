@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 import 'package:manadeeb/presentation/resources/color_manager.dart';
 import 'package:manadeeb/presentation/resources/styles_manager.dart';
 import 'package:manadeeb/presentation/screens/add_order/controller/add_order_controller.dart';
-import 'package:manadeeb/presentation/screens/add_order/widgets/books/notes_quantity_widget.dart';
+import 'package:manadeeb/presentation/screens/add_order/widgets/packages/packages_quantity_widget.dart';
 
-class TabNoteItem extends StatelessWidget {
+class TabPackageItem extends StatelessWidget {
 
   final int index;
-  const TabNoteItem({super.key, required this.index});
+  const TabPackageItem({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -18,19 +18,19 @@ class TabNoteItem extends StatelessWidget {
         return Row(
           children: [
             Checkbox(
-              value: controller.checkedBooks[index],
-              onChanged: (isSelected) => controller.checkNote(index),
+              value: controller.checkedPackages[index],
+              onChanged: (isSelected) => controller.checkPackage(index),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  controller.books[index].name ?? '',
+                  controller.packages[index].name ?? '',
                   style: getLargeStyle(),
                 ),
                 const SizedBox(height: 8.0,),
                 Text(
-                  controller.books[index].classroom ?? '',
+                  controller.packages[index].class1 ?? '',
                   style: getSmallStyle(
                       color: ColorManager.grey
                   ),
@@ -40,7 +40,7 @@ class TabNoteItem extends StatelessWidget {
             Expanded(child: Container()),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: NotesQuantityWidget(index: index),
+              child: PackagesQuantityWidget(index: index),
             )
           ],
         );

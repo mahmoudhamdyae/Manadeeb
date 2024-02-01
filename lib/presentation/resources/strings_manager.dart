@@ -47,6 +47,7 @@ class AppStrings {
   static const String orderDetailsTopBarTitle = 'تفاصيل الطلب';
   static const String notes = 'المذكرات';
   static const String noNotes = 'لا يوجد مذكرات فى هذا الصف';
+  static const String noPackages = 'لا يوجد باقات فى هذا الصف';
   static const String packages = 'الباقات';
   static const String receiveOrder = 'استلام الطلب';
   static const String completeOrder = 'تم تسليم الطلب';

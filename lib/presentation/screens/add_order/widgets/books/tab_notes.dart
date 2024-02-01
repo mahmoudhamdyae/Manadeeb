@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:manadeeb/domain/models/notes_and_packages.dart';
 import 'package:manadeeb/presentation/resources/strings_manager.dart';
 import 'package:manadeeb/presentation/screens/add_order/controller/add_order_controller.dart';
 import 'package:manadeeb/presentation/screens/add_order/widgets/books/tab_note_item.dart';
