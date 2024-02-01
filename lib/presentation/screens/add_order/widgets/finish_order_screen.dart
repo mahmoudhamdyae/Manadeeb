@@ -39,6 +39,8 @@ class _FinishOrderScreenState extends State<FinishOrderScreen> {
           showError(context, controller.status.errorMessage.toString(), () {});
         } else {
           Get.back();
+          Get.back();
+          Get.back();
           Get.showSnackbar(
             const GetSnackBar(
               title: null,
