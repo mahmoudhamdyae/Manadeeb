@@ -80,7 +80,8 @@ class AddOrderController extends GetxController {
     if (checkedBooks[index]) {
       price.value += books[index].bookPrice ?? 0;
     } else {
-      price.value -= books[index].bookPrice ?? 0;
+      price.value -= (books[index].bookPrice ?? 0) * booksQuantity[index];
+      booksQuantity[index] = 1;
     }
   }
 
@@ -89,7 +90,8 @@ class AddOrderController extends GetxController {
     if (checkedPackages[index]) {
       price.value += int.parse(packages[index].price ?? '0');
     } else {
-      price.value -= int.parse(packages[index].price ?? '0');
+      price.value -= int.parse(packages[index].price ?? '0') * packagesQuantity[index];
+      packagesQuantity[index] = 1;
     }
   }
 

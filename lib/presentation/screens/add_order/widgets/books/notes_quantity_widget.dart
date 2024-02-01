@@ -35,8 +35,10 @@ class NotesQuantityWidget extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 12.0),
                       child: Text(
                         '-',
-                        style: getLargeStyle(),
-                                      ),
+                        style: getLargeStyle(
+                          color: controller.booksQuantity[index] == 1 ? ColorManager.grey : ColorManager.black
+                        ),
+                      ),
                     )),
                 Text(
                   controller.booksQuantity[index].toString(),

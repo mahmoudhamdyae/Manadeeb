@@ -35,7 +35,9 @@ class PackagesQuantityWidget extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 12.0),
                       child: Text(
                         '-',
-                        style: getLargeStyle(),
+                        style: getLargeStyle(
+                            color: controller.packagesQuantity[index] == 1 ? ColorManager.grey : ColorManager.black
+                        ),
                       ),
                     )),
                 Text(
