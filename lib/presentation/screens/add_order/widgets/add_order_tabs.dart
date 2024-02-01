@@ -4,9 +4,6 @@ import 'package:manadeeb/presentation/screens/add_order/controller/add_order_con
 import 'package:manadeeb/presentation/screens/add_order/widgets/books/tab_notes.dart';
 import 'package:manadeeb/presentation/screens/add_order/widgets/finish_order_screen.dart';
 import 'package:manadeeb/presentation/screens/add_order/widgets/packages/tab_packages.dart';
-import 'package:manadeeb/presentation/screens/widgets/dialogs/error_dialog.dart';
-import 'package:manadeeb/presentation/screens/widgets/dialogs/loading_dialog.dart';
-import 'package:manadeeb/presentation/screens/widgets/dialogs/success_dialog.dart';
 
 import '../../../resources/color_manager.dart';
 import '../../../resources/strings_manager.dart';
