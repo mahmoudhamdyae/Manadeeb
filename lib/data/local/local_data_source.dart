@@ -13,6 +13,8 @@ abstract class LocalDataSource {
   Future<List<int>> getAllCartId();
   void removeCartId(int cartId);
   void removeAllCartId();
+  void saveCities(List<int> citiesIds);
+  Future<List<int>> getCitiesIds();
 }
 
 const String keyIsFirstTime = "KEY_IS_FIRST_TIME";
@@ -20,6 +22,7 @@ const String keyIsUserLoggedIn = "KEY_IS_USER_LOGGED_IN";
 const String keyUserId = "KEY_USER_ID";
 const String keyUserName = "KEY_USER_NAME";
 const String keyCart = "KEY_CART";
+const String keyCity = "KEY_CITY";
 
 class LocalDataSourceImpl extends LocalDataSource {
 
@@ -98,5 +101,17 @@ class LocalDataSourceImpl extends LocalDataSource {
   void removeAllCartId() async {
     Box<List<int>> box = await Hive.openBox<List<int>>('cart');
     return await box.put(keyCart, []);
+  }
+
+  @override
+  Future<List<int>> getCitiesIds() async {
+    Box<List<int>> box = await Hive.openBox<List<int>>('city');
+    return box.get(keyCity, defaultValue: []) ?? [];
+  }
+
+  @override
+  void saveCities(List<int> citiesIds) async {
+    Box<List<int>> box = await Hive.openBox<List<int>>('city');
+    box.put(keyCity, citiesIds);
   }
 }

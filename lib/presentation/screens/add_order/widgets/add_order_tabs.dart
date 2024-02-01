@@ -125,6 +125,8 @@ class _CourseTabsState extends State<AddOrderTabs> {
   }
 
   _createOrder() {
+    AddOrderController controller = Get.find<AddOrderController>();
+    controller.priceTextField.text = controller.price.value.toString();
     Get.to(() => const FinishOrderScreen());
   }
 }

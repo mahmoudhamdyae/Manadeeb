@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:manadeeb/domain/models/notes_and_packages.dart';
+import 'package:manadeeb/domain/models/order_response.dart';
 import 'package:manadeeb/domain/repository/repository.dart';
+import 'package:manadeeb/presentation/screens/home/new_orders/controller/new_orders_controller.dart';
 
 import '../../../resources/strings_manager.dart';
 
@@ -20,6 +22,7 @@ class AddOrderController extends GetxController {
   final RxList<Packages> packages = RxList.empty();
   final RxList<bool> checkedPackages = RxList.empty();
   final RxInt price = 0.obs;
+  final RxInt selectedCityId = (-1).obs;
   final RxList<int> booksQuantity = RxList.empty();
   final RxList<int> packagesQuantity = RxList.empty();
 
@@ -50,18 +53,20 @@ class AddOrderController extends GetxController {
   final TextEditingController userName = TextEditingController();
   final TextEditingController phone = TextEditingController();
   final TextEditingController address = TextEditingController();
+  final TextEditingController priceTextField = TextEditingController();
   final RxList<String> areas = [
     'المحافظة...',
-    'حوالى',
-    'مبارك الكبير',
-    'الفروانية',
-    'الأحمدى',
-    'الجهراء',
-    'العاصمة',
-    'أم الهيمان',
-    'الوفرة',
-    'صباح الاحمد',
+    // 'حوالى',
+    // 'مبارك الكبير',
+    // 'الفروانية',
+    // 'الأحمدى',
+    // 'الجهراء',
+    // 'العاصمة',
+    // 'أم الهيمان',
+    // 'الوفرة',
+    // 'صباح الاحمد',
   ].obs;
+  RxList<City> cities = RxList.empty();
   RxString selectedArea = 'المحافظة...'.obs;
 
   final Repository _repository;
@@ -71,6 +76,10 @@ class AddOrderController extends GetxController {
   void onInit() {
     super.onInit();
     _getNotesAndPackages();
+    cities.value = Get.find<NewOrdersController>().cities;
+    cities.forEach((element) {
+      areas.add(element.name ?? '');
+    });
   }
 
   void _filterNotesAndPackages() {
@@ -98,6 +107,8 @@ class AddOrderController extends GetxController {
 
   void chooseArea(String newArea) {
     selectedArea.value = newArea;
+    City city = cities.firstWhere((element) => element.name == newArea);
+    selectedCityId.value = city.id ?? -1;
   }
 
   void checkNote(int index) {
@@ -126,6 +137,17 @@ class AddOrderController extends GetxController {
 
   Future<void> createOrder() async {
     _orderStatus.value = RxStatus.loading();
+
+
+
+    selectedCityId;
+    address.text;
+    userName.text;
+    phone.text;
+    priceTextField.text;
+
+
+
     try {
       // await _repository.createOrder().then((value) {
       //   _orderStatus.value = RxStatus.success();

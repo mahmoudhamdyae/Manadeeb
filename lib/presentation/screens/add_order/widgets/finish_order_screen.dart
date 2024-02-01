@@ -150,7 +150,7 @@ class _FinishOrderScreenState extends State<FinishOrderScreen> {
                           // Address Edit Text
                           TextFormField(
                             controller: controller.address,
-                            textInputAction: TextInputAction.done,
+                            textInputAction: TextInputAction.next,
                             keyboardType: TextInputType.text,
                             validator: (val) {
                               if (val.toString().isNotEmpty) {
@@ -167,6 +167,31 @@ class _FinishOrderScreenState extends State<FinishOrderScreen> {
                               prefixIcon: null,
                               onPressed: () {},
                               suffixIcon: Icons.location_on,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: AppSize.s28,
+                          ),
+                          // Address Edit Text
+                          TextFormField(
+                            controller: controller.priceTextField,
+                            textInputAction: TextInputAction.done,
+                            keyboardType: TextInputType.number,
+                            validator: (val) {
+                              if (val.toString().isNotEmpty) {
+                                return null;
+                              }
+                              return AppStrings.priceInvalid;
+                            },
+                            style: getLargeStyle(
+                              fontSize: FontSize.s14,
+                              color: ColorManager.grey,
+                            ),
+                            decoration: getTextFieldDecoration(
+                              hint: AppStrings.priceHint,
+                              prefixIcon: null,
+                              onPressed: () {},
+                              suffixIcon: Icons.monetization_on_outlined,
                             ),
                           ),
                           const SizedBox(

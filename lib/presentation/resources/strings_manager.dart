@@ -88,7 +88,9 @@ class AppStrings {
   static const String userNameInvalid = "اسم المشترى لا يمكن أن يكون فارغا";
   static const usernameHint = "الاسم";
   static const String addressInvalid = "العنوان غير صالح";
+  static const String priceInvalid = "السعر غير صالح";
   static const addressHint = "العنوان";
+  static const priceHint = "السعر";
   static const String confirmOrder = 'تأكيد عملية الشراء';
   static const String areaInvalid = 'يجب اختيار محافظة';
 }

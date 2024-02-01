@@ -51,8 +51,14 @@ class RepositoryImpl extends Repository {
   // Remote Data Source
 
   @override
-  Future<OrderResponse> getOrders() {
-    return _remoteDataSource.getOrders(_localDataSource.getUserId());
+  Future<OrderResponse> getOrders() async {
+    OrderResponse orderResponse = await _remoteDataSource.getOrders(_localDataSource.getUserId());
+    List<int> citiesIds = [];
+    orderResponse.cities?.forEach((element) {
+      citiesIds.add(element.id ?? -1);
+    });
+    _localDataSource.saveCities(citiesIds);
+    return orderResponse;
   }
 
   @override
@@ -120,5 +126,10 @@ class RepositoryImpl extends Repository {
   @override
   Future<void> delPackage(int packageId) async {
     return await _remoteDataSource.delPackage(packageId);
+  }
+
+  @override
+  Future<List<int>> getCitiesIds() {
+    return _localDataSource.getCitiesIds();
   }
 }
