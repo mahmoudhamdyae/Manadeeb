@@ -26,4 +26,8 @@ abstract class Repository {
   Future<NotesResponse> getNotes(String marhala);
   Future<NotesAndPackages> getNotesAndPackages();
   Future<void> tawreed(int bookId);
+  Future<void> addNote(int bookId, String quantity, String price);
+  Future<void> addPackage(int packageId, String quantity, String price);
+  Future<void> delBook(int bookId);
+  Future<void> delPackage(int packageId);
 }

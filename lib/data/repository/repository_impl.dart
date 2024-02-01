@@ -99,4 +99,26 @@ class RepositoryImpl extends Repository {
   Future<void> tawreed(int bookId) {
     return _remoteDataSource.tawreed(bookId, _localDataSource.getUserId());
   }
+
+  @override
+  Future<void> addNote(int bookId, String quantity, String price) async {
+    int cartId = await _remoteDataSource.addNote(_localDataSource.getUserId(), bookId, quantity, price);
+    _localDataSource.addCartId(cartId);
+  }
+
+  @override
+  Future<void> addPackage(int packageId, String quantity, String price) async {
+    int cartId = await _remoteDataSource.addPackage(_localDataSource.getUserId(), packageId, quantity, price);
+    _localDataSource.addCartId(cartId);
+  }
+
+  @override
+  Future<void> delBook(int bookId) async {
+    return await _remoteDataSource.delBook(bookId);
+  }
+
+  @override
+  Future<void> delPackage(int packageId) async {
+    return await _remoteDataSource.delPackage(packageId);
+  }
 }

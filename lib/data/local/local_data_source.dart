@@ -9,12 +9,17 @@ abstract class LocalDataSource {
   int getUserId();
   Future<void> setUserName(String name);
   String getUserName();
+  void addCartId(int cartId);
+  Future<List<int>> getAllCartId();
+  void removeCartId(int cartId);
+  void removeAllCartId();
 }
 
 const String keyIsFirstTime = "KEY_IS_FIRST_TIME";
 const String keyIsUserLoggedIn = "KEY_IS_USER_LOGGED_IN";
 const String keyUserId = "KEY_USER_ID";
 const String keyUserName = "KEY_USER_NAME";
+const String keyCart = "KEY_CART";
 
 class LocalDataSourceImpl extends LocalDataSource {
 
@@ -65,5 +70,33 @@ class LocalDataSourceImpl extends LocalDataSource {
   @override
   String getUserName() {
     return _box.get(keyUserName, defaultValue: '');
+  }
+
+  @override
+  Future<List<int>> getAllCartId() async {
+    Box<List<int>> box = await Hive.openBox<List<int>>('cart');
+    return box.get(keyCart, defaultValue: []) ?? [];
+  }
+
+  @override
+  Future<void> addCartId(int cartId) async{
+    Box<List<int>> box = await Hive.openBox<List<int>>('cart');
+    List<int> carts = await getAllCartId();
+    carts.add(cartId);
+    return await box.put(keyCart, carts);
+  }
+
+  @override
+  void removeCartId(int cartId) async {
+    Box<List<int>> box = await Hive.openBox<List<int>>('cart');
+    List<int> carts = await getAllCartId();
+    carts.remove(cartId);
+    return await box.put(keyCart, carts);
+  }
+
+  @override
+  void removeAllCartId() async {
+    Box<List<int>> box = await Hive.openBox<List<int>>('cart');
+    return await box.put(keyCart, []);
   }
 }

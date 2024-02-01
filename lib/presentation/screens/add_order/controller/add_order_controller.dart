@@ -104,9 +104,11 @@ class AddOrderController extends GetxController {
     checkedBooks[index] = !checkedBooks[index];
     if (checkedBooks[index]) {
       price.value += books[index].bookPrice ?? 0;
+      _repository.addNote(books[index].id ?? 0, booksQuantity[index].toString(), (booksQuantity[index] * (books[index].bookPrice ?? 0)).toString());
     } else {
       price.value -= (books[index].bookPrice ?? 0) * booksQuantity[index];
       booksQuantity[index] = 1;
+      _repository.delBook(books[index].id ?? 0);
     }
   }
 
@@ -114,9 +116,11 @@ class AddOrderController extends GetxController {
     checkedPackages[index] = !checkedPackages[index];
     if (checkedPackages[index]) {
       price.value += int.parse(packages[index].price ?? '0');
+      _repository.addPackage(packages[index].id ?? 0, booksQuantity[index].toString(), (booksQuantity[index] * (books[index].bookPrice ?? 0)).toString());
     } else {
       price.value -= int.parse(packages[index].price ?? '0') * packagesQuantity[index];
       packagesQuantity[index] = 1;
+      _repository.delPackage(packages[index].id ?? 0);
     }
   }
 
@@ -135,6 +139,7 @@ class AddOrderController extends GetxController {
     if (checkedBooks[index]) {
       booksQuantity[index]++;
       price.value += books[index].bookPrice ?? 0;
+      _repository.addNote(books[index].id ?? 0, booksQuantity[index].toString(), (booksQuantity[index] * (books[index].bookPrice ?? 0)).toString());
     }
   }
 
@@ -142,6 +147,7 @@ class AddOrderController extends GetxController {
     if (checkedBooks[index] && booksQuantity[index] != 1) {
       booksQuantity[index]--;
       price.value -= books[index].bookPrice ?? 0;
+      _repository.addNote(books[index].id ?? 0, booksQuantity[index].toString(), (booksQuantity[index] * (books[index].bookPrice ?? 0)).toString());
     }
   }
 
@@ -149,6 +155,7 @@ class AddOrderController extends GetxController {
     if (checkedPackages[index]) {
       packagesQuantity[index]++;
       price.value += int.parse(packages[index].price ?? '0');
+      _repository.addPackage(packages[index].id ?? 0, booksQuantity[index].toString(), (booksQuantity[index] * (books[index].bookPrice ?? 0)).toString());
     }
   }
 
@@ -156,6 +163,7 @@ class AddOrderController extends GetxController {
     if (checkedPackages[index] && packagesQuantity[index] != 1) {
       packagesQuantity[index]--;
       price.value -= int.parse(packages[index].price ?? '0');
+      _repository.addPackage(packages[index].id ?? 0, booksQuantity[index].toString(), (booksQuantity[index] * (books[index].bookPrice ?? 0)).toString());
     }
   }
 

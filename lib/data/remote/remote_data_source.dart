@@ -22,6 +22,10 @@ abstract class RemoteDataSource {
   Future<NotesResponse> getNotes(String marhala, int mandoobId);
   Future<NotesAndPackages> getNotesAndPackages();
   Future<void> tawreed(int bookId, int userId);
+  Future<int> addNote(int userId, int bookId, String quantity, String price);
+  Future<int> addPackage(int userId, int packageId, String quantity, String price);
+  Future<void> delBook(int bookId);
+  Future<void> delPackage(int packageId);
 }
 
 class RemoteDataSourceImpl extends RemoteDataSource {
@@ -153,6 +157,42 @@ class RemoteDataSourceImpl extends RemoteDataSource {
     await _checkNetwork();
 
     String url = "${Constants.baseUrl}mandub/books/station/to/quantity/$userId/$bookId";
+    await _dio.post(url);
+  }
+
+  @override
+  Future<int> addNote(int userId, int bookId, String quantity, String price) async {
+    await _checkNetwork();
+
+    String url = "${Constants.baseUrl}mandub/add/book/to/cart/$userId/$bookId?quantity=$quantity&price=$price";
+    final response = await _dio.post(url);
+    int cartId = response.data['book_cart']['id'];
+    return cartId;
+  }
+
+  @override
+  Future<int> addPackage(int userId, int packageId, String quantity, String price) async {
+    await _checkNetwork();
+
+    String url = "${Constants.baseUrl}mandub/add/package/to/cart/$userId/$packageId?quantity=$quantity&price=$price";
+    final response = await _dio.post(url);
+    int cartId = response.data['book_cart']['id'];
+    return cartId;
+  }
+
+  @override
+  Future<void> delBook(int bookId) async {
+    await _checkNetwork();
+
+    String url = "${Constants.baseUrl}mandub/books/cart/delete/book/$bookId";
+    await _dio.post(url);
+  }
+
+  @override
+  Future<void> delPackage(int packageId) async {
+    await _checkNetwork();
+
+    String url = "${Constants.baseUrl}mandub/books/cart/delete/package/$packageId";
     await _dio.post(url);
   }
 }
