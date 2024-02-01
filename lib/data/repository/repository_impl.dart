@@ -134,7 +134,8 @@ class RepositoryImpl extends Repository {
   }
 
   @override
-  Future<void> createOrder(String name, String phone, String cityId, String address, String price) {
-    return _remoteDataSource.createOrder(name, phone, cityId, address, price);
+  Future<void> createOrder(String name, String phone, String cityId, String address, String price) async {
+    await _remoteDataSource.createOrder(name, phone, cityId, address, price, _localDataSource.getUserId());
+    _localDataSource.removeAllCartId();
   }
 }
