@@ -26,6 +26,7 @@ abstract class RemoteDataSource {
   Future<int> addPackage(int userId, int packageId, String quantity, String price);
   Future<void> delBook(int bookId);
   Future<void> delPackage(int packageId);
+  Future<void> createOrder(String name, String phone, String cityId, String address, String price);
 }
 
 class RemoteDataSourceImpl extends RemoteDataSource {
@@ -193,6 +194,14 @@ class RemoteDataSourceImpl extends RemoteDataSource {
     await _checkNetwork();
 
     String url = "${Constants.baseUrl}mandub/books/cart/delete/package/$packageId";
+    await _dio.post(url);
+  }
+
+  @override
+  Future<void> createOrder(String name, String phone, String cityId, String address, String price) async {
+    await _checkNetwork();
+
+    String url = "${Constants.baseUrl}mandub/books/cart/delete/package/";
     await _dio.post(url);
   }
 }

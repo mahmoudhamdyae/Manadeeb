@@ -132,4 +132,9 @@ class RepositoryImpl extends Repository {
   Future<List<int>> getCitiesIds() {
     return _localDataSource.getCitiesIds();
   }
+
+  @override
+  Future<void> createOrder(String name, String phone, String cityId, String address, String price) {
+    return _remoteDataSource.createOrder(name, phone, cityId, address, price);
+  }
 }

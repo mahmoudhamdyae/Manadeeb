@@ -137,21 +137,10 @@ class AddOrderController extends GetxController {
 
   Future<void> createOrder() async {
     _orderStatus.value = RxStatus.loading();
-
-
-
-    selectedCityId;
-    address.text;
-    userName.text;
-    phone.text;
-    priceTextField.text;
-
-
-
     try {
-      // await _repository.createOrder().then((value) {
-      //   _orderStatus.value = RxStatus.success();
-      // });
+      await _repository.createOrder(userName.text, phone.text, selectedCityId.toString(), address.text, priceTextField.text).then((value) {
+        _orderStatus.value = RxStatus.success();
+      });
     } on Exception catch (e) {
       _orderStatus.value = RxStatus.error(e.toString());
     }

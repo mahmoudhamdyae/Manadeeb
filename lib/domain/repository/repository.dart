@@ -31,4 +31,5 @@ abstract class Repository {
   Future<void> delBook(int bookId);
   Future<void> delPackage(int packageId);
   Future<List<int>> getCitiesIds();
+  Future<void> createOrder(String name, String phone, String cityId, String address, String price);
 }
