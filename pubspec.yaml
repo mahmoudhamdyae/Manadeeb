@@ -44,7 +44,6 @@ dependencies:
   flutter_svg: ^2.0.9
   persistent_bottom_nav_bar: ^5.0.2
   lottie: ^2.3.1
-  whatsapp_unilink: ^2.1.0
   url_launcher: ^6.2.4
 
 dev_dependencies:

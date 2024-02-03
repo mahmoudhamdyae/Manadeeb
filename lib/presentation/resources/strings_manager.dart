@@ -32,6 +32,7 @@ class AppStrings {
   static const successDialogAction = "حسنا";
   static const successReceiveOrder = "تم استلام الطلب بنجاح";
   static const successCreateOrder = "تم الطلب بنجاح";
+  static const noWhats = "Couldn't open whatsapp";
 
   // Home Screen
   static const String welcome = 'مرحبا بك';

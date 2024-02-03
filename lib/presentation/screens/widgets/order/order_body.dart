@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_utils/src/platform/platform.dart';
+import 'package:get/get.dart';
 import 'package:manadeeb/domain/models/order_response.dart';
 import 'package:manadeeb/presentation/resources/color_manager.dart';
 import 'package:manadeeb/presentation/resources/strings_manager.dart';
 import 'package:manadeeb/presentation/resources/styles_manager.dart';
-import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../../resources/constants_manager.dart';
 
 class OrderBody extends StatelessWidget {
 
@@ -61,9 +62,7 @@ class OrderBody extends StatelessWidget {
                 style: getFilledButtonStyle(
                   color: ColorManager.green,
                 ),
-                  onPressed: () {
-                  call();
-                  },
+                  onPressed: () => call(order.phone ?? ''),
                   child: Text(
                     AppStrings.call,
                     style: getSmallStyle(
@@ -76,9 +75,7 @@ class OrderBody extends StatelessWidget {
             Expanded(
               child: OutlinedButton(
                 style: getOutlinedButtonStyle(color: ColorManager.green,),
-                onPressed: () {
-                  whats(order.phone ?? '');
-                },
+                onPressed: () => openWhatsapp(order.phone ?? ''),
                 child: Text(
                   AppStrings.whats,
                   style: getSmallStyle(),
@@ -92,31 +89,30 @@ class OrderBody extends StatelessWidget {
   }
 }
 
-void call() {
+void call(String number) {
+  launch("tel://$number");
+}
+openWhatsapp(String number) async {
+  var whatsapp ="+965${replaceFarsiNumber(number)}";
+  final Uri url = Uri.parse('https://wa.me/$whatsapp');
+  if (!await launchUrl(url)) {
+    Get.showSnackbar(
+      const GetSnackBar(
+        title: null,
+        message: AppStrings.noWhats,
+        duration: Duration(seconds: AppConstants.snackBarTime),
+      ),
+    );
+  }
 }
 
-void whats(String number) async {
-  // if (GetPlatform.isMobile) {
-  //   final link = WhatsAppUnilink(
-  //     phoneNumber: number,//'+001-(555)1234567',
-  //     text: "Hey! I'm inquiring about the apartment listing",
-  //   );
-  //   await launchUrl(link.asUri());
-  // }
+String replaceFarsiNumber(String input) {
+  const english = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+  const farsi = ['۰', '۱', '۲', '۳', '٤', '٥', '۶', '٧', '۸', '٩'];
 
-  // await launch(
-  //     "https://wa.me/${number}?text=Hello");
+  for (int i = 0; i < 10; i++) {
+    input = input.replaceAll(farsi[i], english[i]);
+  }
 
-  // var whatsappUrl = Uri.parse(
-  //     "whatsapp://send?phone=${'countryCodeText' + number}" +
-  //         "&text=${Uri.encodeComponent("Your Message Here")}");
-  // try {
-  //   launchUrl(whatsappUrl);
-  // } catch (e) {
-  //   debugPrint(e.toString());
-  // }
-
-  // var whatsappUrl =
-  //     "whatsapp://send?phone=+965$number";
-  // launchUrl(whatsappUrl);
+  return input;
 }
