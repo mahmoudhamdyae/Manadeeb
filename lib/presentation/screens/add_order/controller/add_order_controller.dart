@@ -83,8 +83,9 @@ class AddOrderController extends GetxController {
     filteredPackages.value = packages.where((element) => element.class1 == _sfoof[_selected.value]).toList();
   }
 
-  void _getNotesAndPackages() {
+  void _getNotesAndPackages() async {
     _status.value = RxStatus.loading();
+    await deleteAllCart();
     try {
       _repository.getNotesAndPackages().then((notesAndPackages) {
         _status.value = RxStatus.success();
@@ -226,5 +227,9 @@ class AddOrderController extends GetxController {
       return true;
     }
     return false;
+  }
+
+  Future<void> deleteAllCart() async {
+    await _repository.deleteAllCart();
   }
 }

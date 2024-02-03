@@ -39,11 +39,11 @@ ButtonStyle getFilledButtonStyle({Color color = ColorManager.primary}) {
   );
 }
 
-ButtonStyle getOutlinedButtonStyle() {
+ButtonStyle getOutlinedButtonStyle({Color color = ColorManager.primary}) {
   return OutlinedButton.styleFrom(
-    side: const BorderSide(
+    side: BorderSide(
       width: 1.0,
-      color: ColorManager.primary,
+      color: color,
     ),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(8.0),

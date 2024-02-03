@@ -57,6 +57,8 @@ class AppStrings {
   static const String quantity = 'الكمية';
   static const String station = 'التوريد';
   static const String stationButton = 'تم الاستلام';
+  static const String call = 'اتصال';
+  static const String whats = 'واتس';
 
   // Bottom Bar
   static const String bottomBarNewOrders = 'الطلبات الجديدة';

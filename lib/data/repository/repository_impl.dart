@@ -138,4 +138,9 @@ class RepositoryImpl extends Repository {
     await _remoteDataSource.createOrder(name, phone, cityId, address, price, _localDataSource.getUserId());
     _localDataSource.removeAllCartId();
   }
+
+  @override
+  Future<void> deleteAllCart() async {
+    return await _remoteDataSource.deleteAllCart(_localDataSource.getUserId());
+  }
 }
