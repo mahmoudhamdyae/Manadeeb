@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:manadeeb/core/utils/insets.dart';
 import 'package:manadeeb/presentation/resources/strings_manager.dart';
 import 'package:manadeeb/presentation/screens/add_order/controller/add_order_controller.dart';
 import 'package:manadeeb/presentation/screens/add_order/widgets/books/tab_note_item.dart';
@@ -79,30 +80,52 @@ class TabNotes extends StatelessWidget {
                     ),
                   ],
                 ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const ClampingScrollPhysics(),
-                  itemCount: controller.books.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return controller.isBookInList(index) ? Container(
-                      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-                        border: Border.all(
-                          color: ColorManager.lightGrey,
-                          width: 1,
-                        ),
-                      ),
-                      child: TabNoteItem(index: index,),
-                    ) : Container();
-                  },
-                ),
+                isWide(context) ? _buildOneColumn(controller)//_buildTwoColumn(context, controller)
+                    :
+                _buildOneColumn(controller),
               ],
             ),
           ],
         );
       },
     );
+  }
+
+  Widget _buildTwoColumn(BuildContext context, AddOrderController controller) {
+    return GridView.count(
+      shrinkWrap: true,
+      physics: const ClampingScrollPhysics(),
+      crossAxisCount:(MediaQuery.of(context).size.width ~/ 210).toInt(),
+      childAspectRatio: 1.8,
+      children: List.generate(controller.books.length, (index) {
+        return _buildItem(controller, index);
+      }),
+    );
+  }
+
+  Widget _buildOneColumn(AddOrderController controller) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const ClampingScrollPhysics(),
+      itemCount: controller.books.length,
+      itemBuilder: (BuildContext context, int index) {
+        return _buildItem(controller, index);
+      },
+    );
+  }
+
+  Widget _buildItem(AddOrderController controller, int index) {
+    return controller.isBookInList(index) ? Container(
+      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+        border: Border.all(
+          color: ColorManager.lightGrey,
+          width: 1,
+        ),
+      ),
+      child: TabNoteItem(index: index,),
+    ) : Container();
   }
 }

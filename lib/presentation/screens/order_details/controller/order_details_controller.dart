@@ -40,8 +40,8 @@ class OrderDetailsController extends GetxController {
     try {
       _repository.getOrderDetails(orderId).then((remoteOrderDetails) {
         var cities = Get.find<NewOrdersController>().cities;
-        var city = cities.firstWhere((element) => element.id == cityId);
-        total.value += city.deliverPrice ?? 0;
+        var city = cities.firstWhereOrNull((element) => element.id == cityId);
+        total.value += city?.deliverPrice ?? 0;
 
         remoteOrderDetails.orderdetails?.forEach((element) {
           if (element.book != null) {

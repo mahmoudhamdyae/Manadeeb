@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:manadeeb/presentation/resources/strings_manager.dart';
 import 'package:manadeeb/presentation/screens/add_order/controller/add_order_controller.dart';
-import 'package:manadeeb/presentation/screens/add_order/widgets/books/tab_note_item.dart';
 import 'package:manadeeb/presentation/screens/add_order/widgets/packages/tab_package_item.dart';
 import 'package:manadeeb/presentation/screens/widgets/empty_screen.dart';
 import 'package:manadeeb/presentation/screens/widgets/error_screen.dart';
 import 'package:manadeeb/presentation/screens/widgets/loading_screen.dart';
 
+import '../../../../../core/utils/insets.dart';
 import '../../../../resources/color_manager.dart';
 import '../../../../resources/styles_manager.dart';
 
@@ -23,7 +23,7 @@ class TabPackages extends StatelessWidget {
           return const LoadingScreen();
         } else if (controller.status.isError) {
           return ErrorScreen(error: controller.status.errorMessage ?? '');
-        } else if (controller.books.isEmpty) {
+        } else if (controller.packages.isEmpty) {
           return const EmptyScreen(emptyString: AppStrings.noNotes);
         }
         return Column(
@@ -80,30 +80,52 @@ class TabPackages extends StatelessWidget {
                     ),
                   ],
                 ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const ClampingScrollPhysics(),
-                  itemCount: controller.packages.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return controller.isPackageInList(index) ? Container(
-                      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-                        border: Border.all(
-                          color: ColorManager.lightGrey,
-                          width: 1,
-                        ),
-                      ),
-                      child: TabPackageItem(index: index,),
-                    ) : Container();
-                  },
-                ),
+                isWide(context) ? _buildOneColumn(controller)//_buildTwoColumn(context, controller)
+                    :
+                _buildOneColumn(controller),
               ],
             ),
           ],
         );
       },
     );
+  }
+
+  Widget _buildTwoColumn(BuildContext context, AddOrderController controller) {
+    return GridView.count(
+      shrinkWrap: true,
+      physics: const ClampingScrollPhysics(),
+      crossAxisCount:(MediaQuery.of(context).size.width ~/ 210).toInt(),
+      childAspectRatio: 1.8,
+      children: List.generate(controller.packages.length, (index) {
+        return _buildItem(controller, index);
+      }),
+    );
+  }
+
+  Widget _buildOneColumn(AddOrderController controller) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const ClampingScrollPhysics(),
+      itemCount: controller.packages.length,
+      itemBuilder: (BuildContext context, int index) {
+        return _buildItem(controller, index);
+      },
+    );
+  }
+
+  Widget _buildItem(AddOrderController controller, int index) {
+    return controller.isPackageInList(index) ? Container(
+      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+        border: Border.all(
+          color: ColorManager.lightGrey,
+          width: 1,
+        ),
+      ),
+      child: TabPackageItem(index: index,),
+    ) : Container();
   }
 }
