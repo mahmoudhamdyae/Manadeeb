@@ -15,7 +15,6 @@ import 'package:manadeeb/presentation/screens/widgets/top_bar.dart';
 import '../../../resources/constants_manager.dart';
 
 class StoreScreen extends StatelessWidget {
-
   const StoreScreen({super.key});
 
   @override
@@ -26,7 +25,7 @@ class StoreScreen extends StatelessWidget {
         physics: const ClampingScrollPhysics(),
         children: [
           const TopBar(title: AppStrings.storeTitle),
-          SizedBox(
+          /*SizedBox(
             height: 50,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
@@ -60,7 +59,41 @@ class StoreScreen extends StatelessWidget {
                 );
               },
             ),
-          ),
+          ),*/
+          GetX<StoreController>(
+              init: Get.find<StoreController>(),
+              builder: (StoreController controller) {
+                return Wrap(
+                    children: List.generate(
+                        controller.getSfoofLength(),
+                        (index) => Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: InkWell(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(16.0)),
+                                onTap: () => controller.select(index),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(16.0)),
+                                    border: Border.all(
+                                      color: controller.isSelected(index)
+                                          ? ColorManager.grey
+                                          : ColorManager.lightGrey,
+                                    ),
+                                    color: controller.isSelected(index)
+                                        ? ColorManager.lightGrey
+                                        : ColorManager.white,
+                                  ),
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Text(
+                                    controller.sfoof[index],
+                                    style: getSmallStyle(),
+                                  ),
+                                ),
+                              ),
+                            )));
+              }),
           GetX<StoreController>(
             init: Get.find<StoreController>(),
             builder: (StoreController controller) {
@@ -78,10 +111,13 @@ class StoreScreen extends StatelessWidget {
                 physics: const ClampingScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
-                    margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 8.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 8.0),
                     decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(16.0)),
                       border: Border.all(
                         color: ColorManager.lightGrey,
                         width: 1,
@@ -105,62 +141,75 @@ class StoreScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 8.0,),
+                        const SizedBox(
+                          height: 8.0,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               books[index].classroom ?? '',
-                              style: getSmallStyle(
-                                  color: ColorManager.grey
-                              ),
+                              style: getSmallStyle(color: ColorManager.grey),
                             ),
                             Text(
                               '${AppStrings.quantity}: ${books[index].pivot?.mandubQuantity ?? 0}',
-                              style: getSmallStyle(
-                                  color: ColorManager.grey
-                              ),
+                              style: getSmallStyle(color: ColorManager.grey),
                             ),
                           ],
                         ),
-                        books[index].pivot?.station == 0 ? Container() : Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '${AppStrings.station}: ${books[index].pivot?.station ?? 0}',
-                              style: getSmallStyle(
-                                  color: ColorManager.grey
+                        books[index].pivot?.station == 0
+                            ? Container()
+                            : Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    '${AppStrings.station}: ${books[index].pivot?.station ?? 0}',
+                                    style:
+                                        getSmallStyle(color: ColorManager.grey),
+                                  ),
+                                  OutlinedButton(
+                                    style: getOutlinedButtonStyle(),
+                                    onPressed: () {
+                                      showLoading(context);
+                                      controller
+                                          .tawreed(books[index].id ?? -1, index)
+                                          .then((value) {
+                                        if (controller.tawreedStatus.isError) {
+                                          Get.back();
+                                          showError(
+                                              context,
+                                              controller.tawreedStatus
+                                                      .errorMessage ??
+                                                  '',
+                                              () {});
+                                        } else {
+                                          Get.back();
+                                          Get.showSnackbar(
+                                            const GetSnackBar(
+                                              title: null,
+                                              message:
+                                                  AppStrings.successDialogTitle,
+                                              icon: Icon(
+                                                Icons.done,
+                                                color: ColorManager.white,
+                                              ),
+                                              duration: Duration(
+                                                  seconds: AppConstants
+                                                      .snackBarTime),
+                                            ),
+                                          );
+                                          books[index].pivot?.station = 0;
+                                        }
+                                      });
+                                    },
+                                    child: Text(
+                                      AppStrings.stationButton,
+                                      style: getSmallStyle(),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                            OutlinedButton(
-                              style: getOutlinedButtonStyle(),
-                              onPressed: () {
-                                showLoading(context);
-                                controller.tawreed(books[index].id ?? -1, index).then((value) {
-                                  if (controller.tawreedStatus.isError) {
-                                    Get.back();
-                                    showError(context, controller.tawreedStatus.errorMessage ?? '', () {});
-                                  } else {
-                                    Get.back();
-                                    Get.showSnackbar(
-                                      const GetSnackBar(
-                                        title: null,
-                                        message: AppStrings.successDialogTitle,
-                                        icon: Icon(Icons.done, color: ColorManager.white,),
-                                        duration: Duration(seconds: AppConstants.snackBarTime),
-                                      ),
-                                    );
-                                    books[index].pivot?.station = 0;
-                                  }
-                                });
-                              },
-                              child: Text(
-                                AppStrings.stationButton,
-                                style: getSmallStyle(),
-                              ),
-                            ),
-                          ],
-                        ),
                       ],
                     ),
                   );

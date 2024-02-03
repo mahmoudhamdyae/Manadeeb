@@ -9,6 +9,8 @@ import 'package:manadeeb/presentation/screens/widgets/error_screen.dart';
 import 'package:manadeeb/presentation/screens/widgets/home_app_bar/home_app_bar.dart';
 import 'package:manadeeb/presentation/screens/widgets/loading_screen.dart';
 
+import '../../../../../core/utils/insets.dart';
+import '../../../../../domain/models/order_response.dart';
 import '../../../widgets/order/orders_list.dart';
 import '../controller/new_orders_controller.dart';
 
@@ -27,41 +29,75 @@ class NewOrdersScreen extends StatelessWidget {
             physics: const ClampingScrollPhysics(),
             children: [
               HomeAppBar(),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  physics: const ClampingScrollPhysics(),
-                  itemCount: controller.cities.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          '${AppStrings.city} ${controller.cities[index].name ?? ''}',
-                          style: getLargeStyle(),
-                        ),
-                        Text(
-                          'سعر التوصيل ${controller.cities[index].deliverPrice ?? 0} د.ك',
-                          style: getSmallStyle(
-                            color: ColorManager.secondary,
-                          ),
-                        ),
-                      ],
-                    );
-                  }, separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(height: 8.0,);
-                },
-                ),
-              ),
-              const SizedBox(height: 8.0,),
-              controller.status.isLoading ? const LoadingScreen() :
-              controller.status.isError ? ErrorScreen(error: controller.status.errorMessage ?? '') :
-              controller.orders.isEmpty ? const EmptyScreen(emptyString: AppStrings.emptyOrders) :
-              OrdersList(orders: controller.orders, orderType: OrderType.newOrder,),
+              isWide(context) ? _buildTwoColumn(controller) : _buildOneColumn(controller),
             ],);
           },
       ),
     );
   }
+}
+
+Widget _buildOneColumn(NewOrdersController controller) {
+  return ListView(
+    shrinkWrap: true,
+    physics: const ClampingScrollPhysics(),
+    children: [
+      _buildCities(controller.cities),
+      const SizedBox(height: 8.0,),
+      _buildItems(controller.status, controller.orders),
+    ],
+  );
+}
+
+Widget _buildTwoColumn(NewOrdersController controller) {
+  return Row(
+    children: [
+      Expanded(
+        flex: 1,
+        child: _buildCities(controller.cities),
+      ),
+      const SizedBox(width: 8.0,),
+      Expanded(
+        flex: 2,
+        child: _buildItems(controller.status, controller.orders),
+      ),
+    ],
+  );
+}
+
+Widget _buildCities(List<City> cities) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 32.0),
+    child: ListView.separated(
+      shrinkWrap: true,
+      physics: const ClampingScrollPhysics(),
+      itemCount: cities.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              '${AppStrings.city} ${cities[index].name ?? ''}',
+              style: getLargeStyle(),
+            ),
+            Text(
+              'سعر التوصيل ${cities[index].deliverPrice ?? 0} د.ك',
+              style: getSmallStyle(
+                color: ColorManager.secondary,
+              ),
+            ),
+          ],
+        );
+      }, separatorBuilder: (BuildContext context, int index) {
+      return const SizedBox(height: 8.0,);
+    },
+    ),
+  );
+}
+
+Widget _buildItems(RxStatus status, List<Order> orders) {
+  return status.isLoading ? const LoadingScreen() :
+  status.isError ? ErrorScreen(error: status.errorMessage ?? '') :
+  orders.isEmpty ? const EmptyScreen(emptyString: AppStrings.emptyOrders) :
+  OrdersList(orders: orders, orderType: OrderType.newOrder,);
 }
