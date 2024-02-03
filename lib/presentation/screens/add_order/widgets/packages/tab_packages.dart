@@ -66,24 +66,40 @@ class TabPackages extends StatelessWidget {
             controller.filteredPackages.isEmpty ?
             const EmptyScreen(emptyString: AppStrings.noPackages)
                 :
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const ClampingScrollPhysics(),
-              itemCount: controller.packages.length,
-              itemBuilder: (BuildContext context, int index) {
-                return controller.isPackageInList(index) ? Container(
-                  margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-                    border: Border.all(
-                      color: ColorManager.lightGrey,
-                      width: 1,
+            Column(
+              children: [
+                Row(
+                  children: [
+                    Checkbox(
+                      value: controller.getValueOfSelectAllPackages(),
+                      onChanged: (isSelected) => controller.selectAllPackages(isSelected ?? false),
                     ),
-                  ),
-                  child: TabPackageItem(index: index,),
-                ) : Container();
-              },
+                    Text(
+                      AppStrings.selectAll,
+                      style: getLargeStyle(),
+                    ),
+                  ],
+                ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const ClampingScrollPhysics(),
+                  itemCount: controller.packages.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return controller.isPackageInList(index) ? Container(
+                      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                        border: Border.all(
+                          color: ColorManager.lightGrey,
+                          width: 1,
+                        ),
+                      ),
+                      child: TabPackageItem(index: index,),
+                    ) : Container();
+                  },
+                ),
+              ],
             ),
           ],
         );

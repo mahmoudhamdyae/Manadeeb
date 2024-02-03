@@ -19,7 +19,7 @@ class TabPackageItem extends StatelessWidget {
           children: [
             Checkbox(
               value: controller.checkedPackages[index],
-              onChanged: (isSelected) => controller.checkPackage(index),
+              onChanged: (isSelected) => controller.checkPackage(index, isSelected ?? false),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

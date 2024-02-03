@@ -19,7 +19,7 @@ class TabNoteItem extends StatelessWidget {
           children: [
             Checkbox(
               value: controller.checkedBooks[index],
-              onChanged: (isSelected) => controller.checkNote(index),
+              onChanged: (isSelected) => controller.checkNote(index, isSelected ?? false),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

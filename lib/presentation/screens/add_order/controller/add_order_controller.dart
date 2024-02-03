@@ -50,21 +50,15 @@ class AddOrderController extends GetxController {
     _filterNotesAndPackages();
   }
 
+  final RxList<bool> selectedAllSaffNotes = RxList.empty();
+  final RxList<bool> selectedAllSaffPackages = RxList.empty();
+
   final TextEditingController userName = TextEditingController();
   final TextEditingController phone = TextEditingController();
   final TextEditingController address = TextEditingController();
   final TextEditingController priceTextField = TextEditingController();
   final RxList<String> areas = [
     'المحافظة...',
-    // 'حوالى',
-    // 'مبارك الكبير',
-    // 'الفروانية',
-    // 'الأحمدى',
-    // 'الجهراء',
-    // 'العاصمة',
-    // 'أم الهيمان',
-    // 'الوفرة',
-    // 'صباح الاحمد',
   ].obs;
   RxList<City> cities = RxList.empty();
   RxString selectedArea = 'المحافظة...'.obs;
@@ -80,6 +74,8 @@ class AddOrderController extends GetxController {
     cities.forEach((element) {
       areas.add(element.name ?? '');
     });
+    selectedAllSaffNotes.value = List.generate(_sfoof.length, (index) => false);
+    selectedAllSaffPackages.value = List.generate(_sfoof.length, (index) => false);
   }
 
   void _filterNotesAndPackages() {
@@ -111,8 +107,48 @@ class AddOrderController extends GetxController {
     selectedCityId.value = city.id ?? -1;
   }
 
-  void checkNote(int index) {
-    checkedBooks[index] = !checkedBooks[index];
+  void checkAllNotes() {
+  }
+
+  void checkAllPackages() {
+  }
+
+  bool getValueOfSelectAllNotes() {
+    return selectedAllSaffNotes[_selected.value];
+  }
+
+  void selectAllNotes(bool isSelected) {
+    selectedAllSaffNotes[_selected.value] = !selectedAllSaffNotes[_selected.value];
+    int count = 0;
+    books.forEach((element) {
+      if (element.classroom == _sfoof[_selected.value]) {
+        if (checkedBooks[count] == !isSelected) {
+          checkNote(count, isSelected);
+        }
+      }
+      count++;
+    });
+  }
+
+  void selectAllPackages(bool isSelected) {
+    selectedAllSaffPackages[_selected.value] = !selectedAllSaffPackages[_selected.value];
+    int count = 0;
+    packages.forEach((element) {
+      if (element.class1 == _sfoof[_selected.value]) {
+        if (checkedPackages[count] == !isSelected) {
+          checkPackage(count, isSelected);
+        }
+      }
+      count++;
+    });
+  }
+
+  bool getValueOfSelectAllPackages() {
+    return selectedAllSaffPackages[_selected.value];
+  }
+
+  void checkNote(int index,bool isSelected) {
+    checkedBooks[index] = isSelected;
     if (checkedBooks[index]) {
       price.value += books[index].bookPrice ?? 0;
       _repository.addNote(books[index].id ?? 0, booksQuantity[index].toString(), (booksQuantity[index] * (books[index].bookPrice ?? 0)).toString());
@@ -123,8 +159,8 @@ class AddOrderController extends GetxController {
     }
   }
 
-  void checkPackage(int index) {
-    checkedPackages[index] = !checkedPackages[index];
+  void checkPackage(int index, bool isSelected) {
+    checkedPackages[index] = isSelected;
     if (checkedPackages[index]) {
       price.value += int.parse(packages[index].price ?? '0');
       _repository.addPackage(packages[index].id ?? 0, booksQuantity[index].toString(), (booksQuantity[index] * (books[index].bookPrice ?? 0)).toString());

@@ -65,24 +65,40 @@ class TabNotes extends StatelessWidget {
         controller.filteredNotes.isEmpty ?
         const EmptyScreen(emptyString: AppStrings.noNotes)
             :
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const ClampingScrollPhysics(),
-              itemCount: controller.books.length,
-              itemBuilder: (BuildContext context, int index) {
-                return controller.isBookInList(index) ? Container(
-                  margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-                    border: Border.all(
-                      color: ColorManager.lightGrey,
-                      width: 1,
+            Column(
+              children: [
+                Row(
+                  children: [
+                    Checkbox(
+                      value: controller.getValueOfSelectAllNotes(),
+                      onChanged: (isSelected) => controller.selectAllNotes(isSelected ?? false),
                     ),
-                  ),
-                  child: TabNoteItem(index: index,),
-                ) : Container();
-              },
+                    Text(
+                      AppStrings.selectAll,
+                      style: getLargeStyle(),
+                    ),
+                  ],
+                ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const ClampingScrollPhysics(),
+                  itemCount: controller.books.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return controller.isBookInList(index) ? Container(
+                      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                        border: Border.all(
+                          color: ColorManager.lightGrey,
+                          width: 1,
+                        ),
+                      ),
+                      child: TabNoteItem(index: index,),
+                    ) : Container();
+                  },
+                ),
+              ],
             ),
           ],
         );

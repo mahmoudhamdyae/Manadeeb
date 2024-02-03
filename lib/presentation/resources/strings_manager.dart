@@ -84,6 +84,7 @@ class AppStrings {
   static const addOrderTabNotes = "المذكرات";
   static const addOrderTabPackages = "الباقات";
   static const orderButton = "طلب";
+  static const selectAll = "اختيار الكل";
   // Form
   static const String userNameInvalid = "اسم المشترى لا يمكن أن يكون فارغا";
   static const usernameHint = "الاسم";
