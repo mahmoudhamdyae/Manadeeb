@@ -143,4 +143,9 @@ class RepositoryImpl extends Repository {
   Future<void> deleteAllCart() async {
     return await _remoteDataSource.deleteAllCart(_localDataSource.getUserId());
   }
+
+  @override
+  Future<void> sendData(List<int> booksIds, List<int> packagesIds, List<int> booksQuantity, List<int> packagesQuantity) {
+    return _remoteDataSource.sendData(booksIds, packagesIds, booksQuantity, packagesQuantity);
+  }
 }

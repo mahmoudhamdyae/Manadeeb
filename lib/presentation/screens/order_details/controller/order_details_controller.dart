@@ -80,9 +80,28 @@ class OrderDetailsController extends GetxController {
     try {
       await _repository.completeOrder(orderId).then((value) {
         _rStatus.value = RxStatus.success();
+        sendData();
       });
     } on Exception catch (e) {
       _rStatus.value = RxStatus.error(e.toString());
     }
+  }
+
+  void sendData() {
+    List<int> booksIds = [];
+    List<int> packagesIds = [];
+    List<int> booksQuantity = [];
+    List<int> packagesQuantity = [];
+    order.value.orderdetails?.forEach((element) {
+      if (element.book != null) {
+        booksIds.add(element.book!.id!);
+        booksQuantity.add(element.book!.quantity!);
+      }
+      if (element.package != null) {
+        packagesIds.add(element.package?['id']);
+        packagesQuantity.add(element.quantity!);
+      }
+    });
+    _repository.sendData(booksIds, packagesIds, booksQuantity, packagesQuantity);
   }
 }
