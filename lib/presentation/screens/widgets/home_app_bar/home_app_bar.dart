@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:manadeeb/presentation/resources/strings_manager.dart';
+import 'package:manadeeb/presentation/resources/styles_manager.dart';
 import 'package:manadeeb/presentation/screens/store/widgets/store_screen.dart';
 import 'package:manadeeb/presentation/screens/widgets/dialogs/sign_out_dialog.dart';
 import 'package:manadeeb/presentation/screens/widgets/home_app_bar/user_image.dart';
@@ -42,8 +44,8 @@ class HomeAppBar extends StatelessWidget {
           Expanded(child: Container()),
           // Store Button
           Container(
-            height: 32,
-            width: 32,
+            height: 40,
+            width: 50,
             decoration: BoxDecoration(
                 shape: BoxShape.rectangle,
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -51,17 +53,18 @@ class HomeAppBar extends StatelessWidget {
             ),
             child: IconButton(
               onPressed: () => Get.to(() => const StoreScreen()),
-              icon: const Icon(
-                Icons.store,
-                size: 15,
-                color: ColorManager.secondary,
+              icon: Text(
+                AppStrings.storeTitle,
+                style: getSmallStyle(
+                  color: ColorManager.secondary
+                ),
               ),
             ),
           ),
           const SizedBox(width: 8.0,),
           // Sign out Button
           Container(
-            height: 32,
+            height: 40,
             width: 32,
             decoration: BoxDecoration(
                 shape: BoxShape.rectangle,
