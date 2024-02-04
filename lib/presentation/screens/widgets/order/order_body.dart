@@ -21,6 +21,7 @@ class OrderBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   order.buyer ?? '',
@@ -36,6 +37,7 @@ class OrderBody extends StatelessWidget {
               ],
             ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
                   '${order.priceAll ?? ''} د.ك',
