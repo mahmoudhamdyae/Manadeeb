@@ -71,9 +71,9 @@ class AddOrderController extends GetxController {
     super.onInit();
     _getNotesAndPackages();
     cities.value = Get.find<NewOrdersController>().cities;
-    cities.forEach((element) {
+    for (var element in cities) {
       areas.add(element.name ?? '');
-    });
+    }
     selectedAllSaffNotes.value = List.generate(_sfoof.length, (index) => false);
     selectedAllSaffPackages.value = List.generate(_sfoof.length, (index) => false);
   }
@@ -108,12 +108,6 @@ class AddOrderController extends GetxController {
     selectedCityId.value = city.id ?? -1;
   }
 
-  void checkAllNotes() {
-  }
-
-  void checkAllPackages() {
-  }
-
   bool getValueOfSelectAllNotes() {
     return selectedAllSaffNotes[_selected.value];
   }
@@ -121,27 +115,27 @@ class AddOrderController extends GetxController {
   void selectAllNotes(bool isSelected) {
     selectedAllSaffNotes[_selected.value] = !selectedAllSaffNotes[_selected.value];
     int count = 0;
-    books.forEach((element) {
+    for (var element in books) {
       if (element.classroom == _sfoof[_selected.value]) {
         if (checkedBooks[count] == !isSelected) {
           checkNote(count, isSelected);
         }
       }
       count++;
-    });
+    }
   }
 
   void selectAllPackages(bool isSelected) {
     selectedAllSaffPackages[_selected.value] = !selectedAllSaffPackages[_selected.value];
     int count = 0;
-    packages.forEach((element) {
+    for (var element in packages) {
       if (element.class1 == _sfoof[_selected.value]) {
         if (checkedPackages[count] == !isSelected) {
           checkPackage(count, isSelected);
         }
       }
       count++;
-    });
+    }
   }
 
   bool getValueOfSelectAllPackages() {
@@ -177,6 +171,7 @@ class AddOrderController extends GetxController {
     try {
       await _repository.createOrder(userName.text, phone.text, selectedCityId.toString(), address.text, priceTextField.text).then((value) {
         _orderStatus.value = RxStatus.success();
+        sendData();
       });
     } on Exception catch (e) {
       _orderStatus.value = RxStatus.error(e.toString());
@@ -231,5 +226,29 @@ class AddOrderController extends GetxController {
 
   Future<void> deleteAllCart() async {
     await _repository.deleteAllCart();
+  }
+
+  void sendData() {
+    List<int> myBooksIds = [];
+    List<int> myPackagesIds = [];
+    List<int> myBooksQuantity = [];
+    List<int> myPackagesQuantity = [];
+    int count = 0;
+    for (var element in checkedBooks) {
+      if (element) {
+        myBooksIds.add(books[count].id ?? -1);
+        myBooksQuantity.add(booksQuantity[count]);
+      }
+      count++;
+    }
+    count = 0;
+    for (var element in checkedPackages) {
+      if (element) {
+        myPackagesIds.add(packages[count].id ?? -1);
+        myPackagesQuantity.add(packagesQuantity[count]);
+      }
+      count++;
+    }
+    _repository.sendData(myBooksIds, myPackagesIds, myBooksQuantity, myPackagesQuantity);
   }
 }

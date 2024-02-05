@@ -69,6 +69,7 @@ class OrderDetailsController extends GetxController {
     try {
       await _repository.receiveOrder(orderId).then((remoteOrderDetails) {
         _rStatus.value = RxStatus.success();
+        sendData();
       });
     } on Exception catch (e) {
       _rStatus.value = RxStatus.error(e.toString());
@@ -80,7 +81,6 @@ class OrderDetailsController extends GetxController {
     try {
       await _repository.completeOrder(orderId).then((value) {
         _rStatus.value = RxStatus.success();
-        sendData();
       });
     } on Exception catch (e) {
       _rStatus.value = RxStatus.error(e.toString());

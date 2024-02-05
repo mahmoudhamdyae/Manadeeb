@@ -9,11 +9,15 @@ class NotesAndPackages {
     status = json['status'];
     if (json['books'] != null) {
       books = <Books>[];
-      json['books'].forEach((v) { books!.add(Books.fromJson(v)); });
+      json['books'].forEach((v) {
+        books!.add(Books.fromJson(v));
+      });
     }
     if (json['packages'] != null) {
       packages = <Packages>[];
-      json['packages'].forEach((v) { packages!.add(Packages.fromJson(v)); });
+      json['packages'].forEach((v) {
+        packages!.add(Packages.fromJson(v));
+      });
     }
   }
 
@@ -45,7 +49,20 @@ class Books {
   String? createdAt;
   String? updatedAt;
 
-  Books({this.id, this.name, this.techerId, this.stage, this.classroom, this.quantity, this.teacherRatio, this.bookPrice, this.termType, this.active, this.pdf, this.createdAt, this.updatedAt});
+  Books(
+      {this.id,
+      this.name,
+      this.techerId,
+      this.stage,
+      this.classroom,
+      this.quantity,
+      this.teacherRatio,
+      this.bookPrice,
+      this.termType,
+      this.active,
+      this.pdf,
+      this.createdAt,
+      this.updatedAt});
 
   Books.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -94,33 +111,43 @@ class Packages {
   String? createdAt;
   String? updatedAt;
 
-  Packages({this.id, this.name, this.description, this.stage, this.class1, this.price, this.expiryDate, this.isActive, this.createdAt, this.updatedAt});
+  Packages(
+      {this.id,
+      this.name,
+      this.description,
+      this.stage,
+      this.class1,
+      this.price,
+      this.expiryDate,
+      this.isActive,
+      this.createdAt,
+      this.updatedAt});
 
   Packages.fromJson(Map<String, dynamic> json) {
-  id = json['id'];
-  name = json['name'];
-  description = json['description'];
-  stage = json['stage'];
-  class1 = json['class'];
-  price = json['price'];
-  expiryDate = json['expiry_date'];
-  isActive = json['is_active'];
-  createdAt = json['created_at'];
-  updatedAt = json['updated_at'];
+    id = json['id'];
+    name = json['name'];
+    description = json['description'];
+    stage = json['stage'];
+    class1 = json['class'];
+    price = json['price'];
+    expiryDate = json['expiry_date'];
+    isActive = json['is_active'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
   }
 
   Map<String, dynamic> toJson() {
-  final Map<String, dynamic> data = <String, dynamic>{};
-  data['id'] = id;
-  data['name'] = name;
-  data['description'] = description;
-  data['stage'] = stage;
-  data['class'] = class1;
-  data['price'] = price;
-  data['expiry_date'] = expiryDate;
-  data['is_active'] = isActive;
-  data['created_at'] = createdAt;
-  data['updated_at'] = updatedAt;
-  return data;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['description'] = description;
+    data['stage'] = stage;
+    data['class'] = class1;
+    data['price'] = price;
+    data['expiry_date'] = expiryDate;
+    data['is_active'] = isActive;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    return data;
   }
 }

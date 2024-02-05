@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:manadeeb/domain/models/notes_and_packages.dart';
 import 'package:manadeeb/domain/models/order_response.dart';
@@ -28,7 +30,7 @@ abstract class RemoteDataSource {
   Future<void> delPackage(int packageId);
   Future<void> createOrder(String name, String phone, String cityId, String address, String price, int userId);
   Future<void> deleteAllCart(int userId);
-  Future<void> sendData(List<int> booksIds, List<int> packagesIds, List<int> booksQuantity, List<int> packagesQuantity);
+  Future<void> sendData(List<int> booksIds, List<int> packagesIds, List<int> booksQuantity, List<int> packagesQuantity, int userId);
 }
 
 class RemoteDataSourceImpl extends RemoteDataSource {
@@ -216,10 +218,37 @@ class RemoteDataSourceImpl extends RemoteDataSource {
   }
 
   @override
-  Future<void> sendData(List<int> booksIds, List<int> packagesIds, List<int> booksQuantity, List<int> packagesQuantity) async {
+  Future<void> sendData(List<int> booksIds, List<int> packagesIds, List<int> booksQuantity, List<int> packagesQuantity, int userId) async {
     await _checkNetwork();
+    var items = [];
 
-    // String url = "${Constants.baseUrl}mandub/books/cart/delete/package/all/$userId";
-    // await _dio.post(url);
+    int count = 0;
+    for (int id in packagesIds) {
+      await getPackage(id).then((package) {
+        package.book?.forEach((element) {
+          items.add({
+            'id': element.id,
+            'quantity': packagesQuantity[count],
+          });
+        });
+      });
+      count++;
+    }
+
+    int count2 = 0;
+    for (var element in booksIds) {
+      items.add({
+        'id': element,
+        'quantity': booksQuantity[count2],
+      });
+      count2++;
+    }
+
+    var body =  {
+      'updates': items,
+    };
+
+    String url = "${Constants.baseUrl}mandub/update/quantity/from/book/current/order/$userId";
+    await _dio.post(url, data: jsonEncode(body));
   }
 }

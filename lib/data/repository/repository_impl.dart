@@ -146,6 +146,6 @@ class RepositoryImpl extends Repository {
 
   @override
   Future<void> sendData(List<int> booksIds, List<int> packagesIds, List<int> booksQuantity, List<int> packagesQuantity) {
-    return _remoteDataSource.sendData(booksIds, packagesIds, booksQuantity, packagesQuantity);
+    return _remoteDataSource.sendData(booksIds, packagesIds, booksQuantity, packagesQuantity, _localDataSource.getUserId());
   }
 }
