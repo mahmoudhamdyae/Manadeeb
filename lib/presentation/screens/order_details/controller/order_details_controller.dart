@@ -92,15 +92,15 @@ class OrderDetailsController extends GetxController {
     List<int> packagesIds = [];
     List<int> booksQuantity = [];
     List<int> packagesQuantity = [];
+
+    for (var element in books) { booksIds.add(element.id!); }
+    for (var element in packages) { packagesIds.add(element['id']); }
+
     order.value.orderdetails?.forEach((element) {
-      if (element.book != null) {
-        booksIds.add(element.book!.id!);
-        booksQuantity.add(element.book!.quantity!);
-      }
-      if (element.package != null) {
-        packagesIds.add(element.package?['id']);
-        packagesQuantity.add(element.quantity!);
-      }
+      if (element.package == null) booksQuantity.add(element.quantity ?? 1);
+    });
+    order.value.orderdetails?.forEach((element) {
+      if (element.book == null) packagesQuantity.add(element.quantity ?? 1);
     });
     _repository.sendData(booksIds, packagesIds, booksQuantity, packagesQuantity);
   }
