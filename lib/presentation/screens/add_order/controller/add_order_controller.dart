@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:manadeeb/domain/models/notes_and_packages.dart';
 import 'package:manadeeb/domain/models/order_response.dart';
 import 'package:manadeeb/domain/repository/repository.dart';
+import 'package:manadeeb/presentation/screens/home/current_orders/controller/current_orders_controller.dart';
 import 'package:manadeeb/presentation/screens/home/new_orders/controller/new_orders_controller.dart';
 
 import '../../../resources/strings_manager.dart';
@@ -172,6 +173,7 @@ class AddOrderController extends GetxController {
       await _repository.createOrder(userName.text, phone.text, selectedCityId.toString(), address.text, priceTextField.text).then((value) {
         _orderStatus.value = RxStatus.success();
         sendData();
+        Get.find<CurrentOrdersController>().getOrders();
       });
     } on Exception catch (e) {
       _orderStatus.value = RxStatus.error(e.toString());
