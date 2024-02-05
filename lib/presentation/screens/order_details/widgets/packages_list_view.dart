@@ -28,11 +28,11 @@ class PackagesListView extends StatelessWidget {
 
   Widget _buildOneColumnList(OrderDetailsController controller) {
     return ListView.builder(
-      itemCount: controller.packageNo.value,
+      itemCount: controller.order.value.orderdetails?.length ?? 0,
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
-        return _buildItem(controller.packages, controller.order.value, index);
+        return _buildItem(controller.order.value, index);
       },
     );
   }
@@ -43,14 +43,15 @@ class PackagesListView extends StatelessWidget {
       physics: const ClampingScrollPhysics(),
       crossAxisCount:(MediaQuery.of(context).size.width ~/ 210).toInt(),
       childAspectRatio: 1.5,
-      children: List.generate(controller.packages.length, (index) {
-        return _buildItem(controller.packages, controller.order.value, index);
+      children: List.generate(controller.order.value.orderdetails?.length ?? 0, (index) {
+        return _buildItem(controller.order.value, index);
       }),
     );
   }
 
-  Widget _buildItem(List<Map<String, dynamic>> packages, OrderDetailsResponse order, int index) {
-    return Container(
+  Widget _buildItem(OrderDetailsResponse order, int index) {
+    Map<String, dynamic>? packages = order.orderdetails?[index].package;
+    return packages == null ? Container() : Container(
       margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
       decoration: BoxDecoration(
@@ -67,11 +68,11 @@ class PackagesListView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                packages[index]['name'] ?? '',
+                packages['name'] ?? '',
                 style: getLargeStyle(),
               ),
               Text(
-                '${packages[index]['price'] ?? ''} د.ك',
+                '${packages['price'] ?? ''} د.ك',
                 style: getLargeStyle(
                   color: ColorManager.secondary,
                 ),
@@ -83,7 +84,7 @@ class PackagesListView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                packages[index]['class'] ?? '',
+                packages['class'] ?? '',
                 style: getSmallStyle(
                     color: ColorManager.grey
                 ),
@@ -102,13 +103,8 @@ class PackagesListView extends StatelessWidget {
             child: OutlinedButton(
               style: getOutlinedButtonStyle(),
               onPressed: () {
-                Get.find<PackageController>().getPackage(packages[index]['id']);
+                Get.find<PackageController>().getPackage(packages['id']);
                 Get.to(() => const PackageScreen());
-                // showDialog(context: context, builder: (BuildContext context) {
-                //   return const AlertDialog(
-                //     content: PackageDialog(),
-                //   );
-                // });
               },
               child: Text(
                 AppStrings.packageDetails,
