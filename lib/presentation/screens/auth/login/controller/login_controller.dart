@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:manadeeb/presentation/screens/home/new_orders/controller/new_orders_controller.dart';
 
 import '../../../../../domain/repository/repository.dart';
 
@@ -34,6 +35,7 @@ class LoginController extends GetxController {
     try {
       await _repository.logIn(phone.text, password.text).then((value) {
         _status.value = RxStatus.success();
+        Get.find<NewOrdersController>().getOrders();
       });
     } on Exception catch (e) {
       _status.value = RxStatus.error(e.toString());

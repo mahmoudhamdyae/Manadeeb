@@ -60,6 +60,9 @@ class AppStrings {
   static const String stationButton = 'تم الاستلام';
   static const String call = 'اتصال';
   static const String whats = 'واتس';
+  static const String ordersTotal = 'إجمالى الطلبيات';
+  static const String deliverTotal = 'إجمالى التوصيل';
+  static const String total = 'الإجمالى';
 
   // Bottom Bar
   static const String bottomBarNewOrders = 'الطلبات الجديدة';
