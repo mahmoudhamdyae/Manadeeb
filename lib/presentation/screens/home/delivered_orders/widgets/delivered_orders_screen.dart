@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:manadeeb/domain/models/order_type.dart';
 import 'package:manadeeb/presentation/resources/styles_manager.dart';
 
-import '../../../../resources/color_manager.dart';
 import '../../../../resources/strings_manager.dart';
 import '../../../widgets/empty_screen.dart';
 import '../../../widgets/error_screen.dart';
