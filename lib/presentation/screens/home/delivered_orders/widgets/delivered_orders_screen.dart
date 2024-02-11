@@ -43,9 +43,14 @@ class DeliveredOrdersScreen extends StatelessWidget {
                                 AppStrings.ordersTotal,
                                 style: getLargeStyle(),
                               ),
-                              Text(
-                                '90 د.ك',
-                                style: getSmallStyle(),
+                              GetX<DeliveredOrdersController>(
+                                init: Get.find<DeliveredOrdersController>(),
+                                builder: (DeliveredOrdersController controller) {
+                                  return Text(
+                                    '${controller.total1} د.ك',
+                                    style: getSmallStyle(),
+                                  );
+                                },
                               ),
                             ]
                         ),
@@ -57,9 +62,14 @@ class DeliveredOrdersScreen extends StatelessWidget {
                               AppStrings.deliverTotal,
                               style: getLargeStyle(),
                             ),
-                            Text(
-                            '10 د.ك',
-                              style: getSmallStyle(),
+                            GetX<DeliveredOrdersController>(
+                              init: Get.find<DeliveredOrdersController>(),
+                              builder: (DeliveredOrdersController controller) {
+                                return Text(
+                                  '${controller.total2} د.ك',
+                                  style: getSmallStyle(),
+                                );
+                              },
                             ),
                           ]
                         ),
@@ -71,9 +81,14 @@ class DeliveredOrdersScreen extends StatelessWidget {
                                 AppStrings.total,
                                 style: getLargeStyle(),
                               ),
-                              Text(
-                                '100 د.ك',
-                                style: getSmallStyle(),
+                              GetX<DeliveredOrdersController>(
+                                init: Get.find<DeliveredOrdersController>(),
+                                builder: (DeliveredOrdersController controller) {
+                                  return Text(
+                                    '${controller.total3} د.ك',
+                                    style: getSmallStyle(),
+                                  );
+                                },
                               ),
                             ]
                         ),
