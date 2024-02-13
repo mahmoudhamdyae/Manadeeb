@@ -8,7 +8,7 @@ import '../../../../resources/font_manager.dart';
 import '../../../../resources/strings_manager.dart';
 import '../../../../resources/styles_manager.dart';
 import '../../../../resources/values_manager.dart';
-import '../../../home/new_orders/widgets/new_orders_screen.dart';
+import '../../../widgets/coding_site_widget.dart';
 import '../../../widgets/dialogs/error_dialog.dart';
 import '../../../widgets/dialogs/loading_dialog.dart';
 import '../controller/login_controller.dart';
@@ -134,11 +134,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Text(
                             AppStrings.login,
                             style: getSmallStyle(
-                              color: ColorManager.white
+                              color: ColorManager.white,
                             ),
                           ),
                         ),
                       ),
+                      const SizedBox(height: 8.0,),
+                      const CodingSiteWidget(),
                     ],
                   ),
                 ),

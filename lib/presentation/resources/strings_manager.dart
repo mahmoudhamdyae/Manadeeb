@@ -1,5 +1,6 @@
 class AppStrings {
   static const appName = "Manadeeb";
+  static const madeBy = 'made by ♥ coding-site.com';
 
   // Error Handler
   static const String noInternetError = "يُرجى التحقق من اتصالك بالإنترنت";
