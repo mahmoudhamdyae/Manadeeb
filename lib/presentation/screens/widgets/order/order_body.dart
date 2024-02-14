@@ -46,10 +46,15 @@ class OrderBody extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8.0,),
-                Text(
-                  order.address ?? '',
-                  style: getSmallStyle(
-                    color: ColorManager.grey,
+                SizedBox(
+                  width: 150,
+                  child: Text(
+                    order.address ?? '',
+                    style: getSmallStyle(
+                      color: ColorManager.grey,
+                    ),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],

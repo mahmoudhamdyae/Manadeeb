@@ -20,10 +20,10 @@ class NewOrdersController extends GetxController {
     getOrders();
   }
 
-  void getOrders() {
+  Future<void> getOrders() async {
     _status.value = RxStatus.loading();
     try {
-      _repository.getOrders().then((remoteOrders) {
+      await _repository.getOrders().then((remoteOrders) {
         _status.value = RxStatus.success();
         orders.value = remoteOrders.orders ?? [];
         cities.value = remoteOrders.cities ?? [];

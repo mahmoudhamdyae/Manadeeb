@@ -12,11 +12,13 @@ class OrdersList extends StatelessWidget {
 
   final List<Order> orders;
   final OrderType orderType;
-  const OrdersList({super.key, required this.orders, required this.orderType});
+  final bool fromNew;
+  const OrdersList({super.key, required this.orders, required this.orderType, this.fromNew = false});
 
   @override
   Widget build(BuildContext context) {
-    return isWide(context) ? _buildGridView(context, orders, orderType)
+    return fromNew ? _buildListView(orders, orderType) : isWide(context) ?
+    _buildGridView(context, orders, orderType)
         :
     _buildListView(orders, orderType);
   }
@@ -26,8 +28,8 @@ Widget _buildGridView(BuildContext context, List<Order> orders, OrderType orderT
   return GridView.count(
     shrinkWrap: true,
     physics: const ClampingScrollPhysics(),
-    crossAxisCount:(MediaQuery.of(context).size.width ~/ 210).toInt(),
-    childAspectRatio: 1.5,
+    crossAxisCount:(MediaQuery.of(context).size.width ~/ 350).toInt(),
+    childAspectRatio: 2.2,
     children: List.generate(orders.length, (index) {
       return _buildItem(orders[index], orderType);
     }),
@@ -37,7 +39,8 @@ Widget _buildGridView(BuildContext context, List<Order> orders, OrderType orderT
 Widget _buildListView(List<Order> orders, OrderType orderType) {
   return ListView.builder(
     shrinkWrap: true,
-    physics: const ClampingScrollPhysics(),
+    // physics: const ClampingScrollPhysics(),
+    physics: const AlwaysScrollableScrollPhysics(),
     itemCount: orders.length,
     itemBuilder: (BuildContext context, int index) {
       return _buildItem(orders[index], orderType);
