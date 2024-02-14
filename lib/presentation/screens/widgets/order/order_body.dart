@@ -55,6 +55,7 @@ class OrderBody extends StatelessWidget {
                     ),
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.left,
                   ),
                 ),
               ],
