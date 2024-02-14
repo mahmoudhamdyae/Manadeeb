@@ -20,87 +20,94 @@ class DeliveredOrdersScreen extends StatelessWidget {
       body: GetX<DeliveredOrdersController>(
         init: Get.find<DeliveredOrdersController>(),
         builder: (DeliveredOrdersController controller) {
-          return ListView(
-            shrinkWrap: true,
-            physics: const ClampingScrollPhysics(),
-            children: [
-              HomeAppBar(),
-              controller.status.isLoading ? const LoadingScreen() :
-              controller.status.isError ? ErrorScreen(error: controller.status.errorMessage ?? '') :
-              controller.orders.isEmpty ? const EmptyScreen(emptyString: AppStrings.emptyOrders) :
-              ListView(
-                shrinkWrap: true,
-                physics: const ClampingScrollPhysics(),
-                children: [
-                  const SizedBox(height: 8.0,),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Column(
+          return RefreshIndicator(
+            onRefresh: _refreshOrders,
+            child: ListView(
+              shrinkWrap: true,
+              physics: const AlwaysScrollableScrollPhysics(),
+              children: [
+                HomeAppBar(),
+                controller.status.isLoading ? const LoadingScreen() :
+                controller.status.isError ? ErrorScreen(error: controller.status.errorMessage ?? '') :
+                controller.orders.isEmpty ? const EmptyScreen(emptyString: AppStrings.emptyOrders) :
+                ListView(
+                  shrinkWrap: true,
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  children: [
+                    const SizedBox(height: 8.0,),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                              children: [
+                                Text(
+                                  AppStrings.ordersTotal,
+                                  style: getLargeStyle(),
+                                ),
+                                GetX<DeliveredOrdersController>(
+                                  init: Get.find<DeliveredOrdersController>(),
+                                  builder: (DeliveredOrdersController controller) {
+                                    return Text(
+                                      '${controller.total1} د.ك',
+                                      style: getSmallStyle(),
+                                    );
+                                  },
+                                ),
+                              ]
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
                             children: [
                               Text(
-                                AppStrings.ordersTotal,
+                                AppStrings.deliverTotal,
                                 style: getLargeStyle(),
                               ),
                               GetX<DeliveredOrdersController>(
                                 init: Get.find<DeliveredOrdersController>(),
                                 builder: (DeliveredOrdersController controller) {
                                   return Text(
-                                    '${controller.total1} د.ك',
+                                    '${controller.total2} د.ك',
                                     style: getSmallStyle(),
                                   );
                                 },
                               ),
                             ]
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          children: [
-                            Text(
-                              AppStrings.deliverTotal,
-                              style: getLargeStyle(),
-                            ),
-                            GetX<DeliveredOrdersController>(
-                              init: Get.find<DeliveredOrdersController>(),
-                              builder: (DeliveredOrdersController controller) {
-                                return Text(
-                                  '${controller.total2} د.ك',
-                                  style: getSmallStyle(),
-                                );
-                              },
-                            ),
-                          ]
+                        Expanded(
+                          child: Column(
+                              children: [
+                                Text(
+                                  AppStrings.total,
+                                  style: getLargeStyle(),
+                                ),
+                                GetX<DeliveredOrdersController>(
+                                  init: Get.find<DeliveredOrdersController>(),
+                                  builder: (DeliveredOrdersController controller) {
+                                    return Text(
+                                      '${controller.total3} د.ك',
+                                      style: getSmallStyle(),
+                                    );
+                                  },
+                                ),
+                              ]
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: Column(
-                            children: [
-                              Text(
-                                AppStrings.total,
-                                style: getLargeStyle(),
-                              ),
-                              GetX<DeliveredOrdersController>(
-                                init: Get.find<DeliveredOrdersController>(),
-                                builder: (DeliveredOrdersController controller) {
-                                  return Text(
-                                    '${controller.total3} د.ك',
-                                    style: getSmallStyle(),
-                                  );
-                                },
-                              ),
-                            ]
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8.0,),
-                  OrdersList(orders: controller.orders, orderType: OrderType.completeOrder,)
-                ],
-              ),
-            ],);
+                      ],
+                    ),
+                    const SizedBox(height: 8.0,),
+                    OrdersList(orders: controller.orders, orderType: OrderType.completeOrder,)
+                  ],
+                ),
+              ],),
+          );
         },
       ),
     );
+  }
+
+  Future<void> _refreshOrders() async {
+    Get.find<DeliveredOrdersController>().getOrders();
   }
 }

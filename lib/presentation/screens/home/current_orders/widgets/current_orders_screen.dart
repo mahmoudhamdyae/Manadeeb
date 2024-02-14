@@ -19,18 +19,25 @@ class CurrentOrderScreen extends StatelessWidget {
       body: GetX<CurrentOrdersController>(
         init: Get.find<CurrentOrdersController>(),
         builder: (CurrentOrdersController controller) {
-          return ListView(
-            shrinkWrap: true,
-            physics: const ClampingScrollPhysics(),
-            children: [
-              HomeAppBar(),
-              controller.status.isLoading ? const LoadingScreen() :
-              controller.status.isError ? ErrorScreen(error: controller.status.errorMessage ?? '') :
-              controller.orders.isEmpty ? const EmptyScreen(emptyString: AppStrings.emptyOrders) :
-              OrdersList(orders: controller.orders, orderType: OrderType.currentOrder,),
-            ],);
+          return RefreshIndicator(
+            onRefresh: _refreshOrders,
+            child: ListView(
+              shrinkWrap: true,
+              physics: const AlwaysScrollableScrollPhysics(),
+              children: [
+                HomeAppBar(),
+                controller.status.isLoading ? const LoadingScreen() :
+                controller.status.isError ? ErrorScreen(error: controller.status.errorMessage ?? '') :
+                controller.orders.isEmpty ? const EmptyScreen(emptyString: AppStrings.emptyOrders) :
+                OrdersList(orders: controller.orders, orderType: OrderType.currentOrder,),
+              ],),
+          );
         },
       ),
     );
+  }
+
+  Future<void> _refreshOrders() async {
+    Get.find<CurrentOrdersController>().getOrders();
   }
 }
