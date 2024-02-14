@@ -32,7 +32,7 @@ class DeliveredOrdersScreen extends StatelessWidget {
                 controller.orders.isEmpty ? const EmptyScreen(emptyString: AppStrings.emptyOrders) :
                 ListView(
                   shrinkWrap: true,
-                  physics: const AlwaysScrollableScrollPhysics(),
+                  physics: const ClampingScrollPhysics(),
                   children: [
                     const SizedBox(height: 8.0,),
                     Row(

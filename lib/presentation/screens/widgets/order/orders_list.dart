@@ -39,8 +39,7 @@ Widget _buildGridView(BuildContext context, List<Order> orders, OrderType orderT
 Widget _buildListView(List<Order> orders, OrderType orderType) {
   return ListView.builder(
     shrinkWrap: true,
-    // physics: const ClampingScrollPhysics(),
-    physics: const AlwaysScrollableScrollPhysics(),
+    physics: const ClampingScrollPhysics(),
     itemCount: orders.length,
     itemBuilder: (BuildContext context, int index) {
       return _buildItem(orders[index], orderType);
