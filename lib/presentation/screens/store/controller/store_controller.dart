@@ -24,6 +24,7 @@ class StoreController extends GetxController {
   }
 
   final RxInt _selected = 0.obs;
+  RxInt get selected => _selected;
   bool isSelected(int index) {
     return _selected.value == index;
   }
@@ -46,7 +47,7 @@ class StoreController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _getAllNotes(_sfoof[_selected.value]);
+    getAllNotes(_sfoof[_selected.value]);
   }
 
   void _filterNotes() {
@@ -55,10 +56,10 @@ class StoreController extends GetxController {
     filteredNotes.value = filteredMandubBooks ?? [];
   }
 
-  void _getAllNotes(String saff) {
+  Future<void> getAllNotes(String saff) async {
     _status.value = RxStatus.loading();
     try {
-      _repository.getNotes(saff).then((remoteNotes) {
+      await _repository.getNotes(saff).then((remoteNotes) {
         _status.value = RxStatus.success();
         _notes.value = remoteNotes;
         _filterNotes();
@@ -73,21 +74,6 @@ class StoreController extends GetxController {
     try {
       await _repository.tawreed(bookId).then((value) {
         _tawreedStatus.value = RxStatus.success();
-        // var x = filteredNotes.firstWhere((element) => element.id == bookId);
-        // x.pivot?.station = 0;
-        // int count = -1;
-        // filteredNotes.forEach((element) {
-        //   count++;
-        //   if (index == count) {
-        //     filteredNotes.remove(element);
-        //     filteredNotes.add(x);
-        //   } else {
-        //     filteredNotes.remove(element);
-        //     filteredNotes.add(element);
-        //   }
-        // });
-        // _getAllNotes(_sfoof[_selected.value]);
-        // _status.value = RxStatus.loading();
         try {
           _repository.getNotes(_sfoof[_selected.value]).then((remoteNotes) {
             _status.value = RxStatus.success();

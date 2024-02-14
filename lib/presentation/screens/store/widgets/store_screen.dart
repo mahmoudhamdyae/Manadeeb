@@ -22,63 +22,69 @@ class StoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        shrinkWrap: true,
-        physics: const ClampingScrollPhysics(),
-        children: [
-          const TopBar(title: AppStrings.storeTitle),
-          SizedBox(
-            height: 50,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: Get.find<StoreController>().getSfoofLength(),
-              itemBuilder: (BuildContext context, int index) {
-                return GetX<StoreController>(
-                  init: Get.find<StoreController>(),
-                  builder: (StoreController controller) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: InkWell(
-                        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-                        onTap: () => controller.select(index) ,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-                            border: Border.all(
-                              color: controller.isSelected(index) ? ColorManager.grey : ColorManager.lightGrey,
+      body: RefreshIndicator(
+        onRefresh: () async {
+          StoreController controller = Get.find<StoreController>();
+          await controller.getAllNotes(controller.sfoof[controller.selected.value]);
+          },
+        child: ListView(
+          shrinkWrap: true,
+          physics: const AlwaysScrollableScrollPhysics(),
+          children: [
+            const TopBar(title: AppStrings.storeTitle),
+            SizedBox(
+              height: 50,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: Get.find<StoreController>().getSfoofLength(),
+                itemBuilder: (BuildContext context, int index) {
+                  return GetX<StoreController>(
+                    init: Get.find<StoreController>(),
+                    builder: (StoreController controller) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: InkWell(
+                          borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                          onTap: () => controller.select(index) ,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                              border: Border.all(
+                                color: controller.isSelected(index) ? ColorManager.grey : ColorManager.lightGrey,
+                              ),
+                              color: controller.isSelected(index) ? ColorManager.lightGrey : ColorManager.white,
                             ),
-                            color: controller.isSelected(index) ? ColorManager.lightGrey : ColorManager.white,
-                          ),
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text(
-                            controller.sfoof[index],
-                            style: getSmallStyle(),
+                            padding: const EdgeInsets.all(4.0),
+                            child: Text(
+                              controller.sfoof[index],
+                              style: getSmallStyle(),
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  },
-                );
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+            GetX<StoreController>(
+              init: Get.find<StoreController>(),
+              builder: (StoreController controller) {
+                List<MandubBooks> books = controller.filteredNotes;
+                if (controller.status.isLoading) {
+                  return const LoadingScreen();
+                } else if (controller.status.isError) {
+                  return ErrorScreen(error: controller.status.errorMessage ?? '');
+                } else if (books.isEmpty) {
+                  return const EmptyScreen(emptyString: AppStrings.noNotes);
+                }
+                return isWide(context) ? _buildTwoColumn(context, controller)
+                    :
+                _buildOneColumn(controller);
               },
             ),
-          ),
-          GetX<StoreController>(
-            init: Get.find<StoreController>(),
-            builder: (StoreController controller) {
-              List<MandubBooks> books = controller.filteredNotes;
-              if (controller.status.isLoading) {
-                return const LoadingScreen();
-              } else if (controller.status.isError) {
-                return ErrorScreen(error: controller.status.errorMessage ?? '');
-              } else if (books.isEmpty) {
-                return const EmptyScreen(emptyString: AppStrings.noNotes);
-              }
-              return isWide(context) ? _buildTwoColumn(context, controller)
-                  :
-              _buildOneColumn(controller);
-            },
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
