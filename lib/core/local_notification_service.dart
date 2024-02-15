@@ -27,8 +27,8 @@ class LocalNotificationService {
 
   void showNotificationAndroid(String title, String value) async {
     const AndroidNotificationDetails androidNotificationDetails =
-    AndroidNotificationDetails('channel_id', 'Channel Name',
-        channelDescription: 'Channel Description',
+    AndroidNotificationDetails('1', 'New Orders',
+        channelDescription: 'New orders from students',
         importance: Importance.max,
         priority: Priority.high,
         ticker: 'ticker');
@@ -41,9 +41,8 @@ class LocalNotificationService {
         .show(notification_id, title, value, notificationDetails, payload: 'Not present');
   }
 
-
   // void showNotificationIos(String title, String value) async {
-  //   const IOSNotificationDetails iOSPlatformChannelSpecifics =
+  //   IOSNotificationDetails iOSPlatformChannelSpecifics =
   //   IOSNotificationDetails(
   //       presentAlert: bool?,  // Present an alert when the notification is displayed and the application is in the foreground (only from iOS 10 onwards)
   //       presentBadge: bool?,  // Present the badge number when the notification is displayed and the application is in the foreground (only from iOS 10 onwards)
