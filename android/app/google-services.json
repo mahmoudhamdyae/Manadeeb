@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "692908215367",
+    "project_id": "smart-school-7668c",
+    "storage_bucket": "smart-school-7668c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:692908215367:android:a31a0d5b6e775f3235b562",
+        "android_client_info": {
+          "package_name": "com.smart.manadeeb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDfbgRWE9NxpVzdHqo18Fi4BekGCbN8E0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

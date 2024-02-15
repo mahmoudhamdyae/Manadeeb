@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:manadeeb/domain/models/notes_and_packages.dart';
 import 'package:manadeeb/domain/models/order_response.dart';
 
@@ -13,6 +14,7 @@ import '../network_info.dart';
 
 abstract class RemoteDataSource {
   Future<dynamic> logIn(String phone, String password);
+  void sendTokenAndUserId(int userId);
 
   Future<OrderResponse> getOrders(int id);
   Future<OrderDetailsResponse> getOrderDetails(int orderId);
@@ -61,7 +63,23 @@ class RemoteDataSourceImpl extends RemoteDataSource {
     if (data["user"]["user_type"] != 'mandub') {
       throw Exception(AppStrings.notMandoob);
     }
+
+
+
     return data;
+  }
+
+  Future<String> _getFcmToken() async {
+    return await FirebaseMessaging.instance.getToken() ?? '';
+  }
+
+  @override
+  void sendTokenAndUserId(int userId) async {
+    _getFcmToken().then((token) async {
+      await _checkNetwork();
+      String url = "${Constants.baseUrl}mandub/fcm-token?user_id=$userId&token=$token";
+      await _dio.patch(url);
+    });
   }
 
   @override
