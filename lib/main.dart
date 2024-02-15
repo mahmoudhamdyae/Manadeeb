@@ -7,6 +7,7 @@ import 'package:manadeeb/presentation/screens/auth/login/widgets/login_screen.da
 import 'package:hive_flutter/adapters.dart';
 import 'package:manadeeb/presentation/screens/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'core/local_notification_service.dart';
 import 'firebase_options.dart';
 
 import 'di/di.dart';
@@ -18,18 +19,16 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await LocalNotificationService().init();
   requestPermissions();
   _listenForForegroundFCM();
   _listenForBackgroundFCM();
   _onMessageOpened();
   _getOnMessageOpenedTerminated();
 
-
-
-  debugPrint('Token: ${FirebaseMessaging.instance.getToken()}');
-
-
-
+  FirebaseMessaging.instance.getToken().then((token) =>
+      debugPrint('Token: ${token.toString()}')
+  );
   runApp(MyApp());
 }
 
@@ -58,7 +57,10 @@ void _listenForForegroundFCM() async {
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     debugPrint('Message Foreground: ${message.notification?.title}');
     debugPrint('Message Foreground: ${message.notification?.body}');
-    debugPrint('Message Foreground Data: ${message.data['user_id']}');
+    LocalNotificationService().showNotificationAndroid(
+      message.notification?.title ?? '',
+      message.notification?.body ?? '',
+    );
   });
 }
 
@@ -66,7 +68,6 @@ void _listenForBackgroundFCM() async {
   FirebaseMessaging.onBackgroundMessage((RemoteMessage message) async {
     debugPrint('Message Background: ${message.notification?.title}');
     debugPrint('Message Background: ${message.notification?.body}');
-    debugPrint('Message Background Data: ${message.data['user_id']}');
   });
 }
 

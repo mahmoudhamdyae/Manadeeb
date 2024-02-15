@@ -46,6 +46,7 @@ class RepositoryImpl extends Repository {
 
   @override
   Future<void> signOut() async {
+    _remoteDataSource.getFcmToken();
     return await _localDataSource.signOut();
   }
 

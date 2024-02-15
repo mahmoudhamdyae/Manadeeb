@@ -14,6 +14,7 @@ import '../network_info.dart';
 
 abstract class RemoteDataSource {
   Future<dynamic> logIn(String phone, String password);
+  Future<String> getFcmToken();
   void sendTokenAndUserId(int userId);
 
   Future<OrderResponse> getOrders(int id);
@@ -63,19 +64,19 @@ class RemoteDataSourceImpl extends RemoteDataSource {
     if (data["user"]["user_type"] != 'mandub') {
       throw Exception(AppStrings.notMandoob);
     }
-
-
-
     return data;
   }
 
-  Future<String> _getFcmToken() async {
-    return await FirebaseMessaging.instance.getToken() ?? '';
+  @override
+  Future<String> getFcmToken() async {
+    String? token;
+    await FirebaseMessaging.instance.deleteToken().then((value) async => token = await FirebaseMessaging.instance.getToken());
+    return token ?? '';
   }
 
   @override
   void sendTokenAndUserId(int userId) async {
-    _getFcmToken().then((token) async {
+    getFcmToken().then((token) async {
       await _checkNetwork();
       String url = "${Constants.baseUrl}mandub/fcm-token?user_id=$userId&token=$token";
       await _dio.patch(url);
