@@ -57,7 +57,7 @@ void _listenForForegroundFCM() async {
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     debugPrint('Message Foreground: ${message.notification?.title}');
     debugPrint('Message Foreground: ${message.notification?.body}');
-    LocalNotificationService().showNotificationAndroid(
+    LocalNotificationService().showNotification(
       message.notification?.title ?? '',
       message.notification?.body ?? '',
     );

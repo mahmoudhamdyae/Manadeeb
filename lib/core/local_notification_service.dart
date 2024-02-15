@@ -25,7 +25,7 @@ class LocalNotificationService {
     );
   }
 
-  void showNotificationAndroid(String title, String value) async {
+  void showNotification(String title, String value) async {
     const AndroidNotificationDetails androidNotificationDetails =
     AndroidNotificationDetails('1', 'New Orders',
         channelDescription: 'New orders from students',
@@ -33,33 +33,26 @@ class LocalNotificationService {
         priority: Priority.high,
         ticker: 'ticker');
 
-    int notification_id = 1;
-    const NotificationDetails notificationDetails =
-    NotificationDetails(android: androidNotificationDetails);
+    DarwinNotificationDetails iOSPlatformChannelSpecifics =
+    DarwinNotificationDetails(
+        presentAlert: false,  // Present an alert when the notification is displayed and the application is in the foreground (only from iOS 10 onwards)
+        presentBadge: true,  // Present the badge number when the notification is displayed and the application is in the foreground (only from iOS 10 onwards)
+        presentSound: true,  // Play a sound when the notification is displayed and the application is in the foreground (only from iOS 10 onwards)
+        sound: '',  // Specifics the file path to play (only from iOS 10 onwards)
+        badgeNumber: 1, // The application's icon badge number
+        attachments: <DarwinNotificationAttachment>[],// (only from iOS 10 onwards)
+        subtitle: value, //Secondary description  (only from iOS 10 onwards)
+        threadIdentifier: '' // (only from iOS 10 onwards)
+    );
+
+    int notificationId = 1;
+    NotificationDetails notificationDetails =
+    NotificationDetails(
+      android: androidNotificationDetails,
+      iOS: iOSPlatformChannelSpecifics
+    );
 
     await flutterLocalNotificationsPlugin
-        .show(notification_id, title, value, notificationDetails, payload: 'Not present');
+        .show(notificationId, title, value, notificationDetails, payload: 'Not present');
   }
-
-  // void showNotificationIos(String title, String value) async {
-  //   IOSNotificationDetails iOSPlatformChannelSpecifics =
-  //   IOSNotificationDetails(
-  //       presentAlert: bool?,  // Present an alert when the notification is displayed and the application is in the foreground (only from iOS 10 onwards)
-  //       presentBadge: bool?,  // Present the badge number when the notification is displayed and the application is in the foreground (only from iOS 10 onwards)
-  //       presentSound: bool?,  // Play a sound when the notification is displayed and the application is in the foreground (only from iOS 10 onwards)
-  //       sound: String?,  // Specifics the file path to play (only from iOS 10 onwards)
-  //       badgeNumber: int?, // The application's icon badge number
-  //       attachments: List<IOSNotificationAttachment>?, (only from iOS 10 onwards)
-  //       subtitle: String?, //Secondary description  (only from iOS 10 onwards)
-  //       threadIdentifier: String? (only from iOS 10 onwards)
-  //   );
-  //
-  //   int notification_id = 1;
-  //
-  //   const NotificationDetails platformChannelSpecifics =
-  //   NotificationDetails(iOS: iOSPlatformChannelSpecifics);
-  //
-  //   await flutterLocalNotificationsPlugin
-  //       .show(notification_id, title, value, notificationDetails, payload: 'Not present');
-  // }
 }
