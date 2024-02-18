@@ -2,8 +2,11 @@ class OrderResponse {
   int? status;
   List<City>? cities;
   List<Order>? orders;
+  int? orderPrice;
+  int? deliveryPrice;
+  int? allPrice;
 
-  OrderResponse({this.status, this.cities, this.orders});
+  OrderResponse({this.status, this.cities, this.orders, this.orderPrice, this.deliveryPrice, this.allPrice});
 
   OrderResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -18,7 +21,10 @@ class OrderResponse {
       json['orders'].forEach((v) {
         orders!.add(Order.fromJson(v));
       });
-    }
+    };
+    orderPrice = json['orderPrice'];
+    deliveryPrice = json['deliveryPrice'];
+    allPrice = json['allPrice'];
   }
 
   Map<String, dynamic> toJson() {
