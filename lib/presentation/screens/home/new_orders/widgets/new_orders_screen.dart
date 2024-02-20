@@ -45,7 +45,7 @@ class NewOrdersScreen extends StatelessWidget {
       children: [
         _buildCities(controller.cities),
         const SizedBox(height: 8.0,),
-        _buildItems(controller.status, controller.orders),
+        _buildItems(controller.status, controller.orders, controller.isOnlineList),
       ],
     );
   }
@@ -60,7 +60,7 @@ class NewOrdersScreen extends StatelessWidget {
         const SizedBox(width: 8.0,),
         Expanded(
           flex: 2,
-          child: _buildItems(controller.status, controller.orders),
+          child: _buildItems(controller.status, controller.orders, controller.isOnlineList),
         ),
       ],
     );
@@ -96,11 +96,11 @@ class NewOrdersScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildItems(RxStatus status, List<Order> orders) {
+  Widget _buildItems(RxStatus status, List<Order> orders, List<bool> isOnlineList) {
     return status.isLoading ? const LoadingScreen() :
     status.isError ? ErrorScreen(error: status.errorMessage ?? '') :
     orders.isEmpty ? const EmptyScreen(emptyString: AppStrings.emptyOrders) :
-    OrdersList(orders: orders, orderType: OrderType.newOrder, fromNew: true);
+    OrdersList(orders: orders, orderType: OrderType.newOrder, fromNew: true, isOnlineList: isOnlineList);
   }
 
   Future<void> _refreshOrders() async {

@@ -64,6 +64,8 @@ class AppStrings {
   static const String ordersTotal = 'إجمالى الطلبيات';
   static const String deliverTotal = 'إجمالى التوصيل';
   static const String total = 'الإجمالى';
+  static const String onDeliver = 'نقدا';
+  static const String online = 'تم الدفع أونلاين';
 
   // Bottom Bar
   static const String bottomBarNewOrders = 'الطلبات الجديدة';

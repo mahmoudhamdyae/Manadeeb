@@ -11,7 +11,8 @@ import '../../../resources/constants_manager.dart';
 class OrderBody extends StatelessWidget {
 
   final Order order;
-  const OrderBody({super.key, required this.order});
+  final bool isOnline;
+  const OrderBody({super.key, required this.order, required this.isOnline});
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +31,13 @@ class OrderBody extends StatelessWidget {
                 const SizedBox(height: 8.0,),
                 Text(
                   order.phone ?? '',
+                  style: getSmallStyle(
+                    color: ColorManager.grey,
+                  ),
+                ),
+                const SizedBox(height: 8.0,),
+                Text(
+                  order.payStatus == 1 && order.payType == 1 ? AppStrings.online : AppStrings.onDeliver,
                   style: getSmallStyle(
                     color: ColorManager.grey,
                   ),
@@ -91,7 +99,7 @@ class OrderBody extends StatelessWidget {
               ),
             ),
           ],
-        )
+        ),
       ],
     );
   }

@@ -7,6 +7,7 @@ class CurrentOrdersController extends GetxController {
 
   final RxList<City> cities = RxList.empty();
   final RxList<Order> orders = RxList.empty();
+  final RxList<bool> isOnlineList = RxList.empty();
 
   final Rx<RxStatus> _status = Rx<RxStatus>(RxStatus.empty());
   RxStatus get status => _status.value;
@@ -30,6 +31,18 @@ class CurrentOrdersController extends GetxController {
         _status.value = RxStatus.success();
         orders.value = remoteOrders.orders ?? [];
         cities.value = remoteOrders.cities ?? [];
+
+        for (var element in orders) {
+          int? payType = element.payType;
+          int? payStatus = element.payStatus;
+          if (payType == 1 && payStatus == 0) {
+            orders.remove(element);
+          } else if (payType == 1 && payStatus == 1) {
+            isOnlineList.add(true);
+          } else {
+            isOnlineList.add(false);
+          }
+        }
       });
     } on Exception catch (e) {
       _status.value = RxStatus.error(e.toString());

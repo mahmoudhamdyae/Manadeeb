@@ -21,7 +21,7 @@ class OrderResponse {
       json['orders'].forEach((v) {
         orders!.add(Order.fromJson(v));
       });
-    };
+    }
     orderPrice = json['orderPrice'];
     deliveryPrice = json['deliveryPrice'];
     allPrice = json['allPrice'];
@@ -76,8 +76,11 @@ class Order {
   String? address;
   String? status;
   int? cityId;
-  dynamic mandubId;
+  int? mandubId;
   String? priceAll;
+  int? payType;
+  int? payStatus;
+  dynamic payId;
   String? createdAt;
   String? updatedAt;
 
@@ -90,6 +93,9 @@ class Order {
         this.cityId,
         this.mandubId,
         this.priceAll,
+        this.payType,
+        this.payStatus,
+        this.payId,
         this.createdAt,
         this.updatedAt});
 
@@ -102,6 +108,9 @@ class Order {
     cityId = json['city_id'];
     mandubId = json['mandub_id'];
     priceAll = json['price_all'];
+    payType = json['pay_type'];
+    payStatus = json['pay_status'];
+    payId = json['pay_id'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
@@ -116,6 +125,9 @@ class Order {
     data['city_id'] = cityId;
     data['mandub_id'] = mandubId;
     data['price_all'] = priceAll;
+    data['pay_type'] = payType;
+    data['pay_status'] = payStatus;
+    data['pay_id'] = payId;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     return data;
