@@ -28,8 +28,8 @@ versionCheck(context) async {
     double newVersion = double.parse(forceUpdateCurrentVersion
         .trim()
         .replaceAll(".", ""));
-    debugPrint('--------------------- remote $newVersion');
-    debugPrint('--------------------- current $currentVersion');
+    debugPrint('Remote Version $newVersion');
+    debugPrint('Current Version $currentVersion');
     if (newVersion > currentVersion) {
       _showVersionDialog(context);
     }
