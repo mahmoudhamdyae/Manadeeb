@@ -48,6 +48,8 @@ dependencies:
   firebase_core: ^2.25.4
   firebase_messaging: ^14.7.15
   flutter_local_notifications: ^16.3.2
+  firebase_remote_config: ^4.3.14
+  package_info_plus: ^5.0.1
 
 dev_dependencies:
   flutter_test:

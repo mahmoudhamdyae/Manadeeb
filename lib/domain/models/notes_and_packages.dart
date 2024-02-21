@@ -41,7 +41,7 @@ class Books {
   String? stage;
   String? classroom;
   int? quantity;
-  double? teacherRatio;
+  dynamic teacherRatio;
   int? bookPrice;
   String? termType;
   int? active;

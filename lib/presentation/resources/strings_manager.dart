@@ -103,4 +103,10 @@ class AppStrings {
   static const priceHint = "السعر";
   static const String confirmOrder = 'تأكيد عملية الشراء';
   static const String areaInvalid = 'يجب اختيار محافظة';
+
+  // Update Dialog
+  static const updateDialogTitle = 'تحديث جديد متاح';
+  static const updateDialogMessage = 'يتوفر إصدار أحدث من التطبيق، يرجى تحديثه الآن.';
+  static const updateDialogButtonLabel = 'تحديث الآن';
+  static const updateDialogButtonLabelCancel = 'لاحقًا';
 }

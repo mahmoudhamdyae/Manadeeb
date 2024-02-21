@@ -97,7 +97,7 @@ class DeliveredOrdersScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 8.0,),
-                    OrdersList(orders: controller.orders, orderType: OrderType.completeOrder, isOnlineList: controller.isOnlineList)
+                    OrdersList(orders: controller.orders, orderType: OrderType.completeOrder)
                   ],
                 ),
               ],),

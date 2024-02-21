@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:manadeeb/core/utils/insets.dart';
 import 'package:manadeeb/presentation/screens/main_screen.dart';
 
+import '../../../../../core/check_version.dart';
 import '../../../../resources/assets_manager.dart';
 import '../../../../resources/color_manager.dart';
 import '../../../../resources/font_manager.dart';
@@ -24,6 +25,16 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
 
   GlobalKey<FormState> formState = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    try {
+      versionCheck(context);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
 
   logIn() async {
     var formData = formState.currentState;

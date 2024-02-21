@@ -11,8 +11,7 @@ import '../../../resources/constants_manager.dart';
 class OrderBody extends StatelessWidget {
 
   final Order order;
-  final bool isOnline;
-  const OrderBody({super.key, required this.order, required this.isOnline});
+  const OrderBody({super.key, required this.order});
 
   @override
   Widget build(BuildContext context) {

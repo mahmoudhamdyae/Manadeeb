@@ -6,6 +6,7 @@ import 'package:manadeeb/presentation/screens/home/current_orders/widgets/curren
 import 'package:manadeeb/presentation/screens/home/delivered_orders/widgets/delivered_orders_screen.dart';
 import 'package:manadeeb/presentation/screens/home/new_orders/widgets/new_orders_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import '../../core/check_version.dart';
 import '../resources/color_manager.dart';
 import '../resources/constants_manager.dart';
 import '../resources/strings_manager.dart';
@@ -21,6 +22,16 @@ class _MainScreenState extends State<MainScreen> {
 
   final PersistentTabController _controller = PersistentTabController(initialIndex: 0);
   int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    try {
+      versionCheck(context);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
 
   List<Widget> _buildScreens() {
     return [
