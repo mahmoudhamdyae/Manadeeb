@@ -160,16 +160,11 @@ class StoreScreen extends StatelessWidget {
               ),
             ],
           ),
-          books[index].pivot?.station == 0 ? Container() : Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                '${AppStrings.station}: ${books[index].pivot?.station ?? 0}',
-                style: getSmallStyle(
-                    color: ColorManager.grey
-                ),
-              ),
-              OutlinedButton(
+          books[index].pivot?.mandubActive != 0 ? Container() : Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+            child: SizedBox(
+              width: double.infinity,
+              child: OutlinedButton(
                 style: getOutlinedButtonStyle(),
                 onPressed: () {
                   showLoading(context);
@@ -196,7 +191,7 @@ class StoreScreen extends StatelessWidget {
                   style: getSmallStyle(),
                 ),
               ),
-            ],
+            ),
           ),
         ],
       ),
