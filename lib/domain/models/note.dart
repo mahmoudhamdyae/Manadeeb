@@ -28,19 +28,21 @@ class NamdubStore {
   int? id;
   String? name;
   String? phone;
-  String? email;
+  dynamic email;
   String? gender;
-  String? grade;
-  String? group;
-  String? studentSubscrip;
-  String? renew;
+  dynamic grade;
+  dynamic group;
+  dynamic studentSubscrip;
+  dynamic renew;
   String? userType;
-  String? emailVerifiedAt;
+  dynamic emailVerifiedAt;
   dynamic teacherRatioCourse;
   String? userPassword;
   String? createdAt;
   String? updatedAt;
-  String? teacherDescription;
+  dynamic teacherDescription;
+  String? fcmToken;
+  dynamic image;
   List<MandubBooks>? mandubBooks;
 
   NamdubStore(
@@ -60,6 +62,8 @@ class NamdubStore {
         this.createdAt,
         this.updatedAt,
         this.teacherDescription,
+        this.fcmToken,
+        this.image,
         this.mandubBooks});
 
   NamdubStore.fromJson(Map<String, dynamic> json) {
@@ -79,6 +83,8 @@ class NamdubStore {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     teacherDescription = json['teacher_description'];
+    fcmToken = json['fcm_token'];
+    image = json['image'];
     if (json['mandub_books'] != null) {
       mandubBooks = <MandubBooks>[];
       json['mandub_books'].forEach((v) {
@@ -105,6 +111,8 @@ class NamdubStore {
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     data['teacher_description'] = teacherDescription;
+    data['fcm_token'] = fcmToken;
+    data['image'] = image;
     if (mandubBooks != null) {
       data['mandub_books'] = mandubBooks!.map((v) => v.toJson()).toList();
     }
@@ -192,6 +200,7 @@ class Pivot {
   int? distributorActive;
   int? mandubActive;
   int? mandubTarget;
+  int? oldStation;
   String? createdAt;
   String? updatedAt;
 
@@ -204,6 +213,7 @@ class Pivot {
         this.distributorActive,
         this.mandubActive,
         this.mandubTarget,
+        this.oldStation,
         this.createdAt,
         this.updatedAt});
 
@@ -216,6 +226,7 @@ class Pivot {
     distributorActive = json['distributor_active'];
     mandubActive = json['mandub_active'];
     mandubTarget = json['mandub_target'];
+    oldStation = json['old_station'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
@@ -230,6 +241,7 @@ class Pivot {
     data['distributor_active'] = distributorActive;
     data['mandub_active'] = mandubActive;
     data['mandub_target'] = mandubTarget;
+    data['old_station'] = oldStation;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     return data;

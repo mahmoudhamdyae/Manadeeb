@@ -153,14 +153,20 @@ class StoreScreen extends StatelessWidget {
                 ),
               ),
               Text(
-                '${AppStrings.quantity}: ${books[index].pivot?.mandubQuantity ?? 0}',
+                '${AppStrings.quantity}: ${(books[index].pivot?.mandubQuantity ?? 0) - (books[index].pivot?.oldStation ?? 0)}',
+                style: getSmallStyle(
+                    color: ColorManager.grey
+                ),
+              ),
+              Text(
+                '${AppStrings.quantityTawreed}: ${(books[index].pivot?.oldStation ?? 0)}',
                 style: getSmallStyle(
                     color: ColorManager.grey
                 ),
               ),
             ],
           ),
-          books[index].pivot?.mandubActive != 0 ? Container() : Padding(
+          books[index].pivot?.oldStation == null || books[index].pivot?.oldStation == 0 ? Container() : Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
             child: SizedBox(
               width: double.infinity,

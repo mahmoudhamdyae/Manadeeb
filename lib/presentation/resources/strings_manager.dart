@@ -57,6 +57,7 @@ class AppStrings {
   static const String city = 'محافظة';
   static const String packageDetails = 'تفاصيل الباقة';
   static const String quantity = 'الكمية';
+  static const String quantityTawreed = 'التوريد';
   static const String station = 'التوريد';
   static const String stationButton = 'تم الاستلام';
   static const String call = 'اتصال';
