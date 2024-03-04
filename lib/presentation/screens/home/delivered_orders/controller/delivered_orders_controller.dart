@@ -27,12 +27,11 @@ class DeliveredOrdersController extends GetxController {
     try {
       _repository.getCompleteOrders().then((remoteOrders) {
         _status.value = RxStatus.success();
-        orders.value = remoteOrders.orders ?? [];
-        for (var element in orders) {
+        for (var element in remoteOrders.orders ?? []) {
           int? payType = element.payType;
           int? payStatus = element.payStatus;
-          if (payType == 1 && payStatus == 0) {
-            orders.remove(element);
+          if (payType != 1 || payStatus != 0) {
+            orders.add(element);
           }
         }
         total1.value = remoteOrders.orderPrice ?? 0;

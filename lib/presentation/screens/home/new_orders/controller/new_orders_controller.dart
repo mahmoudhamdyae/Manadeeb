@@ -25,14 +25,13 @@ class NewOrdersController extends GetxController {
     try {
       await _repository.getOrders().then((remoteOrders) {
         _status.value = RxStatus.success();
-        orders.value = remoteOrders.orders ?? [];
         cities.value = remoteOrders.cities ?? [];
 
-        for (var element in orders) {
+        for (var element in remoteOrders.orders ?? []) {
           int? payType = element.payType;
           int? payStatus = element.payStatus;
-          if (payType == 1 && payStatus == 0) {
-            orders.remove(element);
+          if (payType != 1 || payStatus != 0) {
+            orders.add(element);
           }
         }
       });
