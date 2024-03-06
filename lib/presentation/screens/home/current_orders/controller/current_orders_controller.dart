@@ -30,6 +30,7 @@ class CurrentOrdersController extends GetxController {
         _status.value = RxStatus.success();
         cities.value = remoteOrders.cities ?? [];
 
+        orders.value = [];
         for (var element in remoteOrders.orders ?? []) {
           int? payType = element.payType;
           int? payStatus = element.payStatus;

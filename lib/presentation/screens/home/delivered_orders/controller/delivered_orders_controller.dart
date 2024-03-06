@@ -27,6 +27,7 @@ class DeliveredOrdersController extends GetxController {
     try {
       _repository.getCompleteOrders().then((remoteOrders) {
         _status.value = RxStatus.success();
+        orders.value = [];
         for (var element in remoteOrders.orders ?? []) {
           int? payType = element.payType;
           int? payStatus = element.payStatus;
